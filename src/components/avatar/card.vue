@@ -98,7 +98,7 @@ const totalScore = ref(0)
 onMounted(() => {
   for (const e of avatar.equip || []) {
     const equipScore = $zzz.calcScore(e)
-    totalScore.value += equipScore.total
+    totalScore.value = $zzz.adjustScore(totalScore.value + equipScore.total)
   }
 })
 </script>

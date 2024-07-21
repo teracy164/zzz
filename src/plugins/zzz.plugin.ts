@@ -18,17 +18,23 @@ export class ZzzPlugin {
       }
     }
 
-    score.total = Object.values(score.sub).reduce((sum, v) => sum + v, 0)
-    // 小数点第2位以下を切り捨て
-    score.total = Math.floor(score.total * 10) / 10
+    const total = Object.values(score.sub).reduce((sum, v) => sum + v, 0)
+    score.total = this.adjustScore(total)
     return score
+  }
+
+  /**
+   * まるめ誤差対策のための調整
+   * ※小数点2位以下を切り捨て
+   */
+  adjustScore(value: number) {
+    return Math.floor(value * 10) / 10
   }
 
   private pickNumber(value: any) {
     const matches = String(value).match(/^([0-9.]+)%?$/)
     if (matches?.length) {
-      console.log(value, matches)
-      return Math.floor(Number(matches[1]) * 10) / 10
+      return this.adjustScore(Number(matches[1]))
     }
     return 0
   }
