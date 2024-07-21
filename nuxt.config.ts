@@ -7,10 +7,11 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'ZZZ Tools',
+      meta: [{ name: 'description', content: 'ゼンレスゾーンゼロのビルドカード作成ツールです' }],
     },
   },
   modules: ['@element-plus/nuxt'],
   elementPlus: {
     /** Options */
   },
-})
+});
