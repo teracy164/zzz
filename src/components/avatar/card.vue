@@ -4,7 +4,7 @@
       <div style="display: flex">
         <div class="avatar">
           <div>
-            <span>Lv {{ avatar.level }}</span>
+            <span>Lv{{ avatar.level }}</span>
             {{ avatar.name_mi18n }}
           </div>
           <img :src="avatar.hollow_icon_path" />
@@ -46,11 +46,11 @@
                   v-for="p in avatar.weapon.main_properties"
                   class="property"
                 >
-                  <span class="property-name">{{ p.property_name }}</span>
+                  <span class="property-name">{{ p.property_name }}: </span>
                   <span class="property-value">{{ p.base }}</span>
                 </div>
                 <div v-for="p in avatar.weapon.properties" class="property">
-                  <span class="property-name">{{ p.property_name }}</span>
+                  <span class="property-name">{{ p.property_name }}: </span>
                   <span class="property-value">{{ p.base }}</span>
                 </div>
               </div>
