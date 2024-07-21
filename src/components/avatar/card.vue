@@ -103,8 +103,8 @@ const skillIcons: { [type: number]: string } = {
   [1]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/3927933b2df6b4b2661f3bc914043c76_6838574921676132427.png',
   [2]: 'https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/07/01/3c5a6456d767b48d3cee842339be557c_3180007101057485341.png',
   [3]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/b8169819d84f76e4f20ea1ef1d0d5c7d_4183010817511835817.png',
-  [5]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/ad0e600a5c5453112710f346c894797c_3546263649391022402.png',
-  [6]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/19d366104f0e268849ae77f6aba52ebe_4676645142565394319.png',
+  [5]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/19d366104f0e268849ae77f6aba52ebe_4676645142565394319.png',
+  [6]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/ad0e600a5c5453112710f346c894797c_3546263649391022402.png',
 };
 
 onMounted(() => {
