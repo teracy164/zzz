@@ -22,7 +22,7 @@
                 </div>
               </div>
               <div style="flex-grow: 1">
-                <img :src="avatar.hollow_icon_path" style="width: 100%" />
+                <img :src="avatar.hollow_icon_path" />
               </div>
               <div class="skills">
                 <div v-for="s in avatar.skills" class="skill">
@@ -127,16 +127,20 @@ onMounted(() => {
         align-items: center;
 
         .name {
-          font-size: 1.5em;
+          font-size: 1.2em;
+        }
+        .element {
+          padding: 0 0.25em;
         }
       }
       img {
-        width: 15em;
+        width: 100%;
+        max-height: 7em;
         object-fit: contain;
 
         &.group {
-          width: 2em;
-          height: 2em;
+          width: 1.6em;
+          height: 1.6em;
         }
       }
       .ranks {
@@ -178,12 +182,12 @@ onMounted(() => {
         font-size: 0.8em;
 
         img {
-          width: 1.5em;
+          width: 1.2em;
         }
       }
     }
     .weapon {
-      margin-top: 1em;
+      margin-top: 0.5em;
       .weapon-img-wrapper {
         position: relative;
 
@@ -254,7 +258,7 @@ onMounted(() => {
     }
   }
   .equips {
-    margin-top: 1em;
+    margin-top: 0.5em;
     .equips-rows {
       display: flex;
 
