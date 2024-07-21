@@ -6,9 +6,7 @@ export class ZzzPlugin {
       total: 0,
       sub: { critRate: 0, critDamage: 0, attackRate: 0 },
     }
-    console.log(equip)
     for (const p of equip.properties) {
-      console.log(p.property_name, p.property_id)
       if (p.property_id === 20103) {
         score.sub.critRate += this.pickNumber(p.base) * 2
       } else if (p.property_id === 21103) {
@@ -34,7 +32,6 @@ export class ZzzPlugin {
   private pickNumber(value: any) {
     const matches = String(value).match(/^([0-9.]+)%?$/)
     if (matches?.length) {
-      console.log('score', Number(matches[1]))
       return this.adjustScore(Number(matches[1]))
     }
     return 0
