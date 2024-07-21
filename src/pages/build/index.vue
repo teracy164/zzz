@@ -37,7 +37,11 @@
         </div>
       </div>
     </el-dialog>
-    <AvatarCard v-if="avatar" :avatar="avatar" />
+
+    <div v-if="avatar">
+      <p>スコアは「会心率 x 2 + 会心ダメージ + 攻撃力%」で計算しています</p>
+      <AvatarCard v-if="avatar" :avatar="avatar" />
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
