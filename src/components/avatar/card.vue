@@ -4,9 +4,15 @@
       <div style="display: flex">
         <div class="character-wrapper" style="flex-grow: 1">
           <div class="character">
-            <div>
-              <span class="level">Lv{{ avatar.level }}</span>
-              {{ avatar.name_mi18n }}
+            <div class="base-info">
+              <div style="display: flex; align-items: center">
+                <span class="level">Lv{{ avatar.level }}</span>
+                <span class="name">{{ avatar.name_mi18n }}</span>
+              </div>
+              <div style="display: flex; align-items: center">
+                <span class="element">{{ $zzz.getElementName(avatar.element_type) }}</span>
+                <img class="group" :src="avatar.group_icon_path" />
+              </div>
             </div>
             <div style="display: flex">
               <div class="ranks">
@@ -15,7 +21,9 @@
                   <span class="number">{{ index + 1 }}</span>
                 </div>
               </div>
-              <img :src="avatar.hollow_icon_path" />
+              <div style="flex-grow: 1">
+                <img :src="avatar.hollow_icon_path" style="width: 100%" />
+              </div>
               <div class="skills">
                 <div v-for="s in avatar.skills" class="skill">
                   <img v-if="skillIcons[s.skill_type]" alt="skill-icon" :src="skillIcons[s.skill_type]" decoding="async" />
@@ -112,9 +120,24 @@ onMounted(() => {
   .character-wrapper {
     position: relative;
     .character {
+      padding-right: 0.5em;
+      .base-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .name {
+          font-size: 1.5em;
+        }
+      }
       img {
         width: 15em;
         object-fit: contain;
+
+        &.group {
+          width: 2em;
+          height: 2em;
+        }
       }
       .ranks {
         display: flex;
@@ -131,7 +154,7 @@ onMounted(() => {
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 0.6em;
+          font-size: 0.8em;
 
           &.unlocked {
             background-color: lightgray;
