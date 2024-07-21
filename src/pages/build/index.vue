@@ -1,93 +1,43 @@
 <template>
   <div>
-    <textarea v-model="json" style="width: 100%" @change="oncange"></textarea>
-    <Card v-if="avatar" class="avatar-card">
-      <div>
-        <div style="display: flex">
-          <div class="avatar">
-            <div>
-              <span>Lv {{ avatar.level }}</span>
-              {{ avatar.name_mi18n }}
-            </div>
-            <img :src="avatar.hollow_icon_path" />
-            <div class="ranks">
-              Rank:
-              <span
-                v-for="(r, index) in avatar.ranks"
-                class="rank"
-                :class="{ unlocked: r.is_unlocked }"
-              >
-                {{ index + 1 }}
-              </span>
-            </div>
-            <div class="skills">
-              Skills:
-              <span v-for="s in avatar.skills" class="skill">
-                {{ s.level }}
-              </span>
-            </div>
+    <div style="margin-bottom: 1em">
+      <el-button type="primary" @click="dialogInput.visible = true"
+        >input data</el-button
+      >
+    </div>
+    <el-dialog v-model="dialogInput.visible">
+      <p>公式の戦績ツールからデータを取得して、以下に貼り付けてください</p>
+      <el-tooltip trigger="click">
+        <el-button> データの取得方法（How to get data）??? </el-button>
+        <template #content>
+          <div style="max-height: 50vh; overflow: auto">
+            公式の戦績ツール（<a :href="officialTool" target="_blank"
+              >{{ officialTool }} </a
+            >）で作業します
+            <ul>
+              <li>1. F12で開発者ツールを開き、画面をリロードします</li>
+              <li>2. 「ネットワークタブ」に切り替えます</li>
+              <li>
+                3.
+                キャラ情報を取得しているAPI(末尾がinfo?id_list[]=～)をクリック
+              </li>
+              <li>
+                4. プレビュータブに切り替えて、「data」で右クリック⇒値をコピー
+              </li>
+            </ul>
+            <img src="/assets/images/help/help.png" style="max-width: 95vw" />
           </div>
-          <div class="weapon">
-            <div>
-              <span>Lv{{ avatar.weapon.level }}</span>
-              {{ avatar.weapon.name }}
-            </div>
-            <div style="display: flex">
-              <div class="weapon-img-wrapper">
-                <img :src="avatar.weapon.icon" />
-                <div class="star">
-                  <span v-for="(_, i) in new Array(5)">
-                    <span v-if="i < avatar.weapon.star">★</span>
-                    <span v-else>☆</span>
-                  </span>
-                </div>
-              </div>
-              <div class="properties">
-                <div>
-                  <div
-                    v-for="p in avatar.weapon.main_properties"
-                    class="property"
-                  >
-                    <span class="property-name">{{ p.property_name }}</span>
-                    <span class="property-value">{{ p.base }}</span>
-                  </div>
-                  <div v-for="p in avatar.weapon.properties" class="property">
-                    <span class="property-name">{{ p.property_name }}</span>
-                    <span class="property-value">{{ p.base }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="score">
-            <div class="score-wrapper">
-              <span v-if="totalScore > 180" class="ss">SS</span>
-              <span v-if="totalScore > 150" class="s">S</span>
-              <span v-else-if="totalScore > 120" class="A">A</span>
-              <span v-else-if="totalScore > 100" class="B">B</span>
-              <span v-else>C</span>
-              <div class="score-value">{{ totalScore }}</div>
-            </div>
-          </div>
-        </div>
-        <div class="equips">
-          <div class="equips-rows">
-            <AvatarEquip
-              v-for="(e, index) in avatar.equip.slice(0, 3)"
-              :equip="e"
-              :slot="index + 1"
-            />
-          </div>
-          <div class="equips-rows">
-            <AvatarEquip
-              v-for="(e, index) in avatar.equip.slice(3)"
-              :equip="e"
-              :slot="index + 1 + 3"
-            />
-          </div>
+        </template>
+      </el-tooltip>
+
+      <div style="margin: 1em 0">
+        <el-input type="textarea" v-model="json" :rows="5" />
+        <div style="margin-top: 1em; display: flex; justify-content: flex-end">
+          <el-button type="primary" @click="createBuildCard()">生成</el-button>
         </div>
       </div>
-    </Card>
+    </el-dialog>
+    <AvatarCard v-if="avatar" :avatar="avatar" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -96,22 +46,20 @@ import type { ZzzAvatar, ZzzData } from '@/types/zzz'
 const json = ref<string>('')
 const avatar = ref<ZzzAvatar>()
 
-const { $zzz } = useNuxtApp()
+const dialogInput = reactive({
+  visible: true,
+})
 
-const totalScore = ref(0)
+const officialTool =
+  'https://act.hoyolab.com/app/mihoyo-zzz-game-record/index.html'
 
-const oncange = () => {
+const createBuildCard = () => {
   try {
     const parsed = JSON.parse(json.value) as ZzzData
     if (parsed.avatar_list?.length) {
       avatar.value = parsed.avatar_list[0]
-    }
 
-    totalScore.value = 0
-    for (const e of avatar.value?.equip || []) {
-      const equipScore = $zzz.calcScore(e)
-      console.log(equipScore)
-      totalScore.value += equipScore.total
+      dialogInput.visible = false
     }
   } catch (err) {
     console.error(err)
@@ -119,100 +67,17 @@ const oncange = () => {
   }
 }
 </script>
-<style lang="scss" scoped>
-.avatar-card {
-  width: 60em;
-  .avatar {
-    flex-grow: 1;
-    .ranks {
-      display: flex;
-      .rank {
-        width: 1.5em;
-        height: 1.5em;
-        border: 1px solid lightgray;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+<style lang="scss" setup>
+.input-model {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  padding: 1em;
+  overflow: hidden;
 
-        &.unlocked {
-          background-color: lightgray;
-          color: black;
-        }
-      }
-    }
-    .skills {
-      display: flex;
-      .skill {
-        width: 1.5em;
-        height: 1.5em;
-        border: 1px solid lightgray;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-  }
-  .weapon {
-    flex-grow: 1;
-
-    .weapon-img-wrapper {
-      position: relative;
-
-      img {
-        width: 7em;
-        height: 7em;
-      }
-
-      .star {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-      }
-    }
-
-    .properties {
-      display: flex;
-      align-items: center;
-    }
-  }
-  .score {
-    flex-grow: 1;
-    border-radius: 5px;
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-
-    .score-wrapper {
-      font-size: 5em;
-      text-align: center;
-      line-height: 1;
-      .score-value {
-        font-size: 2rem;
-      }
-    }
-  }
-  .equips {
-    margin-top: 1em;
-    .equips-rows {
-      display: flex;
-
-      .equip {
-        width: 100%;
-      }
-      .equip + .equip {
-        margin-left: 0.5em;
-      }
-    }
-    .equips-rows + .equips-rows {
-      margin-top: 0.5em;
-    }
+  .input-model-wrapper {
+    overflow: auto;
+    background-color: black;
   }
 }
 </style>

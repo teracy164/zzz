@@ -4,4 +4,13 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   srcDir: './src',
   css: ['@/assets/css/styles.scss'],
+  app: {
+    head: {
+      title: 'ZZZ Tools',
+    },
+  },
+  modules: ['@element-plus/nuxt'],
+  elementPlus: {
+    /** Options */
+  },
 })
