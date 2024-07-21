@@ -40,7 +40,7 @@
 
     <div v-if="avatar">
       <p>スコアは「会心率 x 2 + 会心ダメージ + 攻撃力%」で計算しています</p>
-      <AvatarCard v-if="avatar" :avatar="avatar" />
+      <AvatarCard v-if="avatar" :key="updKey" :avatar="avatar" />
     </div>
   </div>
 </template>
@@ -49,6 +49,7 @@ import type { ZzzAvatar, ZzzData } from '@/types/zzz'
 
 const json = ref<string>('')
 const avatar = ref<ZzzAvatar>()
+const updKey = ref(0)
 
 const dialogInput = reactive({
   visible: true,
@@ -63,6 +64,8 @@ const createBuildCard = () => {
     if (parsed.avatar_list?.length) {
       avatar.value = parsed.avatar_list[0]
 
+      // 変更を検知させる
+      updKey.value++
       dialogInput.visible = false
     }
   } catch (err) {
