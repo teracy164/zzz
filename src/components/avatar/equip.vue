@@ -64,11 +64,11 @@ onMounted(() => {
         &.rarity-S {
           border: 1px solid yellow;
         }
-        &.rarity-B {
+        &.rarity-A {
           border: 1px solid purple;
         }
-        &.rarity-C {
-          border: 1px solid blue;
+        &.rarity-B {
+          border: 1px solid skyblue;
         }
       }
       .rarity {
