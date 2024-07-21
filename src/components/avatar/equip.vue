@@ -82,6 +82,9 @@ onMounted(() => {
         height: 3em;
       }
     }
+    .score {
+      text-align: center;
+    }
   }
   .properties {
     width: 100%;
