@@ -2,59 +2,62 @@
   <Card v-if="avatar" class="avatar-card">
     <div>
       <div style="display: flex">
-        <div class="avatar">
-          <div>
-            <span>Lv{{ avatar.level }}</span>
-            {{ avatar.name_mi18n }}
+        <div class="character-wrapper" style="flex-grow: 1">
+          <div class="character">
+            <div>
+              <span class="level">Lv{{ avatar.level }}</span>
+              {{ avatar.name_mi18n }}
+            </div>
+            <div style="display: flex">
+              <div class="ranks">
+                <!-- Rank: -->
+                <div v-for="(r, index) in avatar.ranks" class="rank" :class="{ unlocked: r.is_unlocked }">
+                  <span class="number">{{ index + 1 }}</span>
+                </div>
+              </div>
+              <img :src="avatar.hollow_icon_path" />
+              <div class="skills">
+                <div v-for="s in avatar.skills" class="skill">
+                  <img v-if="skillIcons[s.skill_type]" alt="skill-icon" :src="skillIcons[s.skill_type]" decoding="async" />
+                  {{ s.level }}
+                </div>
+              </div>
+            </div>
           </div>
-          <img :src="avatar.hollow_icon_path" />
-          <div class="ranks">
-            Rank:
-            <span
-              v-for="(r, index) in avatar.ranks"
-              class="rank"
-              :class="{ unlocked: r.is_unlocked }"
-            >
-              {{ index + 1 }}
-            </span>
-          </div>
-          <div class="skills">
-            Skills:
-            <span v-for="s in avatar.skills" class="skill">
-              {{ s.level }}
-            </span>
+          <div class="weapon">
+            <div>
+              <span class="level">Lv{{ avatar.weapon.level }}</span>
+              {{ avatar.weapon.name }}
+            </div>
+            <div style="display: flex">
+              <div class="weapon-img-wrapper">
+                <img :src="avatar.weapon.icon" />
+                <div class="star">
+                  <span v-for="(_, i) in new Array(5)">
+                    <span v-if="i < avatar.weapon.star">★</span>
+                    <span v-else>☆</span>
+                  </span>
+                </div>
+              </div>
+              <div class="properties">
+                <div>
+                  <div v-for="p in avatar.weapon.main_properties" class="property">
+                    <span class="property-name">{{ p.property_name }}: </span>
+                    <span class="property-value">{{ p.base }}</span>
+                  </div>
+                  <div v-for="p in avatar.weapon.properties" class="property">
+                    <span class="property-name">{{ p.property_name }}: </span>
+                    <span class="property-value">{{ p.base }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="weapon">
-          <div>
-            <span>Lv{{ avatar.weapon.level }}</span>
-            {{ avatar.weapon.name }}
-          </div>
-          <div style="display: flex">
-            <div class="weapon-img-wrapper">
-              <img :src="avatar.weapon.icon" />
-              <div class="star">
-                <span v-for="(_, i) in new Array(5)">
-                  <span v-if="i < avatar.weapon.star">★</span>
-                  <span v-else>☆</span>
-                </span>
-              </div>
-            </div>
-            <div class="properties">
-              <div>
-                <div
-                  v-for="p in avatar.weapon.main_properties"
-                  class="property"
-                >
-                  <span class="property-name">{{ p.property_name }}: </span>
-                  <span class="property-value">{{ p.base }}</span>
-                </div>
-                <div v-for="p in avatar.weapon.properties" class="property">
-                  <span class="property-name">{{ p.property_name }}: </span>
-                  <span class="property-value">{{ p.base }}</span>
-                </div>
-              </div>
-            </div>
+        <div class="status">
+          <div v-for="p in avatar.properties" class="property">
+            <div>{{ p.property_name }}</div>
+            <div class="value">{{ p.final }}</div>
           </div>
         </div>
         <div class="score">
@@ -70,99 +73,147 @@
       </div>
       <div class="equips">
         <div class="equips-rows">
-          <AvatarEquip
-            v-for="(e, index) in avatar.equip.slice(0, 3)"
-            :equip="e"
-            :slot="index + 1"
-          />
+          <AvatarEquip v-for="(e, index) in avatar.equip.slice(0, 3)" :equip="e" :slot="index + 1" />
         </div>
         <div class="equips-rows">
-          <AvatarEquip
-            v-for="(e, index) in avatar.equip.slice(3)"
-            :equip="e"
-            :slot="index + 1 + 3"
-          />
+          <AvatarEquip v-for="(e, index) in avatar.equip.slice(3)" :equip="e" :slot="index + 1 + 3" />
         </div>
       </div>
     </div>
   </Card>
 </template>
 <script lang="ts" setup>
-import type { ZzzAvatar } from '@/types/zzz'
+import type { ZzzAvatar } from '@/types/zzz';
 
-const { avatar } = defineProps<{ avatar: ZzzAvatar }>()
-const { $zzz } = useNuxtApp()
+const { avatar } = defineProps<{ avatar: ZzzAvatar }>();
+const { $zzz } = useNuxtApp();
 
-const totalScore = ref(0)
+const totalScore = ref(0);
+
+const skillIcons: { [type: number]: string } = {
+  [0]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/312e1e3aa119e8eebf23d03419ec3032_1449314247289664333.png',
+  [1]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/3927933b2df6b4b2661f3bc914043c76_6838574921676132427.png',
+  [2]: 'https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/07/01/3c5a6456d767b48d3cee842339be557c_3180007101057485341.png',
+  [3]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/b8169819d84f76e4f20ea1ef1d0d5c7d_4183010817511835817.png',
+  [5]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/ad0e600a5c5453112710f346c894797c_3546263649391022402.png',
+  [6]: 'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/07/04/127094529/19d366104f0e268849ae77f6aba52ebe_4676645142565394319.png',
+};
 
 onMounted(() => {
   for (const e of avatar.equip || []) {
-    const equipScore = $zzz.calcScore(e)
-    totalScore.value = $zzz.adjustScore(totalScore.value + equipScore.total)
+    const equipScore = $zzz.calcScore(e);
+    totalScore.value = $zzz.adjustScore(totalScore.value + equipScore.total);
   }
-})
+});
 </script>
 <style lang="scss" scoped>
 .avatar-card {
   width: 60em;
-  .avatar {
-    flex-grow: 1;
-    .ranks {
-      display: flex;
-      .rank {
-        width: 1.5em;
-        height: 1.5em;
-        border: 1px solid lightgray;
-        border-radius: 50%;
+  .character-wrapper {
+    position: relative;
+    .character {
+      img {
+        width: 15em;
+        object-fit: contain;
+      }
+      .ranks {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        width: 1.2em;
+        .rank {
+          position: relative;
+          border: 1px solid lightgray;
+          border-radius: 50%;
+          width: 1em;
+          height: 1em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 0.6em;
 
-        &.unlocked {
-          background-color: lightgray;
-          color: black;
+          &.unlocked {
+            background-color: lightgray;
+            color: black;
+          }
+        }
+
+        .rank + .rank {
+          margin-top: 0.25em;
         }
       }
     }
     .skills {
       display: flex;
+      flex-direction: column;
       .skill {
-        width: 1.5em;
-        height: 1.5em;
-        border: 1px solid lightgray;
-        border-radius: 50%;
+        // width: 1.5em;
+        // height: 1.5em;
+        // border: 1px solid lightgray;
+        // border-radius: 50%;
         display: flex;
         justify-content: center;
+        align-items: center;
+        font-size: 0.8em;
+
+        img {
+          width: 1.5em;
+        }
+      }
+    }
+    .weapon {
+      margin-top: 1em;
+      .weapon-img-wrapper {
+        position: relative;
+
+        img {
+          width: 4.5em;
+          height: 4.5em;
+        }
+
+        .star {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          text-align: center;
+          font-size: 0.6em;
+        }
+      }
+
+      .properties {
+        display: flex;
         align-items: center;
       }
     }
   }
-  .weapon {
-    flex-grow: 1;
 
-    .weapon-img-wrapper {
-      position: relative;
+  .status {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 0.5em;
+    margin-right: 0.5em;
+    width: 20em;
 
-      img {
-        width: 7em;
-        height: 7em;
-      }
-
-      .star {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-      }
-    }
-
-    .properties {
+    .property {
       display: flex;
-      align-items: center;
+      justify-content: space-between;
+
+      .value {
+        display: flex;
+        .final-value {
+          text-align: right;
+          width: 5em;
+        }
+        .add {
+          padding: 0 0.5em;
+          color: green;
+        }
+      }
     }
   }
+
   .score {
-    flex-grow: 1;
     border-radius: 5px;
     padding: 1em;
     display: flex;
@@ -171,6 +222,7 @@ onMounted(() => {
     align-items: center;
     border: 1px solid lightgray;
     border-radius: 5px;
+    width: 10em;
 
     .score-wrapper {
       font-size: 5em;
@@ -196,6 +248,14 @@ onMounted(() => {
     .equips-rows + .equips-rows {
       margin-top: 0.5em;
     }
+  }
+
+  .level {
+    background-color: #aaaaaa;
+    color: white;
+    border-radius: 5px;
+    padding: 0 0.25em;
+    font-size: 0.8em;
   }
 }
 </style>
