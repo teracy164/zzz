@@ -100,3 +100,12 @@ export interface ZzzScore {
   total: number;
   sub: { critRate: number; critDamage: number; attackRate: number };
 }
+
+export enum ZzzSkillType {
+  NORMAL = 0,
+  SKILL = 1,
+  DASH = 2,
+  ULT = 3,
+  CORE = 5,
+  SWITCH = 6,
+}
