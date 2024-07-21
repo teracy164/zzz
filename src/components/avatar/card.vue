@@ -147,11 +147,8 @@ onMounted(() => {
     .skills {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
       .skill {
-        // width: 1.5em;
-        // height: 1.5em;
-        // border: 1px solid lightgray;
-        // border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
