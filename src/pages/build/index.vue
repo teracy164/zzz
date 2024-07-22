@@ -1,9 +1,19 @@
 <template>
   <div>
-    <div style="margin-bottom: 1em">
-      <el-button type="primary" @click="dialogInput.visible = true"
-        >input data</el-button
-      >
+    <div style="margin-bottom: 1em; display: flex">
+      <el-button type="primary" @click="dialogInput.visible = true">input data</el-button>
+
+      <div v-if="histories?.length" :key="updKey" style="margin-left: 2em">
+        <el-select v-model="selected" style="width: 10em" @change="selectHistory">
+          <el-option v-for="(h, index) in histories" :label="h.data.name_mi18n" :value="h.date">
+            <div style="display: flex; justify-content: space-between">
+              {{ `[${h.date}]　${h.data.name_mi18n}` }}
+              <!-- <el-button type="danger" @click.stop="removeHistory(index)">-</el-button> -->
+            </div>
+          </el-option>
+        </el-select>
+        <el-button @click="clearHistories">履歴を削除</el-button>
+      </div>
     </div>
     <el-dialog v-model="dialogInput.visible">
       <p>公式の戦績ツールからデータを取得して、以下に貼り付けてください</p>
@@ -11,19 +21,12 @@
         <el-button> データの取得方法（How to get data）??? </el-button>
         <template #content>
           <div style="max-height: 50vh; overflow: auto">
-            公式の戦績ツール（<a :href="officialTool" target="_blank"
-              >{{ officialTool }} </a
-            >）で作業します
+            公式の戦績ツール（<a :href="officialTool" target="_blank">{{ officialTool }} </a>）で作業します
             <ul>
               <li>1. F12で開発者ツールを開き、画面をリロードします</li>
               <li>2. 「ネットワークタブ」に切り替えます</li>
-              <li>
-                3.
-                キャラ情報を取得しているAPI(末尾がinfo?id_list[]=～)をクリック
-              </li>
-              <li>
-                4. プレビュータブに切り替えて、「data」で右クリック⇒値をコピー
-              </li>
+              <li>3. キャラ情報を取得しているAPI(末尾がinfo?id_list[]=～)をクリック</li>
+              <li>4. プレビュータブに切り替えて、「data」で右クリック⇒値をコピー</li>
             </ul>
             <img src="/assets/images/help/help.png" style="max-width: 95vw" />
           </div>
@@ -45,34 +48,72 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type { ZzzAvatar, ZzzData } from '@/types/zzz'
+import type { ZzzAvatar, ZzzData } from '@/types/zzz';
+import type { StorageHistoryItem } from '@/types/storage';
 
-const json = ref<string>('')
-const avatar = ref<ZzzAvatar>()
-const updKey = ref(0)
+const { $zzz } = useNuxtApp();
+
+const json = ref<string>('');
+const avatar = ref<ZzzAvatar>();
+const updKey = ref(0);
+
+const selected = ref<string>();
+const histories = ref<StorageHistoryItem[]>([]);
 
 const dialogInput = reactive({
   visible: true,
-})
+});
 
-const officialTool =
-  'https://act.hoyolab.com/app/mihoyo-zzz-game-record/index.html'
+const officialTool = 'https://act.hoyolab.com/app/mihoyo-zzz-game-record/index.html';
+
+onMounted(() => {
+  histories.value = $zzz.loadHistory();
+});
+
+const selectHistory = (key: string) => {
+  const target = histories.value.find((h) => h.date === key);
+  if (target) {
+    avatar.value = target.data;
+  }
+};
+
+const removeHistory = (index: number) => {
+  $zzz.removeHistory(index);
+  reloadHistory();
+};
+
+const reloadHistory = () => {
+  histories.value = $zzz.loadHistory();
+
+  updKey.value++;
+};
+
+const clearHistories = () => {
+  avatar.value = null;
+  $zzz.clearHistory();
+  reloadHistory();
+};
 
 const createBuildCard = () => {
   try {
-    const parsed = JSON.parse(json.value) as ZzzData
+    const parsed = JSON.parse(json.value) as ZzzData;
     if (parsed.avatar_list?.length) {
-      avatar.value = parsed.avatar_list[0]
+      avatar.value = parsed.avatar_list[0];
+
+      const item = $zzz.saveAvatar(avatar.value);
+      reloadHistory();
+
+      selected.value = item.date;
 
       // 変更を検知させる
-      updKey.value++
-      dialogInput.visible = false
+      updKey.value++;
+      dialogInput.visible = false;
     }
   } catch (err) {
-    console.error(err)
-    alert('invalid format')
+    console.error(err);
+    alert('invalid format');
   }
-}
+};
 </script>
 <style lang="scss" setup>
 .input-model {

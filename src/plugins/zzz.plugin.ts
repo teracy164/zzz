@@ -1,6 +1,52 @@
-import type { ZzzEquip, ZzzScore } from '~/types/zzz';
+import type { StorageHistoryItem } from '~/types/storage';
+import type { ZzzAvatar, ZzzEquip, ZzzScore } from '~/types/zzz';
 
 export class ZzzPlugin {
+  private readonly STORAGE_KEY_HISTORY = 'history';
+
+  loadHistory(): StorageHistoryItem[] {
+    const data = localStorage.getItem(this.STORAGE_KEY_HISTORY);
+    if (data) {
+      return JSON.parse(data) as StorageHistoryItem[];
+    }
+    return [];
+  }
+
+  removeHistory(index: number) {
+    const histories = this.loadHistory();
+    if (histories.length > index) {
+      histories.splice(index, 1);
+      localStorage.setItem(this.STORAGE_KEY_HISTORY, JSON.stringify(histories));
+    }
+  }
+
+  clearHistory() {
+    localStorage.removeItem(this.STORAGE_KEY_HISTORY);
+  }
+
+  saveAvatar(avatar: ZzzAvatar) {
+    const history = this.loadHistory();
+
+    const d = new Date();
+    const pad = (value: number) => String(value).padStart(2, '0');
+    const year = d.getFullYear();
+    const month = pad(d.getMonth() + 1);
+    const day = pad(d.getDate());
+    const hour = pad(d.getHours());
+    const minute = pad(d.getMinutes());
+    const sec = pad(d.getSeconds());
+    const date = `${year}/${month}/${day} ${hour}:${minute}:${sec}`;
+    const item = {
+      date,
+      data: avatar,
+    } as StorageHistoryItem;
+    // 100件まで保持可能とする
+    const json = JSON.stringify([item, ...history].slice(0, 100));
+    localStorage.setItem(this.STORAGE_KEY_HISTORY, json);
+
+    return item;
+  }
+
   /** 属性の数値⇒名称変換 */
   getElementName(elementType: number) {
     const items: { [type: number]: string } = {
