@@ -36,7 +36,7 @@
       <div style="margin: 1em 0">
         <el-input type="textarea" v-model="json" :rows="5" />
         <div style="margin-top: 1em; display: flex; justify-content: flex-end">
-          <el-button type="primary" @click="createBuildCard()">生成</el-button>
+          <el-button type="primary" @click="parse()">生成</el-button>
         </div>
       </div>
     </el-dialog>
@@ -73,7 +73,7 @@ onMounted(() => {
 const selectHistory = (key: string) => {
   const target = histories.value.find((h) => h.date === key);
   if (target) {
-    avatar.value = target.data;
+    createBuildCard(target.data);
   }
 };
 
@@ -83,9 +83,10 @@ const removeHistory = (index: number) => {
 };
 
 const reloadHistory = () => {
+  console.log('reloadHistory');
   histories.value = $zzz.loadHistory();
 
-  updKey.value++;
+  alert(updKey.value);
 };
 
 const clearHistories = () => {
@@ -94,25 +95,22 @@ const clearHistories = () => {
   reloadHistory();
 };
 
-const createBuildCard = () => {
+const parse = () => {
   try {
     const parsed = JSON.parse(json.value) as ZzzData;
     if (parsed.avatar_list?.length) {
-      avatar.value = parsed.avatar_list[0];
-
-      const item = $zzz.saveAvatar(avatar.value);
-      reloadHistory();
-
-      selected.value = item.date;
-
-      // 変更を検知させる
-      updKey.value++;
-      dialogInput.visible = false;
+      createBuildCard(parsed.avatar_list[0]);
     }
   } catch (err) {
     console.error(err);
     alert('invalid format');
   }
+};
+
+const createBuildCard = (a: ZzzAvatar) => {
+  avatar.value = a;
+  // 変更を検知させる
+  updKey.value++;
 };
 </script>
 <style lang="scss" setup>

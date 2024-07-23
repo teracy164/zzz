@@ -3,9 +3,7 @@
     <div class="base-info">
       <div class="base-info-wrapper">
         <img :src="equip.icon" />
-        <p class="level" :class="{ [`rarity-${equip.rarity}`]: true }">
-          Lv{{ equip.level }}
-        </p>
+        <p class="level" :class="{ [`rarity-${equip.rarity}`]: true }">Lv{{ equip.level }}</p>
         <span class="slot">{{ slot }}</span>
       </div>
       <div class="score">
@@ -27,16 +25,16 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type { ZzzEquip } from '@/types/zzz'
+import type { ZzzEquip } from '@/types/zzz';
 
-const { equip, slot } = defineProps<{ equip: ZzzEquip; slot: number }>()
-const { $zzz } = useNuxtApp()
-const score = ref(0)
+const { equip, slot } = defineProps<{ equip: ZzzEquip; slot: number }>();
+const { $zzz } = useNuxtApp();
+const score = ref(0);
 
 onMounted(() => {
-  const equipScopre = $zzz.calcScore(equip)
-  score.value = equipScopre.total
-})
+  const equipScopre = $zzz.calcScore(equip);
+  score.value = equipScopre.total;
+});
 </script>
 <style lang="scss" setup>
 .equip {
