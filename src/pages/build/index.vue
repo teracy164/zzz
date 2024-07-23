@@ -7,8 +7,8 @@
         <el-select v-model="selected" style="width: 10em" @change="selectHistory">
           <el-option v-for="(h, index) in histories" :label="h.data.name_mi18n" :value="h.date">
             <div style="display: flex; justify-content: space-between">
-              {{ `[${h.date}]　${h.data.name_mi18n}` }}
-              <!-- <el-button type="danger" @click.stop="removeHistory(index)">-</el-button> -->
+              <span style="padding-right: 1em">{{ `[${h.date}]　${h.data.name_mi18n}` }}</span>
+              <el-button type="text" title="履歴を削除" @click.stop="removeHistory(index)"> <span style="color: red">ｘ</span></el-button>
             </div>
           </el-option>
         </el-select>
@@ -83,10 +83,7 @@ const removeHistory = (index: number) => {
 };
 
 const reloadHistory = () => {
-  console.log('reloadHistory');
   histories.value = $zzz.loadHistory();
-
-  alert(updKey.value);
 };
 
 const clearHistories = () => {
@@ -99,7 +96,12 @@ const parse = () => {
   try {
     const parsed = JSON.parse(json.value) as ZzzData;
     if (parsed.avatar_list?.length) {
-      createBuildCard(parsed.avatar_list[0]);
+      const a = parsed.avatar_list[0];
+      createBuildCard(a);
+      const history = $zzz.saveAvatar(a);
+      reloadHistory();
+      selected.value = history.date;
+      dialogInput.visible = false;
     }
   } catch (err) {
     console.error(err);
