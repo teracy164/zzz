@@ -2,8 +2,12 @@
   <div class="equip">
     <div class="base-info">
       <div class="base-info-wrapper">
-        <img :src="equip.icon" />
-        <p class="level" :class="{ [`rarity-${equip.rarity}`]: true }">Lv{{ equip.level }}</p>
+        <div class="equip-img" :class="{ [`rarity-${equip.rarity}`]: true }">
+          <img :src="equip.icon" />
+          <div class="level">
+            <span class="level-wrapper">Lv{{ equip.level }}</span>
+          </div>
+        </div>
         <span class="slot">{{ slot }}</span>
       </div>
       <div class="score">
@@ -54,25 +58,58 @@ onMounted(() => {
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
 
-      .level {
-        border-radius: 5px;
-        font-size: 0.7em;
-        padding: 0 0.25em;
+      .equip-img {
+        border-radius: 50%;
+        width: 3em;
+        height: 3em;
+        padding: 3px;
+        position: relative;
+
         &.rarity-S {
-          border: 1px solid yellow;
+          background-color: yellow;
         }
         &.rarity-A {
-          border: 1px solid purple;
+          background-color: purple;
         }
         &.rarity-B {
-          border: 1px solid skyblue;
+          background-color: skyblue;
+        }
+
+        .level {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+
+          .level-wrapper {
+            background-color: black;
+            border-radius: 5px;
+            color: white;
+            width: 3em;
+            text-align: center;
+            font-size: 0.7em;
+            padding: 0 0.1em;
+          }
         }
       }
-      .rarity {
+
+      .slot {
         position: absolute;
-        top: 0;
-        left: 0;
+        top: -0.2em;
+        right: -0.2em;
+        background-color: lightgray;
+        color: black;
+        width: 1em;
+        height: 1em;
+        padding: 0.2em;
+        font-size: 0.7em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
       }
 
       img {
