@@ -3,6 +3,21 @@ import type { ZzzAvatar, ZzzEquip, ZzzScore } from '~/types/zzz';
 
 export class ZzzPlugin {
   private readonly STORAGE_KEY_HISTORY = 'history';
+  private readonly ScoreBorders = [
+    { score: 180, name: 'SS' },
+    { score: 150, name: 'S' },
+    { score: 120, name: 'A' },
+    { score: 100, name: 'B' },
+  ];
+
+  getRank(totalScore: number) {
+    const rank = this.ScoreBorders.find((item) => totalScore >= item.score);
+    return rank?.name || 'C';
+  }
+
+  getRankBorders() {
+    return this.ScoreBorders;
+  }
 
   loadHistory(): StorageHistoryItem[] {
     const data = localStorage.getItem(this.STORAGE_KEY_HISTORY);

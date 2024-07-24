@@ -70,11 +70,19 @@
         </div>
         <div class="score">
           <div class="score-wrapper">
-            <span v-if="totalScore > 180" class="ss">SS</span>
-            <span v-if="totalScore > 150" class="s">S</span>
-            <span v-else-if="totalScore > 120" class="A">A</span>
-            <span v-else-if="totalScore > 100" class="B">B</span>
-            <span v-else>C</span>
+            <el-tooltip>
+              <template #content>
+                <p>基準</p>
+                <ul style="padding-left: 1.5em">
+                  <li v-for="item in $zzz.getRankBorders()" style="display: flex">
+                    <span style="flex-basis: 2em">{{ item.name }}</span>
+                    <span>{{ item.score }}以上</span>
+                  </li>
+                </ul>
+                ※上記以外は「C」
+              </template>
+              <span>{{ $zzz.getRank(totalScore) }}</span>
+            </el-tooltip>
             <div class="score-value">{{ totalScore }}</div>
           </div>
         </div>
