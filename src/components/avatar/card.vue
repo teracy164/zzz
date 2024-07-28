@@ -3,7 +3,7 @@
     <div>
       <div style="display: flex">
         <div class="character-wrapper" style="flex-grow: 1">
-          <div class="character">
+          <div class="character" :class="{ [`rarity-${avatar.rarity}`]: true }">
             <div class="base-info">
               <div style="display: flex; align-items: center">
                 <span class="level">Lv{{ avatar.level }}</span>
@@ -32,7 +32,7 @@
               </div>
             </div>
           </div>
-          <div class="weapon">
+          <div class="weapon" :class="{ [`rarity-${avatar.weapon.rarity}`]: true }">
             <div>
               <span class="level">Lv{{ avatar.weapon.level }}</span>
               {{ avatar.weapon.name }}
@@ -114,8 +114,6 @@ const { avatar } = defineProps<{ avatar: ZzzAvatar }>();
 const { $zzz } = useNuxtApp();
 
 const totalScore = ref(0);
-
-const skillSort = [ZzzSkillType.NORMAL, ZzzSkillType.DASH, ZzzSkillType.SKILL, ZzzSkillType.SWITCH, ZzzSkillType.ULT, ZzzSkillType.CORE];
 
 const skills = ref<ZzzAvatarSkill[]>([]);
 
@@ -205,7 +203,8 @@ const showSkillDetail = (skill: ZzzAvatarSkill) => {
         width: 1.2em;
         .rank {
           position: relative;
-          border: 1px solid lightgray;
+          color: #666;
+          border: 1px solid #666;
           border-radius: 50%;
           width: 1em;
           height: 1em;
@@ -215,8 +214,8 @@ const showSkillDetail = (skill: ZzzAvatarSkill) => {
           font-size: 0.8em;
 
           &.unlocked {
-            background-color: lightgray;
-            color: black;
+            color: yellow;
+            border-color: yellow;
           }
         }
 
@@ -334,6 +333,18 @@ const showSkillDetail = (skill: ZzzAvatarSkill) => {
     border-radius: 5px;
     padding: 0 0.25em;
     font-size: 0.8em;
+  }
+  .rarity-S {
+    .level {
+      background-color: unset;
+      border: 1px solid yellow;
+    }
+  }
+  .rarity-A {
+    .level {
+      background-color: unset;
+      border: 1px solid purple;
+    }
   }
 }
 </style>
