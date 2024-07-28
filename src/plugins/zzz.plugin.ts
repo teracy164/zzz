@@ -7,7 +7,7 @@ export class ZzzPlugin {
     { score: 180, name: 'SS' },
     { score: 150, name: 'S' },
     { score: 120, name: 'A' },
-    { score: 100, name: 'B' },
+    { score: 90, name: 'B' },
   ];
 
   getRank(totalScore: number) {
