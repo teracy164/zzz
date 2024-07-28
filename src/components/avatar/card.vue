@@ -17,18 +17,32 @@
             <div style="display: flex">
               <div class="ranks">
                 <!-- Rank: -->
-                <div v-for="(r, index) in avatar.ranks" class="rank" :class="{ unlocked: r.is_unlocked }">
-                  <span class="number">{{ index + 1 }}</span>
-                </div>
+                <el-tooltip v-for="(r, index) in avatar.ranks">
+                  <template #content>
+                    <h1>{{ r.name }}</h1>
+                    <div :innerHTML="replaceText(r.desc)"></div>
+                  </template>
+                  <div class="rank" :class="{ unlocked: r.is_unlocked }">
+                    <span class="number">{{ index + 1 }}</span>
+                  </div>
+                </el-tooltip>
               </div>
               <div style="flex-grow: 1">
                 <img :src="avatar.hollow_icon_path" />
               </div>
               <div class="skills">
-                <div v-for="s in skills" class="skill" @click="showSkillDetail(s)">
-                  <img v-if="skillIcons[s.skill_type]" alt="skill-icon" :src="skillIcons[s.skill_type]" decoding="async" />
-                  <span>{{ s.level }}</span>
-                </div>
+                <el-tooltip v-for="s in skills">
+                  <template #content>
+                    <div v-for="item in s.items">
+                      <h1>{{ item.title }}</h1>
+                      <div :innerHTML="replaceText(item.text)"></div>
+                    </div>
+                  </template>
+                  <div class="skill">
+                    <img v-if="skillIcons[s.skill_type]" alt="skill-icon" :src="skillIcons[s.skill_type]" decoding="async" />
+                    <span>{{ s.level }}</span>
+                  </div>
+                </el-tooltip>
               </div>
             </div>
           </div>
@@ -96,15 +110,6 @@
         </div>
       </div>
     </div>
-
-    <el-dialog v-model="dialogSkill.visible">
-      <div>
-        <div v-for="item in dialogSkill.items">
-          <h3>{{ item.title }}</h3>
-          <div :innerHTML="item.text"></div>
-        </div>
-      </div>
-    </el-dialog>
   </Card>
 </template>
 <script lang="ts" setup>
@@ -132,11 +137,6 @@ const skillIcons: { [type: number]: string } = {
     'https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/05/11/3c5a6456d767b48d3cee842339be557c_7557132698351903831.png',
 };
 
-const dialogSkill = reactive<{ visible: boolean; items: ZzzAvatarSkillItem[] | null }>({
-  visible: false,
-  items: null,
-});
-
 onMounted(() => {
   for (const e of avatar.equip || []) {
     const equipScore = $zzz.calcScore(e);
@@ -149,21 +149,15 @@ onMounted(() => {
   );
 });
 
-const showSkillDetail = (skill: ZzzAvatarSkill) => {
+const replaceText = (text: string) => {
   const toImg = (type: number) => `<img src="${skillIcons[type]}" style="width: 1em"/>`;
-  dialogSkill.items = skill.items.map((item) => {
-    return {
-      title: item.title,
-      text: item.text
-        .replace(/\\n/g, '<br>')
-        .replace(/\<IconMap:Icon_Normal\>/g, toImg(ZzzSkillType.NORMAL))
-        .replace(/\<IconMap:Icon_Special\>/g, toImg(ZzzSkillType.ULT))
-        .replace(/\<IconMap:Icon_Evade\>/g, toImg(ZzzSkillType.DASH))
-        .replace(/\<IconMap:Icon_Switch\>/g, toImg(ZzzSkillType.SWITCH))
-        .replace(/\<IconMap:Icon_UltimateReady\>/g, toImg(ZzzSkillType.ULT)),
-    };
-  });
-  dialogSkill.visible = true;
+  return text
+    .replace(/\\n/g, '<br>')
+    .replace(/\<IconMap:Icon_Normal\>/g, toImg(ZzzSkillType.NORMAL))
+    .replace(/\<IconMap:Icon_Special\>/g, toImg(ZzzSkillType.ULT))
+    .replace(/\<IconMap:Icon_Evade\>/g, toImg(ZzzSkillType.DASH))
+    .replace(/\<IconMap:Icon_Switch\>/g, toImg(ZzzSkillType.SWITCH))
+    .replace(/\<IconMap:Icon_UltimateReady\>/g, toImg(ZzzSkillType.ULT));
 };
 </script>
 <style lang="scss" scoped>
