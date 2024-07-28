@@ -10,7 +10,8 @@
                 <span class="name">{{ avatar.name_mi18n }}</span>
               </div>
               <div style="display: flex; align-items: center">
-                <span class="element">{{ $zzz.getElementName(avatar.element_type) }}</span>
+                <img class="element" :src="$zzz.getElementImg(avatar.element_type)" />
+                <img class="profession" :src="$zzz.getProfessionImg(avatar.avatar_profession)" />
                 <img class="group" :src="avatar.group_icon_path" />
               </div>
             </div>
@@ -175,16 +176,15 @@ const replaceText = (text: string) => {
         .name {
           font-size: 1.2em;
         }
-        .element {
-          padding: 0 0.25em;
-        }
       }
       img {
         width: 100%;
         max-height: 7em;
         object-fit: contain;
 
-        &.group {
+        &.element,
+        &.group,
+        &.profession {
           width: 1.6em;
           height: 1.6em;
         }

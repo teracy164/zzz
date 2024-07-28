@@ -62,16 +62,38 @@ export class ZzzPlugin {
     return item;
   }
 
-  /** 属性の数値⇒名称変換 */
-  getElementName(elementType: number) {
+  /** キャラ属性⇒画像URL変換 */
+  getElementImg(elementType: number) {
     const items: { [type: number]: string } = {
-      200: '物理',
-      201: '炎',
-      202: '氷',
-      203: '電撃',
-      205: 'エーテル',
+      /** 物理 */
+      200: 'https://act.hoyolab.com/app/mihoyo-zzz-game-record/images/attribute-physical-icon.a657c07a.png',
+      /** 炎 */
+      201: '	https://act.hoyolab.com/app/mihoyo-zzz-game-record/images/attribute-fire-icon.aeddecee.png',
+      /** 氷 */
+      202: 'https://act.hoyolab.com/app/mihoyo-zzz-game-record/images/attribute-ice-icon.5c85742d.png',
+      /** 電撃 */
+      203: '	https://act.hoyolab.com/app/mihoyo-zzz-game-record/images/attribute-electric-icon.ad4c441f.png',
+      /** エーテル */
+      205: 'https://act.hoyolab.com/app/mihoyo-zzz-game-record/images/attribute-ether-icon.9a1e42a1.png',
     };
     return items[elementType] || '';
+  }
+
+  /** キャラタイプ⇒画像URL変換 */
+  getProfessionImg(professionType: number) {
+    const items: { [type: number]: string } = {
+      /** 強攻 */
+      1: 'https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/05/07/78d407e2839038da13d26ad84b99a6b8_8151225937174652019.png',
+      /** 撃破 */
+      2: 'https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/05/07/a798cde5543596aae302d7fc037df2d5_4111998480888596222.png',
+      /** 異常 */
+      3: 'https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/05/07/55982d13c3284d382a9a59ce9f5e5d50_2052082579823154975.png',
+      /** 支援 */
+      4: 'https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/05/07/e1ce1ff7a8c3debf3235b2bbd94bd4c0_2060958246427347333.png',
+      /** 防護 */
+      5: 'https://act-webstatic.hoyoverse.com/event-static-hoyowiki-admin/2024/05/07/ba974570d0627f78131b5c09ffb630f2_1224778078231447651.png',
+    };
+    return items[professionType] || '';
   }
 
   calcScore(equip: ZzzEquip): ZzzScore {
