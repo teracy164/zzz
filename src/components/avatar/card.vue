@@ -50,7 +50,7 @@
           <div class="weapon" :class="{ [`rarity-${avatar.weapon.rarity}`]: true }">
             <div>
               <span class="level">Lv{{ avatar.weapon.level }}</span>
-              {{ avatar.weapon.name }}
+              <span class="name">{{ avatar.weapon.name }}</span>
             </div>
             <div style="display: flex">
               <div class="weapon-img-wrapper">
@@ -175,6 +175,7 @@ const replaceText = (text: string) => {
 
         .name {
           font-size: 1.2em;
+          padding-left: 0.5em;
         }
       }
       img {
@@ -235,6 +236,9 @@ const replaceText = (text: string) => {
     }
     .weapon {
       margin-top: 0.5em;
+      .name {
+        padding-left: 0.5em;
+      }
       .weapon-img-wrapper {
         position: relative;
 
