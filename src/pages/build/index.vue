@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="margin-bottom: 1em; display: flex">
+    <div class="no-print" style="margin-bottom: 1em; display: flex">
       <el-button type="primary" @click="dialogInput.visible = true">input data</el-button>
 
       <div v-if="histories?.length" :key="updKey" style="margin-left: 2em">
@@ -42,7 +42,7 @@
     </el-dialog>
 
     <div v-if="avatar">
-      <p>スコアは「会心率 x 2 + 会心ダメージ + 攻撃力%」で計算しています</p>
+      <p class="no-print">スコアは「会心率 x 2 + 会心ダメージ + 攻撃力%」で計算しています</p>
       <AvatarCard v-if="avatar" :key="updKey" :avatar="avatar" />
     </div>
   </div>

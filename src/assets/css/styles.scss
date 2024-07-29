@@ -9,10 +9,37 @@ body {
   color: white;
 }
 
+.main-contents {
+  padding: 1em;
+}
+
 p {
   margin: 0;
 }
 
 pre {
   white-space: wrap;
+}
+
+@page {
+  size: landscape;
+}
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  main {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+
+    .main-contents {
+      flex-grow: 1;
+    }
+  }
+  .avatar-card {
+    width: unset !important;
+    margin: auto;
+    size: A4;
+  }
 }

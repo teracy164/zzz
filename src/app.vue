@@ -1,9 +1,11 @@
 <template>
   <div>
-    <Header />
+    <Header class="no-print" />
     <main>
-      <NuxtPage />
-      <div style="text-align: center; margin: 2em 0; font-size: 0.7em">
+      <div class="main-contents">
+        <NuxtPage />
+      </div>
+      <div class="no-print" style="text-align: center; margin: 2em 0; font-size: 0.7em">
         <el-link type="primary" size="small" href="https://x.com/teracy164" target="_blank"> 問い合わせはX（旧Twitter）まで </el-link>
         <div>Created by teracy</div>
       </div>
@@ -18,8 +20,3 @@ useSeoMeta({
   ogDescription: 'ゼンレスゾーンゼロ用のツールです。ビルドカードの作成ができます。',
 });
 </script>
-<style lang="scss">
-main {
-  padding: 1em;
-}
-</style>
