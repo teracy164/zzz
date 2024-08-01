@@ -13,10 +13,12 @@
   </div>
 </template>
 <script lang="ts" setup>
+const description = ['ゼンレスゾーンゼロ用のツールです。ビルドカードの作成ができます。', 'スコア計算にも計算しています。'].join('\n');
+
 useSeoMeta({
-  title: 'ZZZ Tools',
-  ogTitle: 'ZZZ Tools | ゼンレスゾーンゼロツール',
-  description: 'ゼンレスゾーンゼロ用のツールです。ビルドカードの作成ができます。',
-  ogDescription: 'ゼンレスゾーンゼロ用のツールです。ビルドカードの作成ができます。',
+  title: 'ZZZ Build Card Creator',
+  ogTitle: 'ZZZ Build Card Creator',
+  description,
+  ogDescription: description,
 });
 </script>
