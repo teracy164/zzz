@@ -1,8 +1,11 @@
 <template>
   <div class="header" style="height: 3em">
-    <span>ゼンゼロ　ビルドカード</span>
+    <div>
+      <p>ゼンゼロ　ビルドカード</p>
+      <p style="font-size: 0.6em">- ZZZ(zenless zone zelo) build card -</p>
+    </div>
     <div style="text-align: right; font-size: 0.7em">
-      簡単に利用できるChrome拡張もあります
+      Chrome拡張もあります
       <div>
         <a
           href="https://chromewebstore.google.com/detail/zzz-score-calculator/ibbbkbnhocldehlkbemmlgkmdlbckjmn?authuser=0&hl=ja"

@@ -13,7 +13,11 @@
   </div>
 </template>
 <script lang="ts" setup>
-const description = ['ゼンレスゾーンゼロ用のツールです。ビルドカードの作成ができます。', 'スコア計算にも計算しています。'].join('\n');
+const description = [
+  'ゼンレスゾーンゼロ用のツールです。ビルドカードの作成ができます。',
+  'スコア計算にも対応しています。',
+  'zenless zone zero build card',
+].join('\n');
 
 useSeoMeta({
   title: 'ZZZ Build Card Creator',

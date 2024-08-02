@@ -4,12 +4,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   srcDir: './src',
   css: ['@/assets/css/styles.scss'],
-  app: {
-    head: {
-      title: 'ZZZ Tools',
-      meta: [{ name: 'description', content: 'ゼンレスゾーンゼロのビルドカード作成ツールです。ドライバのスコアも表示されます。' }],
-    },
-  },
   modules: ['@element-plus/nuxt'],
   elementPlus: {
     /** Options */
