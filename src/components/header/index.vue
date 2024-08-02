@@ -2,7 +2,7 @@
   <div class="header" style="height: 3em">
     <div>
       <p>ゼンゼロ　ビルドカード</p>
-      <p style="font-size: 0.6em">- ZZZ(zenless zone zelo) build card -</p>
+      <p style="font-size: 0.6em">- ZZZ(zenless zone zero) build card -</p>
     </div>
     <div style="text-align: right; font-size: 0.7em">
       Chrome拡張もあります
