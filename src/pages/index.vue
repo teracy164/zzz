@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div>ビルドカード生成</div>
     <div class="no-print" style="margin-bottom: 1em; display: flex">
       <el-button type="primary" @click="dialogInput.visible = true">input data</el-button>
 
@@ -61,7 +62,7 @@ const selected = ref<string>();
 const histories = ref<StorageHistoryItem[]>([]);
 
 const dialogInput = reactive({
-  visible: true,
+  visible: false,
 });
 
 const officialTool = 'https://act.hoyolab.com/app/mihoyo-zzz-game-record/index.html';

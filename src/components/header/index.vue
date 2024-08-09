@@ -1,8 +1,10 @@
 <template>
   <div class="header" style="height: 3em">
-    <div>
-      <p>ゼンゼロ　ビルドカード</p>
-      <p style="font-size: 0.6em">- ZZZ(zenless zone zero) build card -</p>
+    <div style="display: flex">
+      <div class="logo" @click="navigateTo('/')">ZZZ Tools</div>
+      <div class="menu-item">
+        <NuxtLink href="/materials">素材</NuxtLink>
+      </div>
     </div>
     <div style="text-align: right; font-size: 0.7em">
       Chrome拡張もあります
@@ -25,5 +27,21 @@
   justify-content: space-between;
   box-shadow: 2px 0 5px white;
   padding: -0 1em;
+
+  .logo {
+    padding: 0 0.5em;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .logo:hover {
+    background-color: #999;
+  }
+  .menu-item {
+    margin: 0 0.5em;
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
 }
 </style>
