@@ -37,7 +37,7 @@
         <table>
           <thead>
             <tr>
-              <th></th>
+              <th>Lv</th>
               <th>ディニー</th>
               <th>素材</th>
             </tr>
