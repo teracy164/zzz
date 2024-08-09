@@ -14,9 +14,10 @@
 </template>
 <script lang="ts" setup>
 const description = [
-  'ゼンレスゾーンゼロ用のツールです。ビルドカードの作成ができます。',
-  'スコア計算にも対応しています。',
-  'zenless zone zero build card',
+  'ゼンレスゾーンゼロ用のツールです。',
+  'ビルドカードの作成ができ、スコア計算にも対応しています。',
+  'また、キャラ・武器を育成するための素材の数を確認することできます。',
+  'zenless zone zero build card and calculate score',
 ].join('\n');
 
 useSeoMeta({
