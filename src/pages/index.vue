@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>ビルドカード生成</div>
+    <div class="no-print">ビルドカード生成</div>
     <div class="no-print" style="margin-bottom: 1em; display: flex">
       <el-button type="primary" @click="dialogInput.visible = true">input data</el-button>
 

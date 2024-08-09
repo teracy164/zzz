@@ -3,7 +3,7 @@
     <div style="display: flex">
       <div class="logo" @click="navigateTo('/')">ZZZ Tools</div>
       <div class="menu-item">
-        <NuxtLink href="/materials">素材</NuxtLink>
+        <NuxtLink to="/materials">素材</NuxtLink>
       </div>
     </div>
     <div style="text-align: right; font-size: 0.7em">
