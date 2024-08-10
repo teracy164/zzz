@@ -4,9 +4,9 @@
     <main class="grow overflow-auto p-3">
       <NuxtPage />
     </main>
-    <div class="no-print text-center my-2" style="font-size: 0.7rem">
-      <el-link type="primary" size="small" href="https://x.com/teracy164" target="_blank"> 問い合わせはX（旧Twitter）まで </el-link>
+    <div class="no-print text-center my-2 px-2 flex flex-wrap justify-between" style="font-size: 0.7rem">
       <div>Created by teracy</div>
+      <el-link type="primary" size="small" href="https://x.com/teracy164" target="_blank"> 問い合わせはX（旧Twitter）まで </el-link>
     </div>
   </div>
 </template>

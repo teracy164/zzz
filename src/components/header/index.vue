@@ -10,7 +10,7 @@
       </div>
     </div>
     <div style="text-align: right; font-size: 0.7em">
-      <span style="font-size: 0.8em">スコア計算用Chrome拡張もあります</span>
+      <span style="font-size: 0.8em"><span class="hidden md:inline">スコア計算用</span>Chrome拡張もあります</span>
       <div>
         <a
           href="https://chromewebstore.google.com/detail/zzz-score-calculator/ibbbkbnhocldehlkbemmlgkmdlbckjmn?authuser=0&hl=ja"

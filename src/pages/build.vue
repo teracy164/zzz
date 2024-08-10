@@ -16,7 +16,7 @@
         <el-button @click="clearHistories">履歴を削除</el-button>
       </div>
     </div>
-    <el-dialog v-model="dialogInput.visible">
+    <el-dialog v-model="dialogInput.visible" style="max-width: 95vw; width: 800px">
       <p>公式の戦績ツールからデータを取得して、以下に貼り付けてください</p>
       <el-tooltip trigger="click">
         <el-button> データの取得方法（How to get data）??? </el-button>
