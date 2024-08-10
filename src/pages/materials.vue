@@ -39,18 +39,21 @@
                 <option v-for="(_, index) in new Array(12)" :value="index + 1">{{ index + 1 }}</option>
               </select>
             </div>
-            <!-- <div class="skill">
+            <div class="skill">
               コア
               <select v-model="form.character.core" @change="calcMaterials">
-                <option v-for="(_, index) in new Array(6)" :value="index + 1">{{ index + 1 }}</option>
+                <option v-for="(_, index) in new Array(7)" :value="index">{{ CoreSkillLabels[index] }}</option>
               </select>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
       <div class="require-materials">
         <h2>必要素材</h2>
         <div>ディニー：{{ requiredMaterials.money.toLocaleString() }}</div>
+        <div>ｴｷｽﾊﾟｰﾄ素材：{{ requiredMaterials.character.core.expert }}</div>
+        <div>週ボス素材：{{ requiredMaterials.character.core.boss }}</div>
+
         <div>
           <table>
             <thead>
@@ -177,7 +180,7 @@
             <tr v-for="item in coreSkillMaterials">
               <td>{{ item.no }}</td>
               <td>{{ item.money }}</td>
-              <td>{{ item.elite }}</td>
+              <td>{{ item.expert }}</td>
               <td>{{ item.boss }}</td>
               <td>
                 <template v-for="key in Object.keys(item.sum)">
@@ -267,6 +270,10 @@ const requiredMaterials = reactive({
     lv: { A: 0, B: 0, C: 0 },
     breakthrough: { A: 0, B: 0, C: 0 },
     skill: { A: 0, B: 0, C: 0 },
+    core: {
+      expert: 0,
+      boss: 0,
+    },
   },
   money: 0,
 });
@@ -276,6 +283,7 @@ const calcMaterials = () => {
   requiredMaterials.character.lv = { A: 0, B: 0, C: 0 };
   requiredMaterials.character.breakthrough = { A: 0, B: 0, C: 0 };
   requiredMaterials.character.skill = { A: 0, B: 0, C: 0 };
+  requiredMaterials.character.core = { expert: 0, boss: 0 };
 
   characterBreakthroughList
     .filter((item) => {
@@ -305,7 +313,6 @@ const calcMaterials = () => {
     });
 
   Object.values(form.character.skills).forEach((item) => {
-    console.log(item);
     skillMaterials
       .filter((m) => m.lv <= item)
       .forEach((m) => {
@@ -313,6 +320,14 @@ const calcMaterials = () => {
         requiredMaterials.character.skill[m.materials.rank] += m.materials.num;
       });
   });
+
+  coreSkillMaterials
+    .filter((item) => item.lv <= form.character.core)
+    .forEach((item) => {
+      requiredMaterials.money += item.money;
+      requiredMaterials.character.core.expert += item.expert;
+      requiredMaterials.character.core.boss += item.boss;
+    });
 };
 
 onMounted(() => {
@@ -400,25 +415,35 @@ const weaponExpList: LvMaterial[] = [
 
 const materialNameTable = {
   money: 'ディニー',
-  elite: 'ｴｷｽﾊﾟｰﾄ',
+  expert: 'ｴｷｽﾊﾟｰﾄ',
   boss: '週ボス',
 };
 
+const CoreSkillLabels = {
+  0: '',
+  1: 'A',
+  2: 'B',
+  3: 'C',
+  4: 'D',
+  5: 'E',
+  6: 'F',
+};
+
 const coreSkillMaterials = [
-  { no: 'A', money: 5000, elite: 0, boss: 0 },
-  { no: 'B', money: 12000, elite: 2, boss: 0 },
-  { no: 'C', money: 28000, elite: 4, boss: 0 },
-  { no: 'D', money: 60000, elite: 9, boss: 2 },
-  { no: 'E', money: 100000, elite: 15, boss: 3 },
-  { no: 'F', money: 200000, elite: 30, boss: 4 },
+  { lv: 1, money: 5000, expert: 0, boss: 0 },
+  { lv: 2, money: 12000, expert: 2, boss: 0 },
+  { lv: 3, money: 28000, expert: 4, boss: 0 },
+  { lv: 4, money: 60000, expert: 9, boss: 2 },
+  { lv: 5, money: 100000, expert: 15, boss: 3 },
+  { lv: 6, money: 200000, expert: 30, boss: 4 },
 ].reduce((list, item, index) => {
-  const d = { ...item, sum: { money: 0, elite: 0, boss: 0 } };
+  const d = { ...item, no: CoreSkillLabels[item.lv], sum: { money: 0, expert: 0, boss: 0 } };
   if (index > 0) {
     // ひとつ前の累計情報をコピー
     Object.assign(d.sum, list[index - 1].sum);
   }
   d.sum.money += item.money;
-  d.sum.elite += item.elite;
+  d.sum.expert += item.expert;
   d.sum.boss += item.boss;
 
   return list.concat(d);
