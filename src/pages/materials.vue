@@ -71,6 +71,7 @@
         <div>ディニー：{{ requiredMaterials.money.toLocaleString() }}</div>
         <div>ｴｷｽﾊﾟｰﾄ素材：{{ requiredMaterials.character.core.expert }}</div>
         <div>週ボス素材：{{ requiredMaterials.character.core.boss }}</div>
+        <div>ﾊﾑｽﾀｰｹｰｼﾞ：{{ requiredMaterials.character.skillEx }}</div>
 
         <div style="display: flex; flex-wrap: wrap">
           <table>
@@ -318,6 +319,7 @@ const requiredMaterials = reactive({
     lv: { A: 0, B: 0, C: 0 },
     breakthrough: { A: 0, B: 0, C: 0 },
     skill: { A: 0, B: 0, C: 0 },
+    skillEx: 0,
     core: {
       expert: 0,
       boss: 0,
@@ -335,6 +337,7 @@ const calcMaterials = () => {
   requiredMaterials.character.lv = { A: 0, B: 0, C: 0 };
   requiredMaterials.character.breakthrough = { A: 0, B: 0, C: 0 };
   requiredMaterials.character.skill = { A: 0, B: 0, C: 0 };
+  requiredMaterials.character.skillEx = 0;
   requiredMaterials.character.core = { expert: 0, boss: 0 };
   requiredMaterials.weapon.lv = { A: 0, B: 0, C: 0 };
   requiredMaterials.weapon.breakthrough = { A: 0, B: 0, C: 0 };
@@ -372,6 +375,9 @@ const calcMaterials = () => {
       .forEach((m) => {
         requiredMaterials.money += m.money;
         requiredMaterials.character.skill[m.materials.rank] += m.materials.num;
+        if (m.ex) {
+          requiredMaterials.character.skillEx += m.ex;
+        }
       });
   });
 
