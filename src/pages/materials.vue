@@ -19,8 +19,9 @@
               <td>{{ item.money }}</td>
               <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
               <td class="sum">
-                <template v-for="rank in Object.keys(item.sum)">
-                  <span class="material" v-if="item.sum[rank]">{{ rank }} x {{ item.sum[rank] }}</span>
+                <p>{{ materialNameTable.money }} x {{ item.sum.money }}</p>
+                <template v-for="key in Object.keys(item.sum)">
+                  <span class="material" v-if="key !== 'money' && item.sum[key]">{{ key }} x {{ item.sum[key] }}</span>
                 </template>
               </td>
             </tr>
@@ -65,8 +66,9 @@
               <td>{{ item.money }}</td>
               <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
               <td class="sum">
-                <template v-for="rank in Object.keys(item.sum)">
-                  <span class="material" v-if="item.sum[rank]">{{ rank }} x {{ item.sum[rank] }}</span>
+                <p>{{ materialNameTable.money }} x {{ item.sum.money }}</p>
+                <template v-for="key in Object.keys(item.sum)">
+                  <span class="material" v-if="key !== 'money' && item.sum[key]">{{ key }} x {{ item.sum[key] }}</span>
                 </template>
               </td>
             </tr>
@@ -123,8 +125,9 @@
               <td>{{ item.money }}</td>
               <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
               <td class="sum">
-                <template v-for="rank in Object.keys(item.sum)">
-                  <span class="material" v-if="item.sum[rank]">{{ rank }} x {{ item.sum[rank] }}</span>
+                <p>{{ materialNameTable.money }} x {{ item.sum.money }}</p>
+                <template v-for="key in Object.keys(item.sum)">
+                  <span class="material" v-if="key !== 'money' && item.sum[key]">{{ key }} x {{ item.sum[key] }}</span>
                 </template>
               </td>
             </tr>
@@ -163,12 +166,13 @@ const characterBreakthroughList = [
   { lv: 40, money: 200000, materials: { rank: 'A', num: 10 } },
   { lv: 50, money: 400000, materials: { rank: 'A', num: 20 } },
 ].reduce((list, item, index) => {
-  const d = { ...item, sum: { A: 0, B: 0, C: 0 } };
+  const d = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } };
   if (index > 0) {
     // ひとつ前の累計情報をコピー
     Object.assign(d.sum, list[index - 1].sum);
   }
   d.sum[item.materials.rank] += item.materials.num;
+  d.sum.money += item.money;
   return list.concat(d);
 }, []);
 
@@ -203,12 +207,13 @@ const weaponBreakthroughList = [
   { lv: 40, money: 100000, materials: { rank: 'A', num: 10 } },
   { lv: 50, money: 200000, materials: { rank: 'A', num: 20 } },
 ].reduce((list, item, index) => {
-  const d = { ...item, sum: { A: 0, B: 0, C: 0 } };
+  const d = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } };
   if (index > 0) {
     // ひとつ前の累計情報をコピー
     Object.assign(d.sum, list[index - 1].sum);
   }
   d.sum[item.materials.rank] += item.materials.num;
+  d.sum.money += item.money;
   return list.concat(d);
 }, []);
 
@@ -268,12 +273,13 @@ const skillMaterials = [
   { lv: 11, money: 112500, materials: { rank: 'A', num: 12 } },
   { lv: 12, money: 135000, materials: { rank: 'A', num: 15 } },
 ].reduce((list, item, index) => {
-  const d = { ...item, sum: { A: 0, B: 0, C: 0 } };
+  const d = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } };
   if (index > 0) {
     // ひとつ前の累計情報をコピー
     Object.assign(d.sum, list[index - 1].sum);
   }
   d.sum[item.materials.rank] += item.materials.num;
+  d.sum.money += item.money;
   return list.concat(d);
 }, []);
 </script>
