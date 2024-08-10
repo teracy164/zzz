@@ -70,6 +70,7 @@
                 <template v-for="key in Object.keys(item.sum)">
                   <span class="material" v-if="key !== 'money' && item.sum[key]">{{ key }} x {{ item.sum[key] }}</span>
                 </template>
+                <p v-if="item.ex">ﾊﾑｽﾀｰｹｰｼﾞ x {{ item.ex }}</p>
               </td>
             </tr>
           </tbody>
@@ -271,7 +272,7 @@ const skillMaterials = [
   { lv: 9, money: 67500, materials: { rank: 'A', num: 8 } },
   { lv: 10, money: 90000, materials: { rank: 'A', num: 10 } },
   { lv: 11, money: 112500, materials: { rank: 'A', num: 12 } },
-  { lv: 12, money: 135000, materials: { rank: 'A', num: 15 } },
+  { lv: 12, money: 135000, materials: { rank: 'A', num: 15 }, ex: 1 },
 ].reduce((list, item, index) => {
   const d = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } };
   if (index > 0) {
