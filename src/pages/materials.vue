@@ -4,12 +4,28 @@
     <div class="materials">
       <div>
         <h2>突破素材</h2>
-        <ul>
-          <li>Aランク素材ｘ30</li>
-          <li>Bランク素材ｘ32</li>
-          <li>Cランク素材ｘ4</li>
-          <li>ディニーｘ800000</li>
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>Lv</th>
+              <th>ディニー</th>
+              <th>素材</th>
+              <th>累計素材</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in characterBreakthroughList">
+              <td>{{ item.lv }}</td>
+              <td>{{ item.money }}</td>
+              <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
+              <td class="sum">
+                <template v-for="rank in Object.keys(item.sum)">
+                  <span class="material" v-if="item.sum[rank]">{{ rank }} x {{ item.sum[rank] }}</span>
+                </template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div>
         <h2>育成素材</h2>
@@ -19,7 +35,7 @@
               <th>レベル</th>
               <th>必要経験値</th>
               <th>累計経験値</th>
-              <th>素材<br />(Aランク換算)</th>
+              <th>累計素材</th>
             </tr>
           </thead>
           <tbody>
@@ -27,7 +43,7 @@
               <td>{{ item.lv }}</td>
               <td>{{ item.require }}</td>
               <td>{{ item.sum }}</td>
-              <td>{{ item.materials }}</td>
+              <td>A x {{ item.materials }}</td>
             </tr>
           </tbody>
         </table>
@@ -40,13 +56,19 @@
               <th>Lv</th>
               <th>ディニー</th>
               <th>素材</th>
+              <th>累計素材</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in skillMaterials">
               <td>{{ item.lv }}</td>
               <td>{{ item.money }}</td>
-              <td>{{ item.materials }}</td>
+              <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
+              <td class="sum">
+                <template v-for="rank in Object.keys(item.sum)">
+                  <span class="material" v-if="item.sum[rank]">{{ rank }} x {{ item.sum[rank] }}</span>
+                </template>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -58,8 +80,9 @@
             <tr>
               <th></th>
               <th>ディニー</th>
-              <th>精鋭素材</th>
+              <th>ｴｷｽﾊﾟｰﾄ素材</th>
               <th>週ボス素材</th>
+              <th>累計素材</th>
             </tr>
           </thead>
           <tbody>
@@ -68,6 +91,11 @@
               <td>{{ item.money }}</td>
               <td>{{ item.elite }}</td>
               <td>{{ item.boss }}</td>
+              <td>
+                <template v-for="key in Object.keys(item.sum)">
+                  <p v-if="item.sum[key]">{{ materialNameTable[key] }} x {{ item.sum[key] }}</p>
+                </template>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -80,12 +108,28 @@
     <div class="materials">
       <div>
         <h2>突破素材</h2>
-        <ul>
-          <li>Aランク素材ｘ30</li>
-          <li>Bランク素材ｘ32</li>
-          <li>Cランク素材ｘ4</li>
-          <li>ディニーｘ400000</li>
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>Lv</th>
+              <th>ディニー</th>
+              <th>素材</th>
+              <th>累計素材</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in weaponBreakthroughList">
+              <td>{{ item.lv }}</td>
+              <td>{{ item.money }}</td>
+              <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
+              <td class="sum">
+                <template v-for="rank in Object.keys(item.sum)">
+                  <span class="material" v-if="item.sum[rank]">{{ rank }} x {{ item.sum[rank] }}</span>
+                </template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div>
         <h2>育成素材</h2>
@@ -95,7 +139,7 @@
               <th>レベル</th>
               <th>必要経験値</th>
               <th>累計経験値</th>
-              <th>素材<br />(Aランク換算)</th>
+              <th>累計素材</th>
             </tr>
           </thead>
           <tbody>
@@ -103,7 +147,7 @@
               <td>{{ item.lv }}</td>
               <td>{{ item.require }}</td>
               <td>{{ item.sum }}</td>
-              <td>{{ item.materials }}</td>
+              <td>A x {{ item.materials }}</td>
             </tr>
           </tbody>
         </table>
@@ -112,6 +156,22 @@
   </div>
 </template>
 <script lang="ts" setup>
+const characterBreakthroughList = [
+  { lv: 10, money: 24000, materials: { rank: 'C', num: 4 } },
+  { lv: 20, money: 56000, materials: { rank: 'B', num: 12 } },
+  { lv: 30, money: 120000, materials: { rank: 'B', num: 20 } },
+  { lv: 40, money: 200000, materials: { rank: 'A', num: 10 } },
+  { lv: 50, money: 400000, materials: { rank: 'A', num: 20 } },
+].reduce((list, item, index) => {
+  const d = { ...item, sum: { A: 0, B: 0, C: 0 } };
+  if (index > 0) {
+    // ひとつ前の累計情報をコピー
+    Object.assign(d.sum, list[index - 1].sum);
+  }
+  d.sum[item.materials.rank] += item.materials.num;
+  return list.concat(d);
+}, []);
+
 type LvMaterial = {
   lv: string;
   require: number;
@@ -136,6 +196,22 @@ const characterExpList: LvMaterial[] = [
   return list;
 }, [] as LvMaterial[]);
 
+const weaponBreakthroughList = [
+  { lv: 10, money: 12000, materials: { rank: 'C', num: 4 } },
+  { lv: 20, money: 28000, materials: { rank: 'B', num: 12 } },
+  { lv: 30, money: 60000, materials: { rank: 'B', num: 20 } },
+  { lv: 40, money: 100000, materials: { rank: 'A', num: 10 } },
+  { lv: 50, money: 200000, materials: { rank: 'A', num: 20 } },
+].reduce((list, item, index) => {
+  const d = { ...item, sum: { A: 0, B: 0, C: 0 } };
+  if (index > 0) {
+    // ひとつ前の累計情報をコピー
+    Object.assign(d.sum, list[index - 1].sum);
+  }
+  d.sum[item.materials.rank] += item.materials.num;
+  return list.concat(d);
+}, []);
+
 const weaponExpList: LvMaterial[] = [
   { lv: '0～10', require: 4000 },
   { lv: '11～20', require: 16000 },
@@ -153,6 +229,12 @@ const weaponExpList: LvMaterial[] = [
   return list;
 }, [] as LvMaterial[]);
 
+const materialNameTable = {
+  money: 'ディニー',
+  elite: 'ｴｷｽﾊﾟｰﾄ',
+  boss: '週ボス',
+};
+
 const coreSkillMaterials = [
   { no: 'A', money: 5000, elite: 0, boss: 0 },
   { no: 'B', money: 12000, elite: 2, boss: 0 },
@@ -160,23 +242,46 @@ const coreSkillMaterials = [
   { no: 'D', money: 60000, elite: 9, boss: 2 },
   { no: 'E', money: 100000, elite: 15, boss: 3 },
   { no: 'F', money: 200000, elite: 30, boss: 4 },
-];
+].reduce((list, item, index) => {
+  const d = { ...item, sum: { money: 0, elite: 0, boss: 0 } };
+  if (index > 0) {
+    // ひとつ前の累計情報をコピー
+    Object.assign(d.sum, list[index - 1].sum);
+  }
+  d.sum.money += item.money;
+  d.sum.elite += item.elite;
+  d.sum.boss += item.boss;
+
+  return list.concat(d);
+}, []);
 
 const skillMaterials = [
-  { lv: 2, money: 2000, materials: 'Cランク素材x2' },
-  { lv: 3, money: 3000, materials: 'Cランク素材x3' },
-  { lv: 4, money: 6000, materials: 'Bランク素材x2' },
-  { lv: 5, money: 9000, materials: 'Bランク素材x3' },
-  { lv: 6, money: 12000, materials: 'Bランク素材x4' },
-  { lv: 7, money: 18000, materials: 'Bランク素材x6' },
-  { lv: 8, money: 45000, materials: 'Aランク素材x5' },
-  { lv: 9, money: 67500, materials: 'Aランク素材x8' },
-  { lv: 10, money: 90000, materials: 'Aランク素材x10' },
-  { lv: 11, money: 112500, materials: 'Aランク素材x12' },
-  { lv: 12, money: 135000, materials: 'Aランク素材x15' },
-];
+  { lv: 2, money: 2000, materials: { rank: 'C', num: 2 } },
+  { lv: 3, money: 3000, materials: { rank: 'C', num: 3 } },
+  { lv: 4, money: 6000, materials: { rank: 'B', num: 2 } },
+  { lv: 5, money: 9000, materials: { rank: 'B', num: 3 } },
+  { lv: 6, money: 12000, materials: { rank: 'B', num: 4 } },
+  { lv: 7, money: 18000, materials: { rank: 'B', num: 6 } },
+  { lv: 8, money: 45000, materials: { rank: 'A', num: 5 } },
+  { lv: 9, money: 67500, materials: { rank: 'A', num: 8 } },
+  { lv: 10, money: 90000, materials: { rank: 'A', num: 10 } },
+  { lv: 11, money: 112500, materials: { rank: 'A', num: 12 } },
+  { lv: 12, money: 135000, materials: { rank: 'A', num: 15 } },
+].reduce((list, item, index) => {
+  const d = { ...item, sum: { A: 0, B: 0, C: 0 } };
+  if (index > 0) {
+    // ひとつ前の累計情報をコピー
+    Object.assign(d.sum, list[index - 1].sum);
+  }
+  d.sum[item.materials.rank] += item.materials.num;
+  return list.concat(d);
+}, []);
 </script>
 <style lang="scss" scoped>
+h1,
+h2 {
+  margin: 0.25em 0;
+}
 hr {
   margin: 0;
 }
@@ -190,10 +295,17 @@ table {
 }
 
 .materials {
+  font-size: 12px;
   display: flex;
   flex-wrap: wrap;
   > div {
     margin-right: 1em;
+  }
+
+  .sum {
+    .material + .material {
+      margin-left: 0.5em;
+    }
   }
 }
 </style>
