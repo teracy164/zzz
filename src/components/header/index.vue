@@ -7,11 +7,12 @@
       </div>
     </div>
     <div style="text-align: right; font-size: 0.7em">
-      Chrome拡張もあります
+      <span style="font-size: 0.8em">スコア計算用Chrome拡張もあります</span>
       <div>
         <a
           href="https://chromewebstore.google.com/detail/zzz-score-calculator/ibbbkbnhocldehlkbemmlgkmdlbckjmn?authuser=0&hl=ja"
           target="_blank"
+          class="text-blue-500"
         >
           ZZZ Score Calculator
         </a>

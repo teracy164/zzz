@@ -1,14 +1,11 @@
 <template>
   <div>
     <div class="calculator">
-      <h1>育成計算機</h1>
+      <h1 class="text-xl font-bold b-1">育成計算機</h1>
       <div class="conditions">
-        <div>
-          <h2>&lt;キャラ情報&gt;</h2>
-        </div>
-        <div style="margin-bottom: 1em">
-          <div style="margin-bottom: 0.5em">
-            <span>キャラLv：</span>
+        <div class="flex flex-col mb-2">
+          <label>【キャラLv】</label>
+          <div class="pl-5">
             <select v-model="form.character.lv" @change="calcMaterials">
               <option v-for="lv in [10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
             </select>
@@ -22,8 +19,10 @@
             />
             <label for="character-breakthrough">突破する</label>
           </div>
-          <div style="margin-bottom: 0.5em; display: flex; flex-wrap: wrap; align-items: center">
-            <span>スキルLv：</span>
+        </div>
+        <div class="flex flex-col mb-2">
+          <span>【スキルLv】</span>
+          <div class="flex flex-wrap pl-5">
             <div
               v-for="item in [
                 { label: '通常', prop: 'basic' },
@@ -34,23 +33,22 @@
               ]"
               class="skill"
             >
-              <span>{{ item.label }}</span>
+              <label>{{ item.label }}</label>
               <select v-model="form.character.skills[item.prop]" @change="calcMaterials">
                 <option v-for="(_, index) in new Array(12)" :value="index + 1">{{ index + 1 }}</option>
               </select>
             </div>
             <div class="skill">
-              コア
+              <label>コア</label>
               <select v-model="form.character.core" @change="calcMaterials">
                 <option v-for="(_, index) in new Array(7)" :value="index">{{ CoreSkillLabels[index] }}</option>
               </select>
             </div>
           </div>
         </div>
-        <div style="margin-bottom: 1em">
-          <h2>&lt;音動機&gt;</h2>
-          <div>
-            <span>Lv：</span>
+        <div class="flex flex-col mb-2">
+          <label>【音動機Lv】</label>
+          <div class="pl-5">
             <select v-model="form.weapon.lv" @change="calcMaterials">
               <option v-for="lv in [0, 10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
             </select>
@@ -60,19 +58,20 @@
               type="checkbox"
               style="margin-left: 1em"
               @change="calcMaterials"
-              :disabled="form.weapon.lv === 60"
+              :disabled="form.weapon.lv === 60 || form.weapon.lv === 0"
             />
             <label for="weapon-breakthrough">突破する</label>
           </div>
         </div>
       </div>
       <div class="require-materials">
-        <h2>必要素材</h2>
-        <div>ディニー：{{ requiredMaterials.money.toLocaleString() }}</div>
-        <div>ｴｷｽﾊﾟｰﾄ素材：{{ requiredMaterials.character.core.expert }}</div>
-        <div>週ボス素材：{{ requiredMaterials.character.core.boss }}</div>
-        <div>ﾊﾑｽﾀｰｹｰｼﾞ：{{ requiredMaterials.character.skillEx }}</div>
-
+        <h2 class="text-xl font-bold">必要素材</h2>
+        <div class="flex flex-wrap">
+          <div class="mr-5">ディニー：{{ requiredMaterials.money.toLocaleString() }}</div>
+          <div class="mr-5">ｴｷｽﾊﾟｰﾄ素材：{{ requiredMaterials.character.core.expert }}</div>
+          <div class="mr-5">週ボス素材：{{ requiredMaterials.character.core.boss }}</div>
+          <div class="mr-5">ﾊﾑｽﾀｰｹｰｼﾞ：{{ requiredMaterials.character.skillEx }}</div>
+        </div>
         <div style="display: flex; flex-wrap: wrap">
           <table>
             <thead>
@@ -134,7 +133,7 @@
     <h2>&lt;Sランクキャラ&gt;</h2>
     <div class="materials">
       <div>
-        <h3>突破素材</h3>
+        <h3 class="font-bold">突破素材</h3>
         <table>
           <thead>
             <tr>
@@ -164,11 +163,15 @@
         <table>
           <thead>
             <tr>
-              <th>Lv</th>
-              <th>必要経験値</th>
+              <th rowspan="2">Lv</th>
+              <th colspan="2">段階ごと</th>
+              <th colspan="2">累計</th>
+            </tr>
+            <tr>
+              <th>経験値</th>
               <th>素材</th>
-              <th>累計経験値</th>
-              <th>累計素材</th>
+              <th>経験値</th>
+              <th>素材</th>
             </tr>
           </thead>
           <tbody>
@@ -273,11 +276,15 @@
         <table>
           <thead>
             <tr>
-              <th>レベル</th>
-              <th>必要経験値</th>
+              <th rowspan="2">Lv</th>
+              <th colspan="2">段階ごと</th>
+              <th colspan="2">累計</th>
+            </tr>
+            <tr>
+              <th>経験値</th>
               <th>素材</th>
-              <th>累計経験値</th>
-              <th>累計素材</th>
+              <th>経験値</th>
+              <th>素材</th>
             </tr>
           </thead>
           <tbody>
@@ -564,6 +571,16 @@ h1,
 h2,
 h3 {
   margin: 0.25em 0;
+  font-weight: bold;
+}
+h1 {
+  font-size: 1.4rem;
+}
+h2 {
+  font-size: 1.2rem;
+}
+h3 {
+  font-size: 1rem;
 }
 hr {
   margin: 0;
@@ -578,12 +595,13 @@ hr {
     .skill {
       display: flex;
       align-items: center;
-      span {
-        margin-right: 0.25em;
+      margin-right: 1em;
+      label {
+        width: 2.5em;
       }
-    }
-    .skill + .skill {
-      margin-left: 0.75em;
+      select {
+        width: 3em;
+      }
     }
   }
 
@@ -613,6 +631,7 @@ table {
 
 .materials {
   font-size: 12px;
+  line-height: 1.2em;
   display: flex;
   flex-wrap: wrap;
   > div {
