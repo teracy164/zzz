@@ -1,5 +1,88 @@
 <template>
   <div>
+    <div class="calculator">
+      <h1>育成計算機</h1>
+      <div class="conditions">
+        <div>
+          <h2>Sキャラ情報</h2>
+        </div>
+        <div style="margin-bottom: 1em">
+          <div style="margin-bottom: 0.5em">
+            <span>キャラLv：</span>
+            <select v-model="form.character.lv" @change="calcMaterials">
+              <option v-for="lv in [10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
+            </select>
+            <input
+              id="character-breakthrough"
+              v-model="form.character.isBreakthrough"
+              type="checkbox"
+              style="margin-left: 1em"
+              @change="calcMaterials"
+              :disabled="form.character.lv === 60"
+            />
+            <label for="character-breakthrough">突破する</label>
+          </div>
+          <div style="margin-bottom: 0.5em; display: flex; align-items: center">
+            <span>スキルLv：</span>
+            <div
+              v-for="item in [
+                { label: '通常', prop: 'basic' },
+                { label: '回避', prop: 'dodge' },
+                { label: '支援', prop: 'assist' },
+                { label: '特殊', prop: 'special' },
+                { label: '連携', prop: 'chain' },
+              ]"
+              class="skill"
+            >
+              <span>{{ item.label }}</span>
+              <select v-model="form.character.skills[item.prop]" @change="calcMaterials">
+                <option v-for="(_, index) in new Array(12)" :value="index + 1">{{ index + 1 }}</option>
+              </select>
+            </div>
+            <!-- <div class="skill">
+              コア
+              <select v-model="form.character.core" @change="calcMaterials">
+                <option v-for="(_, index) in new Array(6)" :value="index + 1">{{ index + 1 }}</option>
+              </select>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="require-materials">
+        <h2>必要素材</h2>
+        <div>ディニー：{{ requiredMaterials.money.toLocaleString() }}</div>
+        <div>
+          <table>
+            <thead>
+              <th>キャラ素材</th>
+              <th style="width: 1.5em">A</th>
+              <th style="width: 1.5em">B</th>
+              <th style="width: 1.5em">C</th>
+            </thead>
+            <tbody>
+              <tr>
+                <th>突破（認証バッジ）</th>
+                <td v-for="rank in ['A', 'B', 'C']">
+                  {{ requiredMaterials.character.breakthrough[rank] }}
+                </td>
+              </tr>
+              <tr>
+                <th>レベル（調査員の記録）</th>
+                <td v-for="rank in ['A', 'B', 'C']">
+                  {{ requiredMaterials.character.lv[rank] }}
+                </td>
+              </tr>
+              <tr>
+                <th>スキル（チップ）</th>
+                <td v-for="rank in ['A', 'B', 'C']">
+                  {{ requiredMaterials.character.skill[rank] }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
     <h1>Sランクキャラ</h1>
     <div class="materials">
       <div>
@@ -33,8 +116,9 @@
         <table>
           <thead>
             <tr>
-              <th>レベル</th>
+              <th>Lv</th>
               <th>必要経験値</th>
+              <th>素材</th>
               <th>累計経験値</th>
               <th>累計素材</th>
             </tr>
@@ -43,8 +127,9 @@
             <tr v-for="item in characterExpList">
               <td>{{ item.lv }}</td>
               <td>{{ item.require }}</td>
-              <td>{{ item.sum }}</td>
-              <td>A x {{ item.materials }}</td>
+              <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
+              <td>{{ item.sumExp }}</td>
+              <td>{{ item.sum.rank }} x {{ item.sum.num }}</td>
             </tr>
           </tbody>
         </table>
@@ -105,7 +190,7 @@
       </div>
     </div>
 
-    <div style="margin-top: 5em"></div>
+    <div style="margin-top: 2em"></div>
 
     <h1>Sランク音動機</h1>
     <div class="materials">
@@ -142,6 +227,7 @@
             <tr>
               <th>レベル</th>
               <th>必要経験値</th>
+              <th>素材</th>
               <th>累計経験値</th>
               <th>累計素材</th>
             </tr>
@@ -150,8 +236,9 @@
             <tr v-for="item in weaponExpList">
               <td>{{ item.lv }}</td>
               <td>{{ item.require }}</td>
-              <td>{{ item.sum }}</td>
-              <td>A x {{ item.materials }}</td>
+              <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
+              <td>{{ item.sumExp }}</td>
+              <td>{{ item.sum.rank }} x {{ item.sum.num }}</td>
             </tr>
           </tbody>
         </table>
@@ -160,6 +247,78 @@
   </div>
 </template>
 <script lang="ts" setup>
+const form = reactive({
+  character: {
+    lv: 10,
+    isBreakthrough: true,
+    skills: {
+      basic: 1,
+      dodge: 1,
+      assist: 1,
+      special: 1,
+      chain: 1,
+    },
+    core: 0,
+  },
+});
+
+const requiredMaterials = reactive({
+  character: {
+    lv: { A: 0, B: 0, C: 0 },
+    breakthrough: { A: 0, B: 0, C: 0 },
+    skill: { A: 0, B: 0, C: 0 },
+  },
+  money: 0,
+});
+
+const calcMaterials = () => {
+  requiredMaterials.money = 0;
+  requiredMaterials.character.lv = { A: 0, B: 0, C: 0 };
+  requiredMaterials.character.breakthrough = { A: 0, B: 0, C: 0 };
+  requiredMaterials.character.skill = { A: 0, B: 0, C: 0 };
+
+  characterBreakthroughList
+    .filter((item) => {
+      if (item.lv < form.character.lv) return true;
+      if (item.lv === form.character.lv) {
+        return form.character.isBreakthrough;
+      }
+      return false;
+    })
+    .forEach((item) => {
+      requiredMaterials.money += item.money;
+      requiredMaterials.character.breakthrough[item.materials.rank] += item.materials.num;
+    });
+
+  characterExpList
+    .filter((item) => {
+      const matches = item.lv.match(/^(\d*)～(\d*)$/);
+      if (matches?.length) {
+        const from = Number(matches[1]);
+        const to = Number(matches[2]);
+        return to <= form.character.lv;
+      }
+      return false;
+    })
+    .forEach((item) => {
+      requiredMaterials.character.lv[item.materials.rank] += item.materials.num;
+    });
+
+  Object.values(form.character.skills).forEach((item) => {
+    console.log(item);
+    skillMaterials
+      .filter((m) => m.lv <= item)
+      .forEach((m) => {
+        requiredMaterials.money += m.money;
+        requiredMaterials.character.skill[m.materials.rank] += m.materials.num;
+      });
+  });
+};
+
+onMounted(() => {
+  calcMaterials();
+});
+
 const characterBreakthroughList = [
   { lv: 10, money: 24000, materials: { rank: 'C', num: 4 } },
   { lv: 20, money: 56000, materials: { rank: 'B', num: 12 } },
@@ -180,8 +339,9 @@ const characterBreakthroughList = [
 type LvMaterial = {
   lv: string;
   require: number;
-  sum: number;
-  materials: number;
+  materials: { rank: string; num: number };
+  sumExp: number;
+  sum: { rank: string; num: number };
 };
 
 const characterExpList: LvMaterial[] = [
@@ -192,12 +352,13 @@ const characterExpList: LvMaterial[] = [
   { lv: '41～50', require: 225000 },
   { lv: '51～60', require: 450000 },
 ].reduce((list, item, index) => {
-  const sum = (list[index - 1]?.sum || 0) + item.require;
-  list.push({
-    ...item,
-    sum,
-    materials: sum / 3000,
-  });
+  const d = { ...item, materials: { rank: 'A', num: Math.ceil(item.require / 3000) }, sumExp: 0, sum: { rank: 'A', num: 0 } };
+  if (index > 0) {
+    d.sumExp = list[index - 1].sumExp;
+  }
+  d.sumExp += d.require;
+  d.sum.num = Math.ceil(d.sumExp / 3000);
+  list.push(d);
   return list;
 }, [] as LvMaterial[]);
 
@@ -226,12 +387,14 @@ const weaponExpList: LvMaterial[] = [
   { lv: '41～50', require: 150000 },
   { lv: '51～60', require: 300000 },
 ].reduce((list, item, index) => {
-  const sum = (list[index - 1]?.sum || 0) + item.require;
-  list.push({
-    ...item,
-    sum,
-    materials: Math.ceil(sum / 3000),
-  });
+  const d = { ...item, materials: { rank: 'A', num: Math.ceil(item.require / 3000) }, sumExp: 0, sum: { rank: 'A', num: 0 } };
+  if (index > 0) {
+    d.sumExp = list[index - 1].sumExp;
+  }
+  d.sumExp += d.require;
+  d.sum.num = Math.ceil(d.sumExp / 3000);
+  list.push(d);
+  return list;
   return list;
 }, [] as LvMaterial[]);
 
@@ -286,12 +449,44 @@ const skillMaterials = [
 </script>
 <style lang="scss" scoped>
 h1,
-h2 {
+h2,
+h3 {
   margin: 0.25em 0;
 }
 hr {
   margin: 0;
 }
+
+.calculator {
+  padding: 0.5em;
+  border: 1px solid white;
+
+  .conditions {
+    border-bottom: 1px solid white;
+    .skill {
+      display: flex;
+      align-items: center;
+      span {
+        margin-right: 0.25em;
+      }
+    }
+    .skill + .skill {
+      margin-left: 0.75em;
+    }
+  }
+
+  .require-materials {
+    td {
+      text-align: center;
+    }
+    tbody {
+      th {
+        text-align: left;
+      }
+    }
+  }
+}
+
 table {
   border-collapse: collapse;
   th,
@@ -308,11 +503,11 @@ table {
   > div {
     margin-right: 1em;
   }
+}
 
-  .sum {
-    .material + .material {
-      margin-left: 0.5em;
-    }
+.sum {
+  .material + .material {
+    margin-left: 0.5em;
   }
 }
 </style>
