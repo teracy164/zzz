@@ -4,7 +4,7 @@
       <h1>育成計算機</h1>
       <div class="conditions">
         <div>
-          <h2>キャラ情報</h2>
+          <h2>&lt;キャラ情報&gt;</h2>
         </div>
         <div style="margin-bottom: 1em">
           <div style="margin-bottom: 0.5em">
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div style="margin-bottom: 1em">
-          <h2>音動機</h2>
+          <h2>&lt;音動機&gt;</h2>
           <div>
             <span>Lv：</span>
             <select v-model="form.weapon.lv" @change="calcMaterials">
@@ -127,10 +127,13 @@
         </div>
       </div>
     </div>
-    <h1>Sランクキャラ</h1>
+
+    <h1 style="margin-top: 2em">必要素材リスト</h1>
+
+    <h2>&lt;Sランクキャラ&gt;</h2>
     <div class="materials">
       <div>
-        <h2>突破素材</h2>
+        <h3>突破素材</h3>
         <table>
           <thead>
             <tr>
@@ -156,7 +159,7 @@
         </table>
       </div>
       <div>
-        <h2>育成素材</h2>
+        <h3>育成素材</h3>
         <table>
           <thead>
             <tr>
@@ -179,7 +182,7 @@
         </table>
       </div>
       <div>
-        <h2>スキル</h2>
+        <h3>スキル</h3>
         <table>
           <thead>
             <tr>
@@ -206,7 +209,7 @@
         </table>
       </div>
       <div style="margin-right: 2em">
-        <h2>コアスキル</h2>
+        <h3>コアスキル</h3>
         <table>
           <thead>
             <tr>
@@ -236,10 +239,10 @@
 
     <div style="margin-top: 2em"></div>
 
-    <h1>Sランク音動機</h1>
+    <h2>&lt;Sランク音動機&gt;</h2>
     <div class="materials">
       <div>
-        <h2>突破素材</h2>
+        <h3>突破素材</h3>
         <table>
           <thead>
             <tr>
@@ -265,7 +268,7 @@
         </table>
       </div>
       <div>
-        <h2>育成素材</h2>
+        <h3>育成素材</h3>
         <table>
           <thead>
             <tr>
