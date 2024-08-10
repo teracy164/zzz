@@ -22,7 +22,7 @@
             />
             <label for="character-breakthrough">突破する</label>
           </div>
-          <div style="margin-bottom: 0.5em; display: flex; align-items: center">
+          <div style="margin-bottom: 0.5em; display: flex; flex-wrap: wrap; align-items: center">
             <span>スキルLv：</span>
             <div
               v-for="item in [
