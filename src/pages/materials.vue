@@ -35,7 +35,7 @@
             >
               <label>
                 {{ item.label }}
-                <img :src="`/_nuxt/assets/images/skills/${item.prop}.png`" />
+                <NuxtImg :src="`/images/skills/${item.prop}.png`" />
               </label>
               <select v-model="form.character.skills[item.prop]" @change="calcMaterials">
                 <option v-for="(_, index) in new Array(12)" :value="index + 1">{{ index + 1 }}</option>
@@ -44,7 +44,7 @@
             <div class="skill">
               <label>
                 コア
-                <img src="/assets/images/skills/core.png" />
+                <img src="/images/skills/core.png" />
               </label>
               <select v-model="form.character.core" @change="calcMaterials">
                 <option v-for="(_, index) in new Array(7)" :value="index">{{ CoreSkillLabels[index] }}</option>
@@ -344,6 +344,10 @@ const requiredMaterials = reactive({
   },
   money: 0,
 });
+
+const getIconPath = (prop: string) => {
+  return `/public/images/skills/${prop}.png`;
+};
 
 const calcMaterials = () => {
   requiredMaterials.money = 0;

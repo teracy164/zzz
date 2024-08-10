@@ -4,7 +4,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   srcDir: './src',
   css: ['@/assets/css/styles.scss'],
-  modules: ['@element-plus/nuxt', '@nuxtjs/sitemap', '@nuxtjs/tailwindcss'],
+  modules: [
+    '@element-plus/nuxt',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/tailwindcss',
+    "@nuxt/image"
+  ],
   elementPlus: {
     /** Options */
   },
