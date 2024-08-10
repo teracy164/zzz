@@ -17,12 +17,13 @@ const description = [
   'ゼンレスゾーンゼロ用のツールです。',
   'ビルドカードの作成ができ、スコア計算にも対応しています。',
   'また、キャラ・武器を育成するための素材の数を確認することできます。',
-  'zenless zone zero build card and calculate score',
+  'zenless zone zero build card and calculate score.',
+  'materials list. and materials calculator',
 ].join('\n');
 
 useSeoMeta({
-  title: 'ZZZ Build Card Creator',
-  ogTitle: 'ZZZ Build Card Creator',
+  title: 'ZZZ Tools | ゼンレスゾーンゼロツール',
+  ogTitle: 'ZZZ Tools | ゼンレスゾーンゼロツール',
   description,
   ogDescription: description,
 });

@@ -4,7 +4,7 @@
       <h1>育成計算機</h1>
       <div class="conditions">
         <div>
-          <h2>Sキャラ情報</h2>
+          <h2>キャラ情報</h2>
         </div>
         <div style="margin-bottom: 1em">
           <div style="margin-bottom: 0.5em">
@@ -47,6 +47,24 @@
             </div>
           </div>
         </div>
+        <div style="margin-bottom: 1em">
+          <h2>音動機</h2>
+          <div>
+            <span>Lv：</span>
+            <select v-model="form.weapon.lv" @change="calcMaterials">
+              <option v-for="lv in [0, 10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
+            </select>
+            <input
+              id="weapon-breakthrough"
+              v-model="form.weapon.isBreakthrough"
+              type="checkbox"
+              style="margin-left: 1em"
+              @change="calcMaterials"
+              :disabled="form.weapon.lv === 60"
+            />
+            <label for="weapon-breakthrough">突破する</label>
+          </div>
+        </div>
       </div>
       <div class="require-materials">
         <h2>必要素材</h2>
@@ -54,7 +72,7 @@
         <div>ｴｷｽﾊﾟｰﾄ素材：{{ requiredMaterials.character.core.expert }}</div>
         <div>週ボス素材：{{ requiredMaterials.character.core.boss }}</div>
 
-        <div>
+        <div style="display: flex; flex-wrap: wrap">
           <table>
             <thead>
               <th>キャラ素材</th>
@@ -79,6 +97,29 @@
                 <th>スキル（チップ）</th>
                 <td v-for="rank in ['A', 'B', 'C']">
                   {{ requiredMaterials.character.skill[rank] }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table>
+            <thead>
+              <th>音動機素材</th>
+              <th style="width: 1.5em">A</th>
+              <th style="width: 1.5em">B</th>
+              <th style="width: 1.5em">C</th>
+            </thead>
+            <tbody>
+              <tr>
+                <th>突破（キット）</th>
+                <td v-for="rank in ['A', 'B', 'C']">
+                  {{ requiredMaterials.weapon.breakthrough[rank] }}
+                </td>
+              </tr>
+              <tr>
+                <th>レベル（電池）</th>
+                <td v-for="rank in ['A', 'B', 'C']">
+                  {{ requiredMaterials.weapon.lv[rank] }}
                 </td>
               </tr>
             </tbody>
@@ -263,6 +304,10 @@ const form = reactive({
     },
     core: 0,
   },
+  weapon: {
+    lv: 0,
+    isBreakthrough: true,
+  },
 });
 
 const requiredMaterials = reactive({
@@ -275,6 +320,10 @@ const requiredMaterials = reactive({
       boss: 0,
     },
   },
+  weapon: {
+    lv: { A: 0, B: 0, C: 0 },
+    breakthrough: { A: 0, B: 0, C: 0 },
+  },
   money: 0,
 });
 
@@ -284,6 +333,8 @@ const calcMaterials = () => {
   requiredMaterials.character.breakthrough = { A: 0, B: 0, C: 0 };
   requiredMaterials.character.skill = { A: 0, B: 0, C: 0 };
   requiredMaterials.character.core = { expert: 0, boss: 0 };
+  requiredMaterials.weapon.lv = { A: 0, B: 0, C: 0 };
+  requiredMaterials.weapon.breakthrough = { A: 0, B: 0, C: 0 };
 
   characterBreakthroughList
     .filter((item) => {
@@ -327,6 +378,33 @@ const calcMaterials = () => {
       requiredMaterials.money += item.money;
       requiredMaterials.character.core.expert += item.expert;
       requiredMaterials.character.core.boss += item.boss;
+    });
+
+  weaponBreakthroughList
+    .filter((item) => {
+      if (item.lv < form.weapon.lv) return true;
+      if (item.lv === form.weapon.lv) {
+        return form.weapon.isBreakthrough;
+      }
+      return false;
+    })
+    .forEach((item) => {
+      requiredMaterials.money += item.money;
+      requiredMaterials.weapon.breakthrough[item.materials.rank] += item.materials.num;
+    });
+
+  weaponExpList
+    .filter((item) => {
+      const matches = item.lv.match(/^(\d*)～(\d*)$/);
+      if (matches?.length) {
+        const from = Number(matches[1]);
+        const to = Number(matches[2]);
+        return to <= form.weapon.lv;
+      }
+      return false;
+    })
+    .forEach((item) => {
+      requiredMaterials.weapon.lv[item.materials.rank] += item.materials.num;
     });
 };
 
@@ -501,6 +579,9 @@ hr {
   }
 
   .require-materials {
+    table {
+      margin: 0.5em;
+    }
     td {
       text-align: center;
     }
