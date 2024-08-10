@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <Header class="no-print" />
-    <main>
-      <div class="main-contents">
-        <NuxtPage />
-      </div>
-      <div class="no-print" style="text-align: center; margin: 2em 0; font-size: 0.7em">
-        <el-link type="primary" size="small" href="https://x.com/teracy164" target="_blank"> 問い合わせはX（旧Twitter）まで </el-link>
-        <div>Created by teracy</div>
-      </div>
+  <div class="flex flex-col h-full">
+    <Header style="height: 3em; min-height: 3em; max-height: 3em" class="no-print" />
+    <main class="grow overflow-auto p-3">
+      <NuxtPage />
     </main>
+    <div class="no-print text-center my-2" style="font-size: 0.7rem">
+      <el-link type="primary" size="small" href="https://x.com/teracy164" target="_blank"> 問い合わせはX（旧Twitter）まで </el-link>
+      <div>Created by teracy</div>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>

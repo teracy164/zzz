@@ -1,9 +1,12 @@
 <template>
   <div class="header" style="height: 3em">
-    <div style="display: flex">
-      <div class="logo" @click="navigateTo('/')">ZZZ Tools</div>
+    <div class="flex items-center">
+      <div class="logo font-bold text-lg" @click="navigateTo('/')">ZZZ<span class="hidden md:inline"> Tools</span></div>
       <div class="menu-item">
-        <NuxtLink to="/materials">素材</NuxtLink>
+        <NuxtLink to="/build">ビルド<span class="hidden md:inline">カード</span></NuxtLink>
+      </div>
+      <div class="menu-item">
+        <NuxtLink to="/materials">育成<span class="hidden md:inline">計算機</span></NuxtLink>
       </div>
     </div>
     <div style="text-align: right; font-size: 0.7em">
@@ -35,14 +38,19 @@
     cursor: pointer;
   }
   .logo:hover {
-    background-color: #999;
+    background-color: #333;
   }
   .menu-item {
     margin: 0 0.5em;
+    padding: 0 0.5em;
+    border-radius: 5px;
     a {
       text-decoration: none;
       color: white;
     }
+  }
+  .menu-item:hover {
+    background-color: #333;
   }
 }
 </style>

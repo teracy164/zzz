@@ -2,6 +2,11 @@ html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+#__nuxt {
+  height: 100%;
 }
 
 body {
@@ -25,6 +30,12 @@ select {
   color: black;
 }
 
+.card {
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 1em;
+}
+
 @page {
   size: landscape;
 }
@@ -36,9 +47,9 @@ select {
     height: 100vh;
     display: flex;
     align-items: center;
-
-    .main-contents {
-      flex-grow: 1;
+    flex-grow: 1;
+    > div {
+      width: 100%;
     }
   }
   .avatar-card {
