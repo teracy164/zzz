@@ -33,13 +33,19 @@
               ]"
               class="skill"
             >
-              <label>{{ item.label }}</label>
+              <label>
+                {{ item.label }}
+                <img :src="`/_nuxt/assets/images/skills/${item.prop}.png`" />
+              </label>
               <select v-model="form.character.skills[item.prop]" @change="calcMaterials">
                 <option v-for="(_, index) in new Array(12)" :value="index + 1">{{ index + 1 }}</option>
               </select>
             </div>
             <div class="skill">
-              <label>コア</label>
+              <label>
+                コア
+                <img src="/assets/images/skills/core.png" />
+              </label>
               <select v-model="form.character.core" @change="calcMaterials">
                 <option v-for="(_, index) in new Array(7)" :value="index">{{ CoreSkillLabels[index] }}</option>
               </select>
@@ -597,10 +603,16 @@ hr {
       align-items: center;
       margin-right: 1em;
       label {
-        width: 2.5em;
+        width: 4em;
+        display: flex;
+
+        img {
+          width: 1.5em;
+          height: 1.5em;
+        }
       }
       select {
-        width: 3em;
+        width: 2.5em;
       }
     }
   }
