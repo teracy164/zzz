@@ -52,6 +52,19 @@
 import type { ZzzAvatar, ZzzData } from '@/types/zzz';
 import type { StorageHistoryItem } from '@/types/storage';
 
+const description = [
+  'ゼンレスゾーンゼロ用のビルドカード生成ツールです。',
+  'キャラの育成データを整形して表示します。',
+  'ドライバのスコア計算も合わせて行います。',
+].join('\n');
+
+useSeoMeta({
+  title: 'ビルドカード | ゼンレスゾーンゼロ | ゼンゼロ',
+  ogTitle: 'ビルドカード | ゼンレスゾーンゼロ | ゼンゼロ',
+  description,
+  ogDescription: description,
+});
+
 const { $zzz } = useNuxtApp();
 
 const json = ref<string>('');
