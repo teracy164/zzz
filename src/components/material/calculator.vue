@@ -342,7 +342,7 @@ onMounted(() => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          width: 4.5em;
+          width: 6em;
 
           img {
             width: 1.2em;
