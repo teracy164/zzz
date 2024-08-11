@@ -72,7 +72,13 @@
     <div class="require-materials">
       <h2 class="text-xl font-bold">必要素材</h2>
       <div class="flex flex-wrap">
-        <div class="mr-5">ディニー：{{ requiredMaterials.money.toLocaleString() }}</div>
+        <div class="mr-5">
+          <p class="flex items-center">
+            <NuxtImg src="/images/denny.webp" style="width: 1em; height: 1em" />
+            <span class="mx-1">x</span>
+            {{ requiredMaterials.money.toLocaleString() }}
+          </p>
+        </div>
         <div class="mr-5">ｴｷｽﾊﾟｰﾄ素材：{{ requiredMaterials.character.core.expert }}</div>
         <div class="mr-5">週ボス素材：{{ requiredMaterials.character.core.boss }}</div>
         <div class="mr-5">ﾊﾑｽﾀｰｹｰｼﾞ：{{ requiredMaterials.character.skillEx }}</div>
@@ -87,19 +93,34 @@
           </thead>
           <tbody>
             <tr>
-              <th>突破（認証バッジ）</th>
+              <th>
+                <div>
+                  突破
+                  <NuxtImg src="/images/materials/badge_A.webp" />
+                </div>
+              </th>
               <td v-for="rank in ['A', 'B', 'C']">
                 {{ requiredMaterials.character.breakthrough[rank] }}
               </td>
             </tr>
             <tr>
-              <th>レベル（調査員の記録）</th>
+              <th>
+                <div>
+                  レベル
+                  <NuxtImg src="/images/materials/character_A.webp" />
+                </div>
+              </th>
               <td v-for="rank in ['A', 'B', 'C']">
                 {{ requiredMaterials.character.lv[rank] }}
               </td>
             </tr>
             <tr>
-              <th>スキル（チップ）</th>
+              <th>
+                <div>
+                  スキル
+                  <NuxtImg src="/images/materials/tip.webp" />
+                </div>
+              </th>
               <td v-for="rank in ['A', 'B', 'C']">
                 {{ requiredMaterials.character.skill[rank] }}
               </td>
@@ -116,13 +137,23 @@
           </thead>
           <tbody>
             <tr>
-              <th>突破（キット）</th>
+              <th>
+                <div>
+                  突破
+                  <NuxtImg src="/images/materials/kit.webp" />
+                </div>
+              </th>
               <td v-for="rank in ['A', 'B', 'C']">
                 {{ requiredMaterials.weapon.breakthrough[rank] }}
               </td>
             </tr>
             <tr>
-              <th>レベル（電池）</th>
+              <th>
+                <div>
+                  レベル
+                  <NuxtImg src="/images/materials/weapon_A.webp" />
+                </div>
+              </th>
               <td v-for="rank in ['A', 'B', 'C']">
                 {{ requiredMaterials.weapon.lv[rank] }}
               </td>
@@ -307,6 +338,17 @@ onMounted(() => {
     tbody {
       th {
         text-align: left;
+        > div {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 4.5em;
+
+          img {
+            width: 1.2em;
+            height: 1.2em;
+          }
+        }
       }
     }
   }
