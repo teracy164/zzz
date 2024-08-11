@@ -1,3 +1,7 @@
+/*
+  公式データの型を定義
+*/
+
 /** ゼンゼロ戦績ページのJSONデータ */
 export interface ZzzData {
   avatar_list: ZzzAvatar[];

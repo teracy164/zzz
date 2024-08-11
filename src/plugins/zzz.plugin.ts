@@ -1,3 +1,4 @@
+import type { MaterialBreakthrough, MaterialLevelUp } from '~/types/material';
 import type { StorageHistoryItem } from '~/types/storage';
 import type { ZzzAvatar, ZzzEquip, ZzzScore } from '~/types/zzz';
 
@@ -130,6 +131,206 @@ export class ZzzPlugin {
       return this.adjustScore(Number(matches[1]));
     }
     return 0;
+  }
+
+  /** キャラの育成素材一覧を取得 */
+  getCharacterMaterials(rank: 'S' | 'A' = 'S') {
+    return {
+      breakthrough: this.getCharacterBreakthroughMaterials(rank),
+      exp: this.getCharacterExpMaterials(rank),
+      skill: this.getCharacterSkillMaterials(rank),
+      core: this.getCharacterCoreSkillMaterials(rank),
+    };
+  }
+
+  /** キャラ突破素材一覧を取得 */
+  getCharacterBreakthroughMaterials(rank: 'S' | 'A' = 'S') {
+    const table = {
+      S: [
+        { lv: 10, money: 24000, materials: { rank: 'C', num: 4 } },
+        { lv: 20, money: 56000, materials: { rank: 'B', num: 12 } },
+        { lv: 30, money: 120000, materials: { rank: 'B', num: 20 } },
+        { lv: 40, money: 200000, materials: { rank: 'A', num: 10 } },
+        { lv: 50, money: 400000, materials: { rank: 'A', num: 20 } },
+      ],
+      // TODO
+      // A: [],
+    };
+
+    return table[rank].reduce((list, item, index) => {
+      const d: MaterialBreakthrough = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } };
+      if (index > 0) {
+        // ひとつ前の累計情報をコピー
+        Object.assign(d.sum, list[index - 1].sum);
+      }
+      d.sum[item.materials.rank] += item.materials.num;
+      d.sum.money += item.money;
+      return list.concat(d);
+    }, [] as MaterialBreakthrough[]);
+  }
+
+  /** キャラの経験値素材一覧を取得 */
+  getCharacterExpMaterials(rank: 'S' | 'A' = 'S') {
+    const table = {
+      S: [
+        { lv: '0～10', require: 6000 },
+        { lv: '11～20', require: 24000 },
+        { lv: '21～30', require: 60000 },
+        { lv: '31～40', require: 135000 },
+        { lv: '41～50', require: 225000 },
+        { lv: '51～60', require: 450000 },
+      ],
+      // TODO
+      // A: [],
+    };
+    return table[rank].reduce((list, item, index) => {
+      const d: MaterialLevelUp = {
+        ...item,
+        materials: { rank: 'A', num: Math.ceil(item.require / 3000) },
+        sumExp: 0,
+        sum: { rank: 'A', num: 0 },
+      };
+      if (index > 0) {
+        d.sumExp = list[index - 1].sumExp;
+      }
+      d.sumExp += d.require;
+      d.sum.num = Math.ceil(d.sumExp / 3000);
+      list.push(d);
+      return list;
+    }, [] as MaterialLevelUp[]);
+  }
+
+  /** キャラのスキル素材一覧を取得 */
+  getCharacterSkillMaterials(rank: 'S' | 'A' = 'S') {
+    const table = {
+      S: [
+        { lv: 2, money: 2000, materials: { rank: 'C', num: 2 } },
+        { lv: 3, money: 3000, materials: { rank: 'C', num: 3 } },
+        { lv: 4, money: 6000, materials: { rank: 'B', num: 2 } },
+        { lv: 5, money: 9000, materials: { rank: 'B', num: 3 } },
+        { lv: 6, money: 12000, materials: { rank: 'B', num: 4 } },
+        { lv: 7, money: 18000, materials: { rank: 'B', num: 6 } },
+        { lv: 8, money: 45000, materials: { rank: 'A', num: 5 } },
+        { lv: 9, money: 67500, materials: { rank: 'A', num: 8 } },
+        { lv: 10, money: 90000, materials: { rank: 'A', num: 10 } },
+        { lv: 11, money: 112500, materials: { rank: 'A', num: 12 } },
+        { lv: 12, money: 135000, materials: { rank: 'A', num: 15 }, ex: 1 },
+      ],
+      // A: [],
+    };
+    return table[rank].reduce((list, item, index) => {
+      const d = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } };
+      if (index > 0) {
+        // ひとつ前の累計情報をコピー
+        Object.assign(d.sum, list[index - 1].sum);
+      }
+      d.sum[item.materials.rank] += item.materials.num;
+      d.sum.money += item.money;
+      return list.concat(d);
+    }, [] as any[]);
+  }
+
+  /** キャラのコアスキル素材一覧を取得 */
+  getCharacterCoreSkillMaterials(rank: 'S' | 'A' = 'S') {
+    const table = {
+      S: [
+        { lv: 1, money: 5000, expert: 0, boss: 0 },
+        { lv: 2, money: 12000, expert: 2, boss: 0 },
+        { lv: 3, money: 28000, expert: 4, boss: 0 },
+        { lv: 4, money: 60000, expert: 9, boss: 2 },
+        { lv: 5, money: 100000, expert: 15, boss: 3 },
+        { lv: 6, money: 200000, expert: 30, boss: 4 },
+      ],
+      // TODO
+      // A: [],
+    };
+    return table[rank].reduce((list, item, index) => {
+      const d = { ...item, no: this.toCoreSkillLavel(item.lv), sum: { money: 0, expert: 0, boss: 0 } };
+      if (index > 0) {
+        // ひとつ前の累計情報をコピー
+        Object.assign(d.sum, list[index - 1].sum);
+      }
+      d.sum.money += item.money;
+      d.sum.expert += item.expert;
+      d.sum.boss += item.boss;
+
+      return list.concat(d);
+    }, []);
+  }
+
+  /** 武器の育成素材一覧を取得 */
+  getWeaponMaterials(rank: 'S' | 'A' = 'S') {
+    return {
+      breakthrough: this.getWeaponBreakthroughMaterials(rank),
+      exp: this.getWeaponExpMaterials(rank),
+    };
+  }
+
+  /** 武器突破素材一覧を取得 */
+  getWeaponBreakthroughMaterials(rank: 'S' | 'A' = 'S') {
+    const table = {
+      S: [
+        { lv: 10, money: 12000, materials: { rank: 'C', num: 4 } },
+        { lv: 20, money: 28000, materials: { rank: 'B', num: 12 } },
+        { lv: 30, money: 60000, materials: { rank: 'B', num: 20 } },
+        { lv: 40, money: 100000, materials: { rank: 'A', num: 10 } },
+        { lv: 50, money: 200000, materials: { rank: 'A', num: 20 } },
+      ],
+      // TODO
+      // A: [],
+    };
+    return table[rank].reduce((list, item, index) => {
+      const d: MaterialBreakthrough = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } };
+      if (index > 0) {
+        // ひとつ前の累計情報をコピー
+        Object.assign(d.sum, list[index - 1].sum);
+      }
+      d.sum[item.materials.rank] += item.materials.num;
+      d.sum.money += item.money;
+      return list.concat(d);
+    }, [] as MaterialBreakthrough[]);
+  }
+
+  /** 武器の経験値素材一覧 */
+  getWeaponExpMaterials(rank: 'S' | 'A') {
+    const table = {
+      S: [
+        { lv: '0～10', require: 4000 },
+        { lv: '11～20', require: 16000 },
+        { lv: '21～30', require: 40000 },
+        { lv: '31～40', require: 90000 },
+        { lv: '41～50', require: 150000 },
+        { lv: '51～60', require: 300000 },
+      ],
+      // TODO
+      // A: [],
+    };
+
+    return table[rank].reduce((list, item, index) => {
+      const d = { ...item, materials: { rank: 'A', num: Math.ceil(item.require / 3000) }, sumExp: 0, sum: { rank: 'A', num: 0 } };
+      if (index > 0) {
+        d.sumExp = list[index - 1].sumExp;
+      }
+      d.sumExp += d.require;
+      d.sum.num = Math.ceil(d.sumExp / 3000);
+      list.push(d);
+      return list;
+      return list;
+    }, [] as MaterialLevelUp[]);
+  }
+
+  /** コアスキルのインデックスからA～Fのラベルに変換 */
+  toCoreSkillLavel(index: number) {
+    const labels = {
+      0: '',
+      1: 'A',
+      2: 'B',
+      3: 'C',
+      4: 'D',
+      5: 'E',
+      6: 'F',
+    };
+    return labels[index];
   }
 }
 
