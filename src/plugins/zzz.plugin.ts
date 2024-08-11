@@ -1,4 +1,4 @@
-import type { MaterialBreakthrough, MaterialLevelUp } from '~/types/material';
+import type { MaterialBreakthrough, MaterialExp } from '~/types/material';
 import type { StorageHistoryItem } from '~/types/storage';
 import type { ZzzAvatar, ZzzEquip, ZzzScore } from '~/types/zzz';
 
@@ -184,7 +184,7 @@ export class ZzzPlugin {
       // A: [],
     };
     return table[rank].reduce((list, item, index) => {
-      const d: MaterialLevelUp = {
+      const d: MaterialExp = {
         ...item,
         materials: { rank: 'A', num: Math.ceil(item.require / 3000) },
         sumExp: 0,
@@ -197,7 +197,7 @@ export class ZzzPlugin {
       d.sum.num = Math.ceil(d.sumExp / 3000);
       list.push(d);
       return list;
-    }, [] as MaterialLevelUp[]);
+    }, [] as MaterialExp[]);
   }
 
   /** キャラのスキル素材一覧を取得 */
@@ -316,7 +316,7 @@ export class ZzzPlugin {
       list.push(d);
       return list;
       return list;
-    }, [] as MaterialLevelUp[]);
+    }, [] as MaterialExp[]);
   }
 
   /** コアスキルのインデックスからA～Fのラベルに変換 */

@@ -76,12 +76,12 @@
           <p class="flex items-center">
             <NuxtImg src="/images/denny.webp" style="width: 1em; height: 1em" />
             <span class="mx-1">x</span>
-            {{ requiredMaterials.money.toLocaleString() }}
+            {{ result.money.toLocaleString() }}
           </p>
         </div>
-        <div class="mr-5">ｴｷｽﾊﾟｰﾄ素材：{{ requiredMaterials.character.core.expert }}</div>
-        <div class="mr-5">週ボス素材：{{ requiredMaterials.character.core.boss }}</div>
-        <div class="mr-5">ﾊﾑｽﾀｰｹｰｼﾞ：{{ requiredMaterials.character.skillEx }}</div>
+        <div class="mr-5">ｴｷｽﾊﾟｰﾄ素材：{{ result.character.core.expert }}</div>
+        <div class="mr-5">週ボス素材：{{ result.character.core.boss }}</div>
+        <div class="mr-5">ﾊﾑｽﾀｰｹｰｼﾞ：{{ result.character.skillEx }}</div>
       </div>
       <div style="display: flex; flex-wrap: wrap">
         <table class="border">
@@ -100,7 +100,7 @@
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
-                {{ requiredMaterials.character.breakthrough[rank] }}
+                {{ result.character.breakthrough[rank] }}
               </td>
             </tr>
             <tr>
@@ -111,7 +111,7 @@
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
-                {{ requiredMaterials.character.lv[rank] }}
+                {{ result.character.lv[rank] }}
               </td>
             </tr>
             <tr>
@@ -122,7 +122,7 @@
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
-                {{ requiredMaterials.character.skill[rank] }}
+                {{ result.character.skill[rank] }}
               </td>
             </tr>
           </tbody>
@@ -144,7 +144,7 @@
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
-                {{ requiredMaterials.weapon.breakthrough[rank] }}
+                {{ result.weapon.breakthrough[rank] }}
               </td>
             </tr>
             <tr>
@@ -155,7 +155,7 @@
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
-                {{ requiredMaterials.weapon.lv[rank] }}
+                {{ result.weapon.lv[rank] }}
               </td>
             </tr>
           </tbody>
@@ -165,137 +165,107 @@
   </div>
 </template>
 <script lang="ts" setup>
+import type { MaterialExp, MaterialBreakthrough } from '@/types/material';
+
 const { $zzz } = useNuxtApp();
 
 const form = reactive({
   character: {
     lv: 10,
     isBreakthrough: true,
-    skills: {
-      basic: 1,
-      dodge: 1,
-      assist: 1,
-      special: 1,
-      chain: 1,
-    },
+    skills: { basic: 1, dodge: 1, assist: 1, special: 1, chain: 1 },
     core: 0,
   },
-  weapon: {
-    lv: 0,
-    isBreakthrough: true,
-  },
+  weapon: { lv: 0, isBreakthrough: true },
 });
 
-const requiredMaterials = reactive({
+const result = reactive({
   character: {
     lv: { A: 0, B: 0, C: 0 },
     breakthrough: { A: 0, B: 0, C: 0 },
     skill: { A: 0, B: 0, C: 0 },
     skillEx: 0,
-    core: {
-      expert: 0,
-      boss: 0,
-    },
+    core: { expert: 0, boss: 0 },
   },
-  weapon: {
-    lv: { A: 0, B: 0, C: 0 },
-    breakthrough: { A: 0, B: 0, C: 0 },
-  },
+  weapon: { lv: { A: 0, B: 0, C: 0 }, breakthrough: { A: 0, B: 0, C: 0 } },
   money: 0,
 });
 
-const getIconPath = (prop: string) => {
-  return `/public/images/skills/${prop}.png`;
-};
-
 const calcMaterials = () => {
-  requiredMaterials.money = 0;
-  requiredMaterials.character.lv = { A: 0, B: 0, C: 0 };
-  requiredMaterials.character.breakthrough = { A: 0, B: 0, C: 0 };
-  requiredMaterials.character.skill = { A: 0, B: 0, C: 0 };
-  requiredMaterials.character.skillEx = 0;
-  requiredMaterials.character.core = { expert: 0, boss: 0 };
-  requiredMaterials.weapon.lv = { A: 0, B: 0, C: 0 };
-  requiredMaterials.weapon.breakthrough = { A: 0, B: 0, C: 0 };
+  result.money = 0;
+  result.character.lv = { A: 0, B: 0, C: 0 };
+  result.character.breakthrough = { A: 0, B: 0, C: 0 };
+  result.character.skill = { A: 0, B: 0, C: 0 };
+  result.character.skillEx = 0;
+  result.character.core = { expert: 0, boss: 0 };
+  result.weapon.lv = { A: 0, B: 0, C: 0 };
+  result.weapon.breakthrough = { A: 0, B: 0, C: 0 };
 
   const materials = {
     character: $zzz.getCharacterMaterials('S'),
     weapon: $zzz.getWeaponMaterials('S'),
   };
 
-  materials.character.breakthrough
-    .filter((item) => {
-      if (item.lv < form.character.lv) return true;
-      if (item.lv === form.character.lv) {
-        return form.character.isBreakthrough;
-      }
-      return false;
-    })
-    .forEach((item) => {
-      requiredMaterials.money += item.money;
-      requiredMaterials.character.breakthrough[item.materials.rank] += item.materials.num;
-    });
-
-  materials.character.exp
-    .filter((item) => {
+  const filterExp = (list: MaterialExp[], lv: number) => {
+    return list.filter((item) => {
       const matches = item.lv.match(/^(\d*)～(\d*)$/);
-      if (matches?.length) {
-        const from = Number(matches[1]);
-        const to = Number(matches[2]);
-        return to <= form.character.lv;
+      const to = matches?.length > 2 ? Number(matches[2]) : 0;
+      return to <= lv;
+    });
+  };
+
+  const filterBreakthrough = (list: MaterialBreakthrough[], lv: number, includeBreakthrough: boolean) => {
+    return list.filter((item) => {
+      if (item.lv < lv) return true;
+      if (item.lv === lv) {
+        return includeBreakthrough;
       }
       return false;
-    })
-    .forEach((item) => {
-      requiredMaterials.character.lv[item.materials.rank] += item.materials.num;
     });
+  };
 
+  // キャラ突破素材の算出
+  filterBreakthrough(materials.character.breakthrough, form.character.lv, form.character.isBreakthrough).forEach((item) => {
+    result.money += item.money;
+    result.character.breakthrough[item.materials.rank] += item.materials.num;
+  });
+
+  // キャラレベル素材の算出
+  filterExp(materials.character.exp, form.character.lv).forEach((item) => (result.character.lv[item.materials.rank] += item.materials.num));
+
+  // キャラスキル素材の算出
   Object.values(form.character.skills).forEach((item) => {
     materials.character.skill
       .filter((m) => m.lv <= item)
       .forEach((m) => {
-        requiredMaterials.money += m.money;
-        requiredMaterials.character.skill[m.materials.rank] += m.materials.num;
+        result.money += m.money;
+        result.character.skill[m.materials.rank] += m.materials.num;
         if (m.ex) {
-          requiredMaterials.character.skillEx += m.ex;
+          result.character.skillEx += m.ex;
         }
       });
   });
 
+  // キャラコアスキル素材の算出
   materials.character.core
     .filter((item) => item.lv <= form.character.core)
     .forEach((item) => {
-      requiredMaterials.money += item.money;
-      requiredMaterials.character.core.expert += item.expert;
-      requiredMaterials.character.core.boss += item.boss;
+      result.money += item.money;
+      result.character.core.expert += item.expert;
+      result.character.core.boss += item.boss;
     });
 
-  materials.weapon.breakthrough
-    .filter((item) => {
-      if (item.lv < form.weapon.lv) return true;
-      if (item.lv === form.weapon.lv) {
-        return form.weapon.isBreakthrough;
-      }
-      return false;
-    })
-    .forEach((item) => {
-      requiredMaterials.money += item.money;
-      requiredMaterials.weapon.breakthrough[item.materials.rank] += item.materials.num;
-    });
+  // 武器突破素材の算出
+  filterBreakthrough(materials.weapon.breakthrough, form.weapon.lv, form.weapon.isBreakthrough).forEach((item) => {
+    result.money += item.money;
+    result.weapon.breakthrough[item.materials.rank] += item.materials.num;
+  });
 
-  materials.weapon.exp
-    .filter((item) => {
-      const matches = item.lv.match(/^(\d*)～(\d*)$/);
-      if (matches?.length) {
-        const from = Number(matches[1]);
-        const to = Number(matches[2]);
-        return to <= form.weapon.lv;
-      }
-      return false;
-    })
-    .forEach((item) => {
-      requiredMaterials.weapon.lv[item.materials.rank] += item.materials.num;
-    });
+  // 武器レベル素材の算出
+  filterExp(materials.weapon.exp, form.weapon.lv).forEach((item) => {
+    // 武器経験値は段階によって小数点が出るため、段階ごとの素材数を加算せず合計から算出する
+    result.weapon.lv[item.materials.rank] = Math.ceil(item.sumExp / 3000);
+  });
 };
 
 onMounted(() => {
@@ -332,9 +302,6 @@ onMounted(() => {
     table {
       margin: 0.5em;
     }
-    td {
-      text-align: center;
-    }
     tbody {
       th {
         text-align: left;
@@ -349,6 +316,10 @@ onMounted(() => {
             height: 1.2em;
           }
         }
+      }
+      td {
+        text-align: center;
+        width: 2.5em;
       }
     }
   }
