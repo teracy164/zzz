@@ -171,12 +171,12 @@ const { $zzz } = useNuxtApp();
 
 const form = reactive({
   character: {
-    lv: 10,
+    lv: 60,
     isBreakthrough: true,
-    skills: { basic: 1, dodge: 1, assist: 1, special: 1, chain: 1 },
-    core: 0,
+    skills: { basic: 8, dodge: 8, assist: 8, special: 8, chain: 8 },
+    core: 3,
   },
-  weapon: { lv: 0, isBreakthrough: true },
+  weapon: { lv: 60, isBreakthrough: true },
 });
 
 const result = reactive({
