@@ -1,4 +1,4 @@
-import type { MaterialBreakthrough, MaterialExp } from '~/types/material';
+import type { MaterialBreakthrough, MaterialCoreSkill, MaterialExp, MaterialSkill } from '~/types/material';
 import type { StorageHistoryItem } from '~/types/storage';
 import type { ZzzAvatar, ZzzEquip, ZzzScore } from '~/types/zzz';
 
@@ -144,8 +144,8 @@ export class ZzzPlugin {
   }
 
   /** キャラ突破素材一覧を取得 */
-  getCharacterBreakthroughMaterials(rank: 'S' | 'A' = 'S') {
-    const table = {
+  getCharacterBreakthroughMaterials(rank: 'S' | 'A' = 'S'): MaterialBreakthrough[] {
+    const table: { [rank: string]: Partial<MaterialBreakthrough>[] } = {
       S: [
         { lv: 10, money: 24000, materials: { rank: 'C', num: 4 } },
         { lv: 20, money: 56000, materials: { rank: 'B', num: 12 } },
@@ -158,7 +158,7 @@ export class ZzzPlugin {
     };
 
     return table[rank].reduce((list, item, index) => {
-      const d: MaterialBreakthrough = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } };
+      const d = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } } as MaterialBreakthrough;
       if (index > 0) {
         // ひとつ前の累計情報をコピー
         Object.assign(d.sum, list[index - 1].sum);
@@ -170,8 +170,8 @@ export class ZzzPlugin {
   }
 
   /** キャラの経験値素材一覧を取得 */
-  getCharacterExpMaterials(rank: 'S' | 'A' = 'S') {
-    const table = {
+  getCharacterExpMaterials(rank: 'S' | 'A' = 'S'): MaterialExp[] {
+    const table: { [rank: string]: Partial<MaterialExp>[] } = {
       S: [
         { lv: '0～10', require: 6000 },
         { lv: '11～20', require: 24000 },
@@ -184,12 +184,12 @@ export class ZzzPlugin {
       // A: [],
     };
     return table[rank].reduce((list, item, index) => {
-      const d: MaterialExp = {
+      const d = {
         ...item,
         materials: { rank: 'A', num: Math.ceil(item.require / 3000) },
         sumExp: 0,
         sum: { rank: 'A', num: 0 },
-      };
+      } as MaterialExp;
       if (index > 0) {
         d.sumExp = list[index - 1].sumExp;
       }
@@ -202,7 +202,7 @@ export class ZzzPlugin {
 
   /** キャラのスキル素材一覧を取得 */
   getCharacterSkillMaterials(rank: 'S' | 'A' = 'S') {
-    const table = {
+    const table: { [rank: string]: Partial<MaterialSkill>[] } = {
       S: [
         { lv: 2, money: 2000, materials: { rank: 'C', num: 2 } },
         { lv: 3, money: 3000, materials: { rank: 'C', num: 3 } },
@@ -219,7 +219,7 @@ export class ZzzPlugin {
       // A: [],
     };
     return table[rank].reduce((list, item, index) => {
-      const d = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } };
+      const d = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } } as MaterialSkill;
       if (index > 0) {
         // ひとつ前の累計情報をコピー
         Object.assign(d.sum, list[index - 1].sum);
@@ -227,12 +227,12 @@ export class ZzzPlugin {
       d.sum[item.materials.rank] += item.materials.num;
       d.sum.money += item.money;
       return list.concat(d);
-    }, [] as any[]);
+    }, [] as MaterialSkill[]);
   }
 
   /** キャラのコアスキル素材一覧を取得 */
   getCharacterCoreSkillMaterials(rank: 'S' | 'A' = 'S') {
-    const table = {
+    const table: { [rank: string]: Partial<MaterialCoreSkill>[] } = {
       S: [
         { lv: 1, money: 5000, expert: 0, boss: 0 },
         { lv: 2, money: 12000, expert: 2, boss: 0 },
@@ -245,7 +245,7 @@ export class ZzzPlugin {
       // A: [],
     };
     return table[rank].reduce((list, item, index) => {
-      const d = { ...item, no: this.toCoreSkillLavel(item.lv), sum: { money: 0, expert: 0, boss: 0 } };
+      const d = { ...item, no: this.toCoreSkillLavel(item.lv), sum: { money: 0, expert: 0, boss: 0 } } as MaterialCoreSkill;
       if (index > 0) {
         // ひとつ前の累計情報をコピー
         Object.assign(d.sum, list[index - 1].sum);
@@ -255,7 +255,7 @@ export class ZzzPlugin {
       d.sum.boss += item.boss;
 
       return list.concat(d);
-    }, []);
+    }, [] as MaterialCoreSkill[]);
   }
 
   /** 武器の育成素材一覧を取得 */
@@ -267,8 +267,8 @@ export class ZzzPlugin {
   }
 
   /** 武器突破素材一覧を取得 */
-  getWeaponBreakthroughMaterials(rank: 'S' | 'A' = 'S') {
-    const table = {
+  getWeaponBreakthroughMaterials(rank: 'S' | 'A' = 'S'): MaterialBreakthrough[] {
+    const table: { [rank: string]: Partial<MaterialBreakthrough>[] } = {
       S: [
         { lv: 10, money: 12000, materials: { rank: 'C', num: 4 } },
         { lv: 20, money: 28000, materials: { rank: 'B', num: 12 } },
@@ -280,7 +280,7 @@ export class ZzzPlugin {
       // A: [],
     };
     return table[rank].reduce((list, item, index) => {
-      const d: MaterialBreakthrough = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } };
+      const d = { ...item, sum: { A: 0, B: 0, C: 0, money: 0 } } as MaterialBreakthrough;
       if (index > 0) {
         // ひとつ前の累計情報をコピー
         Object.assign(d.sum, list[index - 1].sum);
@@ -292,8 +292,8 @@ export class ZzzPlugin {
   }
 
   /** 武器の経験値素材一覧 */
-  getWeaponExpMaterials(rank: 'S' | 'A') {
-    const table = {
+  getWeaponExpMaterials(rank: 'S' | 'A'): MaterialExp[] {
+    const table: { [rank: string]: Partial<MaterialExp>[] } = {
       S: [
         { lv: '0～10', require: 4000 },
         { lv: '11～20', require: 16000 },
@@ -307,14 +307,18 @@ export class ZzzPlugin {
     };
 
     return table[rank].reduce((list, item, index) => {
-      const d = { ...item, materials: { rank: 'A', num: Math.ceil(item.require / 3000) }, sumExp: 0, sum: { rank: 'A', num: 0 } };
+      const d = {
+        ...item,
+        materials: { rank: 'A', num: Math.ceil(item.require / 3000) },
+        sumExp: 0,
+        sum: { rank: 'A', num: 0 },
+      } as MaterialExp;
       if (index > 0) {
         d.sumExp = list[index - 1].sumExp;
       }
       d.sumExp += d.require;
       d.sum.num = Math.ceil(d.sumExp / 3000);
       list.push(d);
-      return list;
       return list;
     }, [] as MaterialExp[]);
   }
