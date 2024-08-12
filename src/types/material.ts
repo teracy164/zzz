@@ -28,6 +28,7 @@ export interface MaterialSkill {
 
 /** コアスキル素材 */
 export interface MaterialCoreSkill {
+  no: string;
   lv: number;
   money: number;
   /** エキスパート素材数 */

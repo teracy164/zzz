@@ -64,7 +64,7 @@
                 :id="`radio-calc-weapon-${rank}`"
                 v-model="form.weapon.rank"
                 type="radio"
-                name="weapon-rank"
+                name="calc-weapon-rank"
                 :value="rank"
                 @change="calcMaterials"
               />
