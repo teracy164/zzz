@@ -1,71 +1,92 @@
 <template>
   <div class="calculator">
-    <h1 class="text-xl font-bold b-1">育成計算機</h1>
+    <h1 class="legend">育成計算機</h1>
     <div class="conditions">
       <div class="flex flex-col mb-2">
-        <label>【キャラLv】</label>
+        <label>【キャラ】</label>
         <div class="pl-5">
-          <select v-model="form.character.lv" @change="calcMaterials">
-            <option v-for="lv in [10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
-          </select>
-          <input
-            id="character-breakthrough"
-            v-model="form.character.isBreakthrough"
-            type="checkbox"
-            style="margin-left: 1em"
-            @change="calcMaterials"
-            :disabled="form.character.lv === 60"
-          />
-          <label for="character-breakthrough">突破する</label>
+          <div class="flex items-center">
+            <span style="width: 4em">レベル</span>
+            <select v-model="form.character.lv" @change="calcMaterials">
+              <option v-for="lv in [0, 10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
+            </select>
+            <input
+              id="character-breakthrough"
+              v-model="form.character.isBreakthrough"
+              type="checkbox"
+              style="margin-left: 1em"
+              @change="calcMaterials"
+              :disabled="form.character.lv === 60"
+            />
+            <label for="character-breakthrough">突破する</label>
+          </div>
+          <div class="flex items-center">
+            <span style="width: 4em">スキル</span>
+            <div class="flex flex-wrap">
+              <div
+                v-for="item in [
+                  { label: '通常', prop: 'basic' },
+                  { label: '回避', prop: 'dodge' },
+                  { label: '支援', prop: 'assist' },
+                  { label: '特殊', prop: 'special' },
+                  { label: '連携', prop: 'chain' },
+                ]"
+                class="skill"
+              >
+                <label>
+                  {{ item.label }}
+                  <NuxtImg :src="`/images/skills/${item.prop}.png`" />
+                </label>
+                <select v-model="form.character.skills[item.prop]" @change="calcMaterials">
+                  <option v-for="(_, index) in new Array(12)" :value="index + 1">{{ index + 1 }}</option>
+                </select>
+              </div>
+              <div class="skill">
+                <label>
+                  コア
+                  <NuxtImg src="/images/skills/core.png" />
+                </label>
+                <select v-model="form.character.core" @change="calcMaterials">
+                  <option v-for="(_, index) in new Array(7)" :value="index">{{ $zzz.toCoreSkillLavel(index) }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="flex flex-col mb-2">
-        <span>【スキルLv】</span>
-        <div class="flex flex-wrap pl-5">
-          <div
-            v-for="item in [
-              { label: '通常', prop: 'basic' },
-              { label: '回避', prop: 'dodge' },
-              { label: '支援', prop: 'assist' },
-              { label: '特殊', prop: 'special' },
-              { label: '連携', prop: 'chain' },
-            ]"
-            class="skill"
-          >
-            <label>
-              {{ item.label }}
-              <NuxtImg :src="`/images/skills/${item.prop}.png`" />
-            </label>
-            <select v-model="form.character.skills[item.prop]" @change="calcMaterials">
-              <option v-for="(_, index) in new Array(12)" :value="index + 1">{{ index + 1 }}</option>
-            </select>
-          </div>
-          <div class="skill">
-            <label>
-              コア
-              <NuxtImg src="/images/skills/core.png" />
-            </label>
-            <select v-model="form.character.core" @change="calcMaterials">
-              <option v-for="(_, index) in new Array(7)" :value="index">{{ $zzz.toCoreSkillLavel(index) }}</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="flex flex-col mb-2">
-        <label>【音動機Lv】</label>
+        <label> 【音動機】</label>
         <div class="pl-5">
-          <select v-model="form.weapon.lv" @change="calcMaterials">
-            <option v-for="lv in [0, 10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
-          </select>
-          <input
-            id="weapon-breakthrough"
-            v-model="form.weapon.isBreakthrough"
-            type="checkbox"
-            style="margin-left: 1em"
-            @change="calcMaterials"
-            :disabled="form.weapon.lv === 60 || form.weapon.lv === 0"
-          />
-          <label for="weapon-breakthrough">突破する</label>
+          <div class="flex items-center">
+            <span style="width: 4em">ランク</span>
+            <div v-for="rank in ['S', 'A', 'B']" class="mr-2">
+              <input
+                :id="`radio-weapon-${rank}`"
+                v-model="form.weapon.rank"
+                type="radio"
+                name="weapon-rank"
+                :value="rank"
+                @change="calcMaterials"
+              />
+              <label :for="`radio-weapon-${rank}`" class="px-2">{{ rank }}</label>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <span style="width: 4em">レベル</span>
+            <select v-model="form.weapon.lv" @change="calcMaterials">
+              <option v-for="lv in [0, 10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
+            </select>
+            <input
+              id="weapon-breakthrough"
+              v-model="form.weapon.isBreakthrough"
+              type="checkbox"
+              style="margin-left: 1em"
+              @change="calcMaterials"
+              :disabled="form.weapon.lv === 60 || form.weapon.lv === 0"
+            />
+            <label for="weapon-breakthrough">突破する</label>
+          </div>
         </div>
       </div>
     </div>
@@ -176,7 +197,7 @@ const form = reactive({
     skills: { basic: 8, dodge: 8, assist: 8, special: 8, chain: 8 },
     core: 3,
   },
-  weapon: { lv: 60, isBreakthrough: true },
+  weapon: { lv: 60, isBreakthrough: true, rank: 'S' as 'S' | 'A' | 'B' },
 });
 
 const result = reactive({
@@ -203,7 +224,7 @@ const calcMaterials = () => {
 
   const materials = {
     character: $zzz.getCharacterMaterials('S'),
-    weapon: $zzz.getWeaponMaterials('S'),
+    weapon: $zzz.getWeaponMaterials(form.weapon.rank),
   };
 
   const filterExp = (list: MaterialExp[], lv: number) => {
@@ -274,9 +295,19 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 .calculator {
+  margin: 1em 0;
   padding: 0.5em;
+  padding-top: 1.5em;
   border: 1px solid white;
+  position: relative;
 
+  .legend {
+    position: absolute;
+    top: -1em;
+    font-size: 1.4em;
+    padding: 0 0.5em;
+    background-color: black;
+  }
   .conditions {
     border-bottom: 1px solid white;
     .skill {
