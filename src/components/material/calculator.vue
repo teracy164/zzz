@@ -61,14 +61,14 @@
             <span style="width: 4em">ランク</span>
             <div v-for="rank in ['S', 'A', 'B']" class="mr-2">
               <input
-                :id="`radio-weapon-${rank}`"
+                :id="`radio-calc-weapon-${rank}`"
                 v-model="form.weapon.rank"
                 type="radio"
                 name="weapon-rank"
                 :value="rank"
                 @change="calcMaterials"
               />
-              <label :for="`radio-weapon-${rank}`" class="px-2">{{ rank }}</label>
+              <label :for="`radio-calc-weapon-${rank}`" class="px-2">{{ rank }}</label>
             </div>
           </div>
 

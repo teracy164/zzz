@@ -1,6 +1,19 @@
 <template>
   <div>
-    <h2>&lt;Sランク音動機&gt;</h2>
+    <h2>&lt;音動機&gt;</h2>
+    <div class="flex items-center">
+      <div v-for="rank in ['S', 'A', 'B']" class="mr-2">
+        <input
+          :id="`radio-list-weapon-${rank}`"
+          v-model="selectedRank"
+          type="radio"
+          name="list-weapon-rank"
+          :value="rank"
+          @change="changeRank"
+        />
+        <label :for="`radio-list-weapon-${rank}`" class="px-2">{{ rank }}</label>
+      </div>
+    </div>
     <div class="material-list">
       <div>
         <h3>突破素材</h3>
@@ -65,7 +78,11 @@
 <script lang="ts" setup>
 const { $zzz } = useNuxtApp();
 
-const selectedRank = ref<'S' | 'A'>('S');
+const selectedRank = ref<'S' | 'A' | 'B'>('S');
 
-const materials = $zzz.getWeaponMaterials(selectedRank.value);
+const materials = ref($zzz.getWeaponMaterials(selectedRank.value));
+
+const changeRank = () => {
+  materials.value = $zzz.getWeaponMaterials(selectedRank.value);
+};
 </script>
