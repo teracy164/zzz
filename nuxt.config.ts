@@ -8,6 +8,13 @@ export default defineNuxtConfig({
   elementPlus: {
     /** Options */
   },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+    },
+  },
   site: {
     url: 'https://zzz.teracy164.com/',
     name: 'ZZZ Tools',
