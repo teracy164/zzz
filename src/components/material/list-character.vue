@@ -20,7 +20,7 @@
               <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
               <td class="sum">
                 <p class="flex items-center">
-                  <NuxtImg src="/images/denny.webp" style="width: 1em; height: 1em" />
+                  <NuxtImg src="/images/denny.webp" alt="ディニー" style="width: 1em; height: 1em" />
                   <span class="mx-1">x</span>
                   {{ item.sum.money.toLocaleString() }}
                 </p>
@@ -77,7 +77,7 @@
               <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
               <td class="sum">
                 <p class="flex items-center">
-                  <NuxtImg src="/images/denny.webp" style="width: 1em; height: 1em" />
+                  <NuxtImg src="/images/denny.webp" alt="ディニー" style="width: 1em; height: 1em" />
                   <span class="mx-1">x</span>
                   {{ item.sum.money.toLocaleString() }}
                 </p>
@@ -111,7 +111,7 @@
               <td>
                 <template v-for="key in Object.keys(item.sum)">
                   <p v-if="key === 'money'" class="flex items-center">
-                    <NuxtImg src="/images/denny.webp" style="width: 1em; height: 1em" />
+                    <NuxtImg src="/images/denny.webp" alt="ディニー" style="width: 1em; height: 1em" />
                     <span class="mx-1">x</span>
                     {{ item.sum.money.toLocaleString() }}
                   </p>

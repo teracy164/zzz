@@ -6,8 +6,8 @@
         <label>【キャラ】</label>
         <div class="pl-5">
           <div class="flex items-center">
-            <span style="width: 4em">レベル</span>
-            <select v-model="form.character.lv" @change="calcMaterials">
+            <label for="calc-select-character-lv" style="width: 4em">レベル</label>
+            <select id="calc-select-character-lv" v-model="form.character.lv" @change="calcMaterials">
               <option v-for="lv in [0, 10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
             </select>
             <input
@@ -33,20 +33,20 @@
                 ]"
                 class="skill"
               >
-                <label>
+                <label :for="`calc-select-${item.prop}`">
                   {{ item.label }}
-                  <NuxtImg :src="`/images/skills/${item.prop}.png`" />
+                  <NuxtImg :src="`/images/skills/${item.prop}.png`" :alt="item.label" />
                 </label>
-                <select v-model="form.character.skills[item.prop]" @change="calcMaterials">
+                <select :id="`calc-select-${item.prop}`" v-model="form.character.skills[item.prop]" @change="calcMaterials">
                   <option v-for="(_, index) in new Array(12)" :value="index + 1">{{ index + 1 }}</option>
                 </select>
               </div>
               <div class="skill">
-                <label>
+                <label for="calc-select-core">
                   コア
-                  <NuxtImg src="/images/skills/core.png" />
+                  <NuxtImg src="/images/skills/core.png" alt="コア" />
                 </label>
-                <select v-model="form.character.core" @change="calcMaterials">
+                <select id="calc-select-core" v-model="form.character.core" @change="calcMaterials">
                   <option v-for="(_, index) in new Array(7)" :value="index">{{ $zzz.toCoreSkillLavel(index) }}</option>
                 </select>
               </div>
@@ -73,8 +73,8 @@
           </div>
 
           <div class="flex items-center">
-            <span style="width: 4em">レベル</span>
-            <select v-model="form.weapon.lv" @change="calcMaterials">
+            <label for="calc-select-weapon-lv" style="width: 4em">レベル</label>
+            <select id="calc-select-weapon-lv" v-model="form.weapon.lv" @change="calcMaterials">
               <option v-for="lv in [0, 10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
             </select>
             <input
@@ -95,7 +95,7 @@
       <div class="flex flex-wrap">
         <div class="mr-5">
           <p class="flex items-center">
-            <NuxtImg src="/images/denny.webp" style="width: 1em; height: 1em" />
+            <NuxtImg src="/images/denny.webp" alt="ディニー" style="width: 1em; height: 1em" />
             <span class="mx-1">x</span>
             {{ result.money.toLocaleString() }}
           </p>
@@ -117,7 +117,7 @@
               <th>
                 <div>
                   突破
-                  <NuxtImg src="/images/materials/badge_A.webp" />
+                  <NuxtImg src="/images/materials/badge_A.webp" alt="バッジ" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
@@ -128,7 +128,7 @@
               <th>
                 <div>
                   レベル
-                  <NuxtImg src="/images/materials/character_A.webp" />
+                  <NuxtImg src="/images/materials/character_A.webp" alt="キャラレベル素材" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
@@ -139,7 +139,7 @@
               <th>
                 <div>
                   スキル
-                  <NuxtImg src="/images/materials/tip.webp" />
+                  <NuxtImg src="/images/materials/tip.webp" alt="チップ" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
@@ -161,7 +161,7 @@
               <th>
                 <div>
                   突破
-                  <NuxtImg src="/images/materials/kit.webp" />
+                  <NuxtImg src="/images/materials/kit.webp" alt="キット" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
@@ -172,7 +172,7 @@
               <th>
                 <div>
                   レベル
-                  <NuxtImg src="/images/materials/weapon_A.webp" />
+                  <NuxtImg src="/images/materials/weapon_A.webp" alt="武器レベル素材" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
