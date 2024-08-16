@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   srcDir: './src',
   css: ['@/assets/css/styles.scss'],
-  modules: ['@element-plus/nuxt', '@nuxtjs/sitemap', '@nuxtjs/tailwindcss', '@nuxt/image'],
+  modules: ['@element-plus/nuxt', '@nuxtjs/sitemap', '@nuxtjs/tailwindcss', '@nuxt/image', '@nuxtjs/google-adsense'],
   elementPlus: {
     /** Options */
   },
@@ -18,5 +18,17 @@ export default defineNuxtConfig({
   site: {
     url: 'https://zzz.teracy164.com/',
     name: 'ZZZ Tools',
+  },
+  googleAdsense: {
+    onPageLoad: false,
+    pageLevelAds: false,
+  },
+  runtimeConfig: {
+    public: {
+      googleAdsense: {
+        id: process.env.GOOGLE_ADSENSE_ID,
+        test: process.env.GOOGLE_ADSENSE_TEST_MODE === 'true',
+      },
+    },
   },
 });
