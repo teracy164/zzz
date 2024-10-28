@@ -3,11 +3,16 @@
     <h1 class="legend">育成計算機</h1>
     <div class="conditions">
       <div class="flex flex-col mb-2">
-        <label>【キャラ】</label>
+        <label>
+          【
+          <input id="check-character" type="checkbox" v-model="form.character.include" @change="calcMaterials" />
+          <label for="check-character">キャラ</label>
+          】
+        </label>
         <div class="pl-5">
           <div class="flex items-center">
             <label for="calc-select-character-lv" style="width: 4em">レベル</label>
-            <select id="calc-select-character-lv" v-model="form.character.lv" @change="calcMaterials">
+            <select id="calc-select-character-lv" v-model="form.character.lv" @change="calcMaterials" :disabled="!form.character.include">
               <option v-for="lv in [0, 10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
             </select>
             <input
@@ -16,7 +21,7 @@
               type="checkbox"
               style="margin-left: 1em"
               @change="calcMaterials"
-              :disabled="form.character.lv === 60"
+              :disabled="!form.character.include || form.character.lv === 60"
             />
             <label for="character-breakthrough">突破する</label>
           </div>
@@ -37,7 +42,12 @@
                   {{ item.label }}
                   <NuxtImg :src="`/images/skills/${item.prop}.png`" :alt="item.label" />
                 </label>
-                <select :id="`calc-select-${item.prop}`" v-model="form.character.skills[item.prop]" @change="calcMaterials">
+                <select
+                  :id="`calc-select-${item.prop}`"
+                  v-model="form.character.skills[item.prop]"
+                  @change="calcMaterials"
+                  :disabled="!form.character.include"
+                >
                   <option v-for="(_, index) in new Array(12)" :value="index + 1">{{ index + 1 }}</option>
                 </select>
               </div>
@@ -46,7 +56,7 @@
                   コア
                   <NuxtImg src="/images/skills/core.png" alt="コア" />
                 </label>
-                <select id="calc-select-core" v-model="form.character.core" @change="calcMaterials">
+                <select id="calc-select-core" v-model="form.character.core" @change="calcMaterials" :disabled="!form.character.include">
                   <option v-for="(_, index) in new Array(7)" :value="index">{{ $zzz.toCoreSkillLavel(index) }}</option>
                 </select>
               </div>
@@ -55,7 +65,12 @@
         </div>
       </div>
       <div class="flex flex-col mb-2">
-        <label> 【音動機】</label>
+        <label>
+          【
+          <input id="check-weapon" type="checkbox" v-model="form.weapon.include" @change="calcMaterials" />
+          <label for="check-weapon">音動機</label>
+          】
+        </label>
         <div class="pl-5">
           <div class="flex items-center">
             <span style="width: 4em">ランク</span>
@@ -66,6 +81,7 @@
                 type="radio"
                 name="calc-weapon-rank"
                 :value="rank"
+                :disabled="!form.weapon.include"
                 @change="calcMaterials"
               />
               <label :for="`radio-calc-weapon-${rank}`" class="px-2">{{ rank }}</label>
@@ -74,7 +90,7 @@
 
           <div class="flex items-center">
             <label for="calc-select-weapon-lv" style="width: 4em">レベル</label>
-            <select id="calc-select-weapon-lv" v-model="form.weapon.lv" @change="calcMaterials">
+            <select id="calc-select-weapon-lv" v-model="form.weapon.lv" @change="calcMaterials" :disabled="!form.weapon.include">
               <option v-for="lv in [0, 10, 20, 30, 40, 50, 60]" :value="lv">{{ lv }}</option>
             </select>
             <input
@@ -83,7 +99,7 @@
               type="checkbox"
               style="margin-left: 1em"
               @change="calcMaterials"
-              :disabled="form.weapon.lv === 60 || form.weapon.lv === 0"
+              :disabled="!form.weapon.include || form.weapon.lv === 60 || form.weapon.lv === 0"
             />
             <label for="weapon-breakthrough">突破する</label>
           </div>
@@ -192,12 +208,18 @@ const { $zzz } = useNuxtApp();
 
 const form = reactive({
   character: {
+    include: true,
     lv: 60,
     isBreakthrough: true,
     skills: { basic: 8, dodge: 8, assist: 8, special: 8, chain: 8 },
     core: 3,
   },
-  weapon: { lv: 60, isBreakthrough: true, rank: 'S' as 'S' | 'A' | 'B' },
+  weapon: {
+    include: true,
+    lv: 60,
+    isBreakthrough: true,
+    rank: 'S' as 'S' | 'A' | 'B',
+  },
 });
 
 const result = reactive({
@@ -245,48 +267,54 @@ const calcMaterials = () => {
     });
   };
 
-  // キャラ突破素材の算出
-  filterBreakthrough(materials.character.breakthrough, form.character.lv, form.character.isBreakthrough).forEach((item) => {
-    result.money += item.money;
-    result.character.breakthrough[item.materials.rank] += item.materials.num;
-  });
-
-  // キャラレベル素材の算出
-  filterExp(materials.character.exp, form.character.lv).forEach((item) => (result.character.lv[item.materials.rank] += item.materials.num));
-
-  // キャラスキル素材の算出
-  Object.values(form.character.skills).forEach((item) => {
-    materials.character.skill
-      .filter((m) => m.lv <= item)
-      .forEach((m) => {
-        result.money += m.money;
-        result.character.skill[m.materials.rank] += m.materials.num;
-        if (m.ex) {
-          result.character.skillEx += m.ex;
-        }
-      });
-  });
-
-  // キャラコアスキル素材の算出
-  materials.character.core
-    .filter((item) => item.lv <= form.character.core)
-    .forEach((item) => {
+  if (form.character.include) {
+    // キャラ突破素材の算出
+    filterBreakthrough(materials.character.breakthrough, form.character.lv, form.character.isBreakthrough).forEach((item) => {
       result.money += item.money;
-      result.character.core.expert += item.expert;
-      result.character.core.boss += item.boss;
+      result.character.breakthrough[item.materials.rank] += item.materials.num;
     });
 
-  // 武器突破素材の算出
-  filterBreakthrough(materials.weapon.breakthrough, form.weapon.lv, form.weapon.isBreakthrough).forEach((item) => {
-    result.money += item.money;
-    result.weapon.breakthrough[item.materials.rank] += item.materials.num;
-  });
+    // キャラレベル素材の算出
+    filterExp(materials.character.exp, form.character.lv).forEach(
+      (item) => (result.character.lv[item.materials.rank] += item.materials.num)
+    );
 
-  // 武器レベル素材の算出
-  filterExp(materials.weapon.exp, form.weapon.lv).forEach((item) => {
-    // 武器経験値は段階によって小数点が出るため、段階ごとの素材数を加算せず合計から算出する
-    result.weapon.lv[item.materials.rank] = Math.ceil(item.sumExp / 3000);
-  });
+    // キャラスキル素材の算出
+    Object.values(form.character.skills).forEach((item) => {
+      materials.character.skill
+        .filter((m) => m.lv <= item)
+        .forEach((m) => {
+          result.money += m.money;
+          result.character.skill[m.materials.rank] += m.materials.num;
+          if (m.ex) {
+            result.character.skillEx += m.ex;
+          }
+        });
+    });
+
+    // キャラコアスキル素材の算出
+    materials.character.core
+      .filter((item) => item.lv <= form.character.core)
+      .forEach((item) => {
+        result.money += item.money;
+        result.character.core.expert += item.expert;
+        result.character.core.boss += item.boss;
+      });
+  }
+
+  if (form.weapon.include) {
+    // 武器突破素材の算出
+    filterBreakthrough(materials.weapon.breakthrough, form.weapon.lv, form.weapon.isBreakthrough).forEach((item) => {
+      result.money += item.money;
+      result.weapon.breakthrough[item.materials.rank] += item.materials.num;
+    });
+
+    // 武器レベル素材の算出
+    filterExp(materials.weapon.exp, form.weapon.lv).forEach((item) => {
+      // 武器経験値は段階によって小数点が出るため、段階ごとの素材数を加算せず合計から算出する
+      result.weapon.lv[item.materials.rank] = Math.ceil(item.sumExp / 3000);
+    });
+  }
 };
 
 onMounted(() => {
