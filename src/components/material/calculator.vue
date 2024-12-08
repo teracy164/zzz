@@ -261,7 +261,7 @@ const form = reactive({
     lv: 60,
     isBreakthrough: true,
     skills: { basic: 8, dodge: 8, assist: 8, special: 8, chain: 8 },
-    core: 3,
+    core: 4,
     attribute: ATTRIBUTE_NAMES[0],
     profession: PROFESSION_NAMES[0],
   },
