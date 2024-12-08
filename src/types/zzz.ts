@@ -113,3 +113,73 @@ export enum ZzzSkillType {
   CORE = 5,
   SWITCH = 6,
 }
+
+export enum ZzzAttribute {
+  PHYSICAL = 1,
+  FIRE,
+  ICE,
+  ELECTRIC,
+  ETHER,
+}
+
+export type ZzzAttributeInfo = {
+  value: ZzzAttribute;
+  icon: string;
+  materialIcon: string;
+};
+
+export const ATTRIBUTE_NAMES: ZzzAttributeInfo[] = [
+  { value: ZzzAttribute.PHYSICAL, icon: '/images/attributes/physical.png', materialIcon: '/images/tips/physical.webp' },
+  { value: ZzzAttribute.FIRE, icon: '/images/attributes/fire.png', materialIcon: '/images/tips/fire.webp' },
+  { value: ZzzAttribute.ICE, icon: '/images/attributes/ice.png', materialIcon: '/images/tips/ice.webp' },
+  { value: ZzzAttribute.ELECTRIC, icon: '/images/attributes/electric.png', materialIcon: '/images/tips/electric.webp' },
+  { value: ZzzAttribute.ETHER, icon: '/images/attributes/ether.png', materialIcon: '/images/tips/ether.webp' },
+];
+
+export enum ZzzProfession {
+  ATTACK = 1,
+  BREAKTHROUGH,
+  ANOMALY,
+  SUPPORT,
+  DEFENSIVE,
+}
+
+export type ZzzProfessionInfo = {
+  value: ZzzAttribute;
+  icon: string;
+  badgeIcon: string;
+  kitIcon: string;
+};
+
+export const PROFESSION_NAMES = [
+  {
+    value: ZzzProfession.ATTACK,
+    icon: '/images/professions/attack.png',
+    kitIcon: '/images/kits/attack.webp',
+    badgeIcon: '/images/badges/attack.webp',
+  },
+  {
+    value: ZzzProfession.BREAKTHROUGH,
+    icon: '/images/professions/breakthrough.png',
+    kitIcon: '/images/kits/breakthrough.webp',
+    badgeIcon: '/images/badges/breakthrough.webp',
+  },
+  {
+    value: ZzzProfession.ANOMALY,
+    icon: '/images/professions/anomaly.png',
+    kitIcon: '/images/kits/anomaly.webp',
+    badgeIcon: '/images/badges/anomaly.webp',
+  },
+  {
+    value: ZzzProfession.SUPPORT,
+    icon: '/images/professions/support.png',
+    kitIcon: '/images/kits/support.webp',
+    badgeIcon: '/images/badges/support.webp',
+  },
+  {
+    value: ZzzProfession.DEFENSIVE,
+    icon: '/images/professions/defensive.png',
+    kitIcon: '/images/kits/defensive.webp',
+    badgeIcon: '/images/badges/defensive.webp',
+  },
+];

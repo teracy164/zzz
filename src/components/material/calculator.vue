@@ -1,5 +1,5 @@
 <template>
-  <div class="calculator">
+  <div class="calculator" :key="updKey">
     <h1 class="legend">育成計算機</h1>
     <div class="conditions">
       <div class="flex flex-col mb-2">
@@ -61,6 +61,38 @@
                 </select>
               </div>
             </div>
+          </div>
+          <div class="flex items-center">
+            <label style="width: 4em; min-width: 4em">属性</label>
+            <template v-for="op in ATTRIBUTE_NAMES">
+              <input
+                type="radio"
+                :id="`attribute-${op.value}`"
+                name="attribute"
+                :value="op.value"
+                :checked="form.character.attribute.value === op.value"
+                @change="changeAttribute"
+              />
+              <label :for="`attribute-${op.value}`" class="mr-3">
+                <img :src="op.icon" style="width: 1.5em; height: 1.5em" />
+              </label>
+            </template>
+          </div>
+          <div class="flex items-center">
+            <label style="width: 4em; min-width: 4em">特性</label>
+            <template v-for="op in PROFESSION_NAMES">
+              <input
+                type="radio"
+                :id="`profession-${op.value}`"
+                name="profession"
+                :value="op.value"
+                :checked="form.character.profession.value === op.value"
+                @change="changeProfession"
+              />
+              <label :for="`profession-${op.value}`" class="mr-3">
+                <img :src="op.icon" style="width: 1.5em; height: 1.5em" />
+              </label>
+            </template>
           </div>
         </div>
       </div>
@@ -133,7 +165,8 @@
               <th>
                 <div>
                   突破
-                  <NuxtImg src="/images/materials/badge_A.webp" alt="バッジ" />
+                  <!-- <NuxtImg src="/images/materials/badge_A.webp" alt="バッジ" /> -->
+                  <NuxtImg :src="form.character.profession.badgeIcon" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
@@ -155,7 +188,7 @@
               <th>
                 <div>
                   スキル
-                  <NuxtImg src="/images/materials/tip.webp" alt="チップ" />
+                  <NuxtImg :src="form.character.attribute.materialIcon" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
@@ -177,7 +210,7 @@
               <th>
                 <div>
                   突破
-                  <NuxtImg src="/images/materials/kit.webp" alt="キット" />
+                  <NuxtImg :src="form.character.profession.kitIcon" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
@@ -203,8 +236,11 @@
 </template>
 <script lang="ts" setup>
 import type { MaterialExp, MaterialBreakthrough } from '@/types/material';
+import { ATTRIBUTE_NAMES, PROFESSION_NAMES, ZzzAttribute, ZzzProfession, type ZzzAttributeInfo } from '~/types/zzz';
 
 const { $zzz } = useNuxtApp();
+
+const updKey = ref(0);
 
 const form = reactive({
   character: {
@@ -213,6 +249,8 @@ const form = reactive({
     isBreakthrough: true,
     skills: { basic: 8, dodge: 8, assist: 8, special: 8, chain: 8 },
     core: 3,
+    attribute: ATTRIBUTE_NAMES[0],
+    profession: PROFESSION_NAMES[0],
   },
   weapon: {
     include: true,
@@ -233,6 +271,26 @@ const result = reactive({
   weapon: { lv: { A: 0, B: 0, C: 0 }, breakthrough: { A: 0, B: 0, C: 0 } },
   money: 0,
 });
+
+const changeAttribute = (event: Event) => {
+  const value = Number((event.target as HTMLInputElement).value) as ZzzAttribute;
+  const target = ATTRIBUTE_NAMES.find((item) => item.value === value);
+  if (target) {
+    form.character.attribute = target;
+  }
+
+  updKey.value++;
+};
+
+const changeProfession = (event: Event) => {
+  const value = Number((event.target as HTMLInputElement).value) as ZzzProfession;
+  const target = PROFESSION_NAMES.find((item) => item.value === value);
+  if (target) {
+    form.character.profession = target;
+  }
+
+  updKey.value++;
+};
 
 const calcMaterials = () => {
   result.money = 0;
