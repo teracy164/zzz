@@ -165,8 +165,7 @@
               <th>
                 <div>
                   突破
-                  <!-- <NuxtImg src="/images/materials/badge_A.webp" alt="バッジ" /> -->
-                  <NuxtImg :src="form.character.profession.badgeIcon" />
+                  <img :src="getImagePath(form.character.profession.badgeIcon)" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
@@ -188,7 +187,7 @@
               <th>
                 <div>
                   スキル
-                  <NuxtImg :src="form.character.attribute.materialIcon" />
+                  <img :src="getImagePath(form.character.attribute.materialIcon)" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
@@ -210,7 +209,7 @@
               <th>
                 <div>
                   突破
-                  <NuxtImg :src="form.character.profession.kitIcon" />
+                  <img :src="getImagePath(form.character.profession.kitIcon)" />
                 </div>
               </th>
               <td v-for="rank in ['A', 'B', 'C']">
@@ -241,6 +240,20 @@ import { ATTRIBUTE_NAMES, PROFESSION_NAMES, ZzzAttribute, ZzzProfession, type Zz
 const { $zzz } = useNuxtApp();
 
 const updKey = ref(0);
+
+/*
+  ビルドしたjsで起動した際、imgのsrcを動的に変更すると画像が表示されない。
+  回避のために正式なパスを取得する
+*/
+const images = import.meta.glob('/public/**/*', { eager: true });
+
+const getImagePath = (path: string) => {
+  const item = images[`/public${path}`] as any;
+  if (item) {
+    return item.default;
+  }
+  return '';
+};
 
 const form = reactive({
   character: {
