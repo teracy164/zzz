@@ -24,10 +24,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./.output/public
-      - uses: actions/upload-artifact@v2
-        with:
-          name: build-output
-          path: ./.output/public
+
   # Deployment job
   deploy:
     # Add a dependency to the build job
@@ -56,15 +53,11 @@ jobs:
       contents: read
 
     steps:
-      # アーティファクトをダウンロード
-      - name: Download Build Artifacts
+      # GitHub Pages用アーティファクトをダウンロード
+      - name: Download GitHub Pages Artifact
         uses: actions/download-artifact@v3
         with:
-          name: build-output
-
-      # コードをチェックアウト
-      - name: Checkout code
-        uses: actions/checkout@v3
+          name: github-pages # actions/upload-pages-artifactのデフォルト名
 
       # AWS CLI をセットアップ
       - name: Setup AWS CLI
@@ -77,4 +70,4 @@ jobs:
       # S3 にアップロード
       - name: Upload to S3
         run: |
-          aws s3 cp .output/public s3://zzz.teracy.link/ --recursive
+          aws s3 cp github-pages s3://zzz.teracy.link/ --recursive
