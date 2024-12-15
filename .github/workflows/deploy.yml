@@ -19,8 +19,6 @@ jobs:
       # Pick your own package manager and build script
       - run: npm install
       - name: Generate Nuxt static files
-        env:
-          GOOGLE_ADSENSE_CLIENT: ${{ secrets.GOOGLE_ADSENSE_CLIENT }}
         run: npx nuxt generate --preset github_pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
@@ -44,3 +42,23 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+  upload-to-s3:
+    runs-on: ubuntu-latest
+
+    steps:
+      # コードをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # AWS CLI をセットアップ
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      # S3 にアップロード
+      - name: Upload to S3
+        run: |
+          aws s3 cp output s3://zzz.teracy.link/ --recursive
