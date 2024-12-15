@@ -62,7 +62,7 @@ jobs:
       # アーティファクトの解凍
       - name: Extract artifact
         run: |
-          mkdir extracted
+          mkdir .output
           tar -xf ./artifact.tar -C .output
 
       - name: List extracted files
