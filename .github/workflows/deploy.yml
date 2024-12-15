@@ -59,6 +59,9 @@ jobs:
         with:
           name: github-pages # actions/upload-pages-artifactのデフォルト名
 
+      - name: List downloaded files
+        run: ls -R
+
       # AWS CLI をセットアップ
       - name: Setup AWS CLI
         uses: aws-actions/configure-aws-credentials@v3
@@ -70,4 +73,4 @@ jobs:
       # S3 にアップロード
       - name: Upload to S3
         run: |
-          aws s3 cp github-pages s3://zzz.teracy.link/ --recursive
+          aws s3 cp . s3://zzz.teracy.link/ --recursive
