@@ -43,8 +43,8 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1
   upload-to-s3:
+    needs: build
     runs-on: ubuntu-latest
-
     steps:
       # コードをチェックアウト
       - name: Checkout code
