@@ -43,8 +43,18 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1
   upload-to-s3:
-    needs: build
-    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      # アーティファクトをダウンロード
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
+
     steps:
       # コードをチェックアウト
       - name: Checkout code
