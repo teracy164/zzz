@@ -24,6 +24,10 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./.output/public
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-output
+          path: ./.output/public
   # Deployment job
   deploy:
     # Add a dependency to the build job
@@ -42,7 +46,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+
   upload-to-s3:
+    needs: build # buildジョブが完了してから実行される
+    runs-on: ubuntu-latest
 
     permissions:
       id-token: write
@@ -55,7 +62,6 @@ jobs:
         with:
           name: build-output
 
-    steps:
       # コードをチェックアウト
       - name: Checkout code
         uses: actions/checkout@v3
@@ -71,4 +77,4 @@ jobs:
       # S3 にアップロード
       - name: Upload to S3
         run: |
-          aws s3 cp output s3://zzz.teracy.link/ --recursive
+          aws s3 cp .output/public s3://zzz.teracy.link/ --recursive
