@@ -16,7 +16,7 @@ export default defineNuxtConfig({
     },
   },
   site: {
-    url: 'https://zzz.teracy164.com/',
+    url: 'https://zzz.teracy.link/',
     name: 'ZZZ Tools',
   },
   googleAdsense: {
