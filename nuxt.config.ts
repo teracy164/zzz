@@ -18,6 +18,7 @@ export default defineNuxtConfig({
   site: {
     url: 'https://zzz.teracy.link/',
     name: 'ZZZ Tools',
+    trailingSlash: true,
   },
   experimental: {
     defaults: {
