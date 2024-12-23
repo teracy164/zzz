@@ -19,6 +19,13 @@ export default defineNuxtConfig({
     url: 'https://zzz.teracy.link/',
     name: 'ZZZ Tools',
   },
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        trailingSlash: 'append',
+      },
+    },
+  },
   googleAdsense: {
     onPageLoad: false,
     pageLevelAds: false,
