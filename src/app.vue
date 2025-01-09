@@ -8,6 +8,9 @@
       <div>Created by teracy</div>
       <el-link type="primary" size="small" href="https://x.com/teracy164" target="_blank"> 問い合わせはX（旧Twitter）まで </el-link>
     </div>
+    <!-- admax -->
+    <div id="admax-ad-container"></div>
+    <!-- admax -->
   </div>
 </template>
 <script lang="ts" setup>
@@ -24,5 +27,11 @@ useSeoMeta({
   ogTitle: 'ZZZ Tools | ゼンレスゾーンゼロツール',
   description,
   ogDescription: description,
+});
+onMounted(() => {
+  const elScript = document.createElement('script');
+  elScript.type = 'text/javascript';
+  elScript.src = 'https://adm.shinobi.jp/s/518c8ffee39c2c2a3a4c44d04fbeb9f6';
+  document.getElementById('admax-ad-container').appendChild(elScript);
 });
 </script>

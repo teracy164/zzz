@@ -13,13 +13,6 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'ja',
       },
-      script: [
-        {
-          src: 'https://adm.shinobi.jp/s/518c8ffee39c2c2a3a4c44d04fbeb9f6', // 忍者ADMAXのスクリプトURL
-          type: 'text/javascript',
-          async: true,
-        },
-      ],
     },
   },
   site: {
