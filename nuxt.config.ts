@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   srcDir: './src',
   css: ['@/assets/css/styles.scss'],
-  modules: ['@element-plus/nuxt', '@nuxtjs/sitemap', '@nuxtjs/tailwindcss', '@nuxt/image', '@nuxtjs/google-adsense'],
+  modules: ['@element-plus/nuxt', '@nuxtjs/sitemap', '@nuxtjs/tailwindcss', '@nuxt/image'],
   elementPlus: {
     /** Options */
   },
@@ -13,6 +13,13 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'ja',
       },
+      script: [
+        {
+          src: 'https://adm.shinobi.jp/s/518c8ffee39c2c2a3a4c44d04fbeb9f6', // 忍者ADMAXのスクリプトURL
+          type: 'text/javascript',
+          async: true,
+        },
+      ],
     },
   },
   site: {
@@ -24,18 +31,6 @@ export default defineNuxtConfig({
     defaults: {
       nuxtLink: {
         trailingSlash: 'append',
-      },
-    },
-  },
-  googleAdsense: {
-    onPageLoad: false,
-    pageLevelAds: false,
-  },
-  runtimeConfig: {
-    public: {
-      googleAdsense: {
-        id: process.env.GOOGLE_ADSENSE_ID,
-        test: process.env.GOOGLE_ADSENSE_TEST_MODE === 'true',
       },
     },
   },
