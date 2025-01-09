@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col h-full">
     <Header style="height: 3em; min-height: 3em; max-height: 3em" class="no-print" />
+    <!-- for ad -->
+    <div v-html="adScript" class="flex justify-center"></div>
+    <!-- for ad -->
     <main class="grow overflow-auto p-3">
       <NuxtPage />
     </main>
@@ -8,9 +11,6 @@
       <div>Created by teracy</div>
       <el-link type="primary" size="small" href="https://x.com/teracy164" target="_blank"> 問い合わせはX（旧Twitter）まで </el-link>
     </div>
-    <!-- admax -->
-    <div id="admax-ad-container"></div>
-    <!-- admax -->
   </div>
 </template>
 <script lang="ts" setup>
@@ -22,35 +22,12 @@ const description = [
   'materials list. and materials calculator',
 ].join('\n');
 
+const adScript = `<script src="https://adm.shinobi.jp/s/fc1e8bce102c6dc01f69c0b7d8c2feb4" /> `;
+
 useSeoMeta({
   title: 'ZZZ Tools | ゼンレスゾーンゼロツール',
   ogTitle: 'ZZZ Tools | ゼンレスゾーンゼロツール',
   description,
   ogDescription: description,
-});
-onMounted(() => {
-  const iframe = document.createElement('iframe');
-  document.getElementById('admax-ad-container').appendChild(iframe);
-
-  const html = '<body><script src="https://adm.shinobi.jp/s/518c8ffee39c2c2a3a4c44d04fbeb9f6"><\/script><\/body>';
-  const iframeDocument = iframe.contentWindow.document;
-  iframeDocument.open();
-  iframeDocument.write(html);
-  iframeDocument.close();
-
-  // const elScript = document.createElement('script');
-  // elScript.type = 'text/javascript';
-  // elScript.src = 'https://adm.shinobi.jp/s/518c8ffee39c2c2a3a4c44d04fbeb9f6';
-  // elScript.async = true;
-
-  // elScript.onload = () => {
-  //   (globalThis.admaxads = (window as any).admaxads || []).push({ admax_id: '518c8ffee39c2c2a3a4c44d04fbeb9f6', type: 'action' });
-  //   console.log(globalThis.admaxads);
-  // };
-  // elScript.onerror = () => {
-  //   console.error('failed load ad js.');
-  // };
-
-  // document.getElementById('admax-ad-container').appendChild(elScript);
 });
 </script>
