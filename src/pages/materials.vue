@@ -1,6 +1,7 @@
 <template>
   <div class="materials">
     <MaterialCalculator />
+    <Adsbygoogle ad-slot="5137039624" ad-format="auto" />
     <MaterialList />
   </div>
 </template>
