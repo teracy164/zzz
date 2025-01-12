@@ -1,6 +1,7 @@
 <template>
   <div class="materials">
     <MaterialCalculator />
+    <AdsWide />
     <MaterialList />
   </div>
 </template>
