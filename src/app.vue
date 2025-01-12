@@ -2,8 +2,8 @@
   <div class="flex flex-col h-full">
     <Header style="height: 3em; min-height: 3em; max-height: 3em" class="no-print" />
     <!-- for ad -->
-    <div v-html="TAG_AD" class="flex justify-center"></div>
-    <ad />
+    <div v-html="TAG_AD" class="hidden md:flex justify-center"></div>
+    <div v-html="TAG_AD_WIDE_MOBILE" class="flex md:hidden justify-center"></div>
     <!-- for ad -->
     <main class="grow overflow-auto p-3">
       <NuxtPage />
@@ -15,7 +15,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { TAG_AD } from '@/shared/ad';
+import { TAG_AD, TAG_AD_WIDE_MOBILE } from '@/shared/ad';
 
 const description = [
   'ゼンレスゾーンゼロ用のツールです。',

@@ -2,6 +2,8 @@
   <div class="materials">
     <MaterialCalculator />
     <MaterialList />
+    <!-- モバイルの場合画面下部に固定で表示されるため、スペースを明けておく -->
+    <div style="height: 90px"></div>
   </div>
 </template>
 <script lang="ts" setup>
