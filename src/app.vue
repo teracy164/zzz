@@ -7,6 +7,8 @@
     <!-- for ad -->
     <main class="grow overflow-auto p-3">
       <NuxtPage />
+      <!-- モバイルの場合、画面下部にオーバーレイ広告が表示されるため、スペースを明けておく -->
+      <div class="block md:hidden" style="height: 90px"></div>
     </main>
     <div class="no-print text-center my-2 px-2 flex flex-wrap justify-between" style="font-size: 0.7rem">
       <div>Created by teracy</div>
