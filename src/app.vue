@@ -2,7 +2,8 @@
   <div class="flex flex-col h-full">
     <Header style="height: 3em; min-height: 3em; max-height: 3em" class="no-print" />
     <!-- for ad -->
-    <div v-html="adScript" class="flex justify-center"></div>
+    <div v-html="TAG_AD" class="flex justify-center"></div>
+    <ad />
     <!-- for ad -->
     <main class="grow overflow-auto p-3">
       <NuxtPage />
@@ -14,6 +15,8 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { TAG_AD } from '@/shared/ad';
+
 const description = [
   'ゼンレスゾーンゼロ用のツールです。',
   'ビルドカードの作成ができ、スコア計算にも対応しています。',
@@ -21,8 +24,6 @@ const description = [
   'zenless zone zero build card and calculate score.',
   'materials list. and materials calculator',
 ].join('\n');
-
-const adScript = `<script src="https://adm.shinobi.jp/s/fc1e8bce102c6dc01f69c0b7d8c2feb4" /> `;
 
 useSeoMeta({
   title: 'ZZZ Tools | ゼンレスゾーンゼロツール',
