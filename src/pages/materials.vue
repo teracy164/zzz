@@ -1,7 +1,34 @@
 <template>
   <div class="materials">
     <MaterialCalculator />
-    <AdsWide />
+
+    <div class="flex justify-center">
+      <div class="m-2">
+        <!-- ふるいち -->
+        <a href="https://px.a8.net/svt/ejp?a8mat=44WUR2+2GPLWY+5G0Y+5Z6WX" rel="nofollow">
+          <img
+            border="0"
+            width="300"
+            height="250"
+            alt=""
+            src="https://www28.a8.net/svt/bgt?aid=250116014149&wid=001&eno=01&mid=s00000025405001004000&mc=1"
+        /></a>
+        <img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=44WUR2+2GPLWY+5G0Y+5Z6WX" alt="" />
+      </div>
+      <div class="m-2">
+        <!-- GAMERS -->
+        <a href="https://px.a8.net/svt/ejp?a8mat=44WUR2+3RQUPE+4AHY+5ZMCH" rel="nofollow">
+          <img
+            border="0"
+            width="300"
+            height="250"
+            alt=""
+            src="https://www20.a8.net/svt/bgt?aid=250116014228&wid=001&eno=01&mid=s00000020023001006000&mc=1"
+        /></a>
+        <img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=44WUR2+3RQUPE+4AHY+5ZMCH" alt="" />
+      </div>
+    </div>
+
     <MaterialList />
   </div>
 </template>
