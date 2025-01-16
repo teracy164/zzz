@@ -38,18 +38,15 @@
       <div class="flex justify-center items-start">
         <img src="/images/build/chrome-ex.png" style="height: 400px; object-fit: contain" />
       </div>
-      <p class="mt-5">
-        オプションを選択し、「Calculate」ボタンを押下します</p>
-        <p class="mt-2">
-        【オプションについて】
-        <ul class="list-disc pl-5">
-          <li>スコアを表示：チェックを外すとスコアおよび評価が非表示となります</li>
-          <li>ドライバを評価する：チェックを外すと評価のみ非表示となります</li>
-          <li>計算方法：キャラのタイプによって参照するステータスを切り替えます</li>
-          <li class="ml-5">攻撃力換算 ⇒ 基本的にはこっちでOK。</li>
-          <li class="ml-5">異常マスタリー換算 ⇒ 異常キャラ用（雅は会心が大事なキャラなので微妙。。）</li>
-        </ul>
-      </p>
+      <p class="mt-5">オプションを選択し、「Calculate」ボタンを押下します</p>
+      <p class="mt-2">オプションについて】</p>
+      <ul class="list-disc pl-5">
+        <li>スコアを表示：チェックを外すとスコアおよび評価が非表示となります</li>
+        <li>ドライバを評価する：チェックを外すと評価のみ非表示となります</li>
+        <li>計算方法：キャラのタイプによって参照するステータスを切り替えます</li>
+        <li class="ml-5">攻撃力換算 ⇒ 基本的にはこっちでOK。</li>
+        <li class="ml-5">異常マスタリー換算 ⇒ 異常キャラ用（雅は会心が大事なキャラなので微妙。。）</li>
+      </ul>
       <div class="flex justify-center items-start">
         <img src="/images/build/chrome-ex-zoom.png" style="height: 400px; object-fit: contain" />
       </div>
@@ -67,7 +64,7 @@ import type { StorageHistoryItem } from '@/types/storage';
 const description = [
   'ゼンレスゾーンゼロ用のビルドカード生成ツールの「ZZZ Score Calculator」の紹介です。',
   'HoYoLab公式の戦績ツールでドライバの詳細を表示し、スコア計算およびスコアの評価を行います',
-  '公式ツール内に埋め込むため、リッチなビルドカードがキャラ実装当日に利用可能です！'
+  '公式ツール内に埋め込むため、リッチなビルドカードがキャラ実装当日に利用可能です！',
 ].join('\n');
 
 useSeoMeta({
