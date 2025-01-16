@@ -18,13 +18,13 @@ export default defineNuxtConfig({
   site: {
     url: 'https://zzz.teracy.link/',
     name: 'ZZZ Tools',
-    // trailingSlash: true,
+    trailingSlash: true,
   },
-  // experimental: {
-  //   defaults: {
-  //     nuxtLink: {
-  //       trailingSlash: 'append',
-  //     },
-  //   },
-  // },
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        trailingSlash: 'append',
+      },
+    },
+  },
 });
