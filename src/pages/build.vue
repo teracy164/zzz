@@ -48,7 +48,7 @@
           <li>計算方法：キャラのタイプによって参照するステータスを切り替えます</li>
           <li class="ml-5">攻撃力換算 ⇒ 基本的にはこっちでOK。</li>
           <li class="ml-5">異常マスタリー換算 ⇒ 異常キャラ用（雅は会心が大事なキャラなので微妙。。）</li>
-          </ul>
+        </ul>
       </p>
       <div class="flex justify-center items-start">
         <img src="/images/build/chrome-ex-zoom.png" style="height: 400px; object-fit: contain" />
