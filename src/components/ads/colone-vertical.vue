@@ -9,6 +9,7 @@
           width="120"
           height="600"
           alt=""
+          style="height: calc(100vh - 100px); object-fit: contain"
           src="https://www27.a8.net/svt/bgt?aid=250116014280&wid=001&eno=01&mid=s00000013298002010000&mc=1"
       /></a>
       <img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=44WUR2+4MPE5U+2ULW+BYT9D" alt="" />
