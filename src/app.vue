@@ -9,7 +9,7 @@
       <div class="flex grow">
         <AdsColoneVertical class="mr-2" />
 
-        <NuxtPage />
+        <NuxtPage class="grow" />
 
         <AdsDmmVertical class="ml-2" />
       </div>
