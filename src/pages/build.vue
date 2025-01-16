@@ -1,51 +1,63 @@
 <template>
-  <div>
-    <div class="no-print flex flex-col md:flex-row mb-2">
+  <div class="flex justify-center">
+    <Card style="width: 800px; max-width: 95vw">
+      Google Chrome拡張機能として「ZZZ Score Calculator」をリリースしています
       <div>
-        <el-button type="primary" @click="dialogInput.visible = true">input data</el-button>
+        <el-link type="primary">
+          <a
+            target="_blank"
+            href="https://chromewebstore.google.com/detail/zzz-score-calculator/ibbbkbnhocldehlkbemmlgkmdlbckjmn?authuser=0&hl=ja"
+          >
+            ZZZ Score Calculator
+          </a>
+        </el-link>
       </div>
-      <div v-if="histories?.length" :key="updKey" class="mt-2 md:mt-0 ml-0 md:ml-2">
-        <el-select v-model="selected" style="width: 10em" @change="selectHistory">
-          <el-option v-for="(h, index) in histories" :label="h.data.name_mi18n" :value="h.date">
-            <div style="display: flex; justify-content: space-between">
-              <span style="padding-right: 1em">{{ `[${h.date}]　${h.data.name_mi18n}` }}</span>
-              <el-button type="text" title="履歴を削除" @click.stop="removeHistory(index)"> <span style="color: red">ｘ</span></el-button>
-            </div>
-          </el-option>
-        </el-select>
-        <el-button @click="clearHistories">履歴を削除</el-button>
-      </div>
-    </div>
-    <el-dialog v-model="dialogInput.visible" style="max-width: 95vw; width: 800px">
-      <p>公式の戦績ツールからデータを取得して、以下に貼り付けてください</p>
-      <el-tooltip trigger="click">
-        <el-button> データの取得方法（How to get data）??? </el-button>
-        <template #content>
-          <div style="max-height: 50vh; overflow: auto">
-            公式の戦績ツール（<a :href="officialTool" target="_blank">{{ officialTool }} </a>）で作業します
-            <ul>
-              <li>1. F12で開発者ツールを開き、画面をリロードします</li>
-              <li>2. 「ネットワークタブ」に切り替えます</li>
-              <li>3. キャラ情報を取得しているAPI(末尾がinfo?id_list[]=～)をクリック</li>
-              <li>4. プレビュータブに切り替えて、「data」で右クリック⇒値をコピー</li>
-            </ul>
-            <img src="/assets/images/help/help.png" style="max-width: 95vw" />
-          </div>
-        </template>
-      </el-tooltip>
 
-      <div style="margin: 1em 0">
-        <el-input type="textarea" v-model="json" :rows="5" />
-        <div style="margin-top: 1em; display: flex; justify-content: flex-end">
-          <el-button type="primary" @click="parse()">生成</el-button>
-        </div>
+      <h1 class="mt-10">ZZZ Score Calculatorとは</h1>
+      <p>
+        ワンクリックでお手軽にリッチなビルドカードが作れるChrome拡張です！！
+        <br />
+        以下の画像のように公式の戦績ツール内に各ドライバの詳細ステータスを表示し、スコアの計算を行います。
+        <br />
+        算出されたスコアをSS～Cで評価するため、ひと目で強いかどうかを判断することができます。
+      </p>
+      <div class="flex justify-center items-start">
+        <img src="/images/build/build-card.png" style="width: 500px; max-width: 95vw; object-fit: contain" />
       </div>
-    </el-dialog>
 
-    <div v-if="avatar">
-      <p class="no-print">スコアは「会心率 x 2 + 会心ダメージ + 攻撃力%」で計算しています</p>
-      <AvatarCard v-if="avatar" :key="updKey" :avatar="avatar" />
-    </div>
+      <h2 class="mt-10"># 使い方</h2>
+      <p>HoYoLab内にある「戦績ツール」を開きます</p>
+      <div class="flex justify-center items-start">
+        <img src="/images/build/hoyolab-menu.jpg" style="height: 300px; object-fit: contain" />
+      </div>
+      <p class="mt-5">ビルドカードを作成したいエージェントを選択します</p>
+      <div class="flex justify-center items-start">
+        <img src="/images/build/agent-list.png" style="height: 150px; object-fit: contain" />
+      </div>
+      <p class="mt-5">ZZZ Score Calculatorを開きます</p>
+      <div class="flex justify-center items-start">
+        <img src="/images/build/chrome-ex.png" style="height: 400px; object-fit: contain" />
+      </div>
+      <p class="mt-5">
+        オプションを選択し、「Calculate」ボタンを押下します</p>
+        <p class="mt-2">
+        【オプションについて】
+        <ul class="list-disc pl-5">
+          <li>スコアを表示：チェックを外すとスコアおよび評価が非表示となります</li>
+          <li>ドライバを評価する：チェックを外すと評価のみ非表示となります</li>
+          <li>計算方法：キャラのタイプによって参照するステータスを切り替えます</li>
+          <li class="ml-5">攻撃力換算 ⇒ 基本的にはこっちでOK。</li>
+          <li class="ml-5">異常マスタリー換算 ⇒ 異常キャラ用（雅は会心が大事なキャラなので微妙。。）</li>
+          </ul>
+      </p>
+      <div class="flex justify-center items-start">
+        <img src="/images/build/chrome-ex-zoom.png" style="height: 400px; object-fit: contain" />
+      </div>
+      <p class="mt-5">「Calculate」ボタンを押下すると、結果が装備欄に埋め込まれます</p>
+      <div class="flex justify-center items-start">
+        <img src="/images/build/result.png" style="height: 600px; object-fit: contain" />
+      </div>
+    </Card>
   </div>
 </template>
 <script lang="ts" setup>
@@ -53,9 +65,9 @@ import type { ZzzAvatar, ZzzData } from '@/types/zzz';
 import type { StorageHistoryItem } from '@/types/storage';
 
 const description = [
-  'ゼンレスゾーンゼロ用のビルドカード生成ツールです。',
-  'キャラの育成データを整形して表示します。',
-  'ドライバのスコア計算も合わせて行います。',
+  'ゼンレスゾーンゼロ用のビルドカード生成ツールの「ZZZ Score Calculator」の紹介です。',
+  'HoYoLab公式の戦績ツールでドライバの詳細を表示し、スコア計算およびスコアの評価を行います',
+  '公式ツール内に埋め込むため、リッチなビルドカードがキャラ実装当日に利用可能です！'
 ].join('\n');
 
 useSeoMeta({
