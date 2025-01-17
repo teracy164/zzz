@@ -7,11 +7,11 @@
       </div>
 
       <div class="flex grow">
-        <AdsColoneVertical class="mr-2" />
+        <AdsVerticalRandom class="mr-2" />
 
         <NuxtPage class="grow" />
 
-        <AdsDmmVertical class="ml-2" />
+        <AdsVerticalRandom class="ml-2" />
       </div>
 
       <div class="no-print text-center my-2 px-2 flex flex-wrap justify-between" style="font-size: 0.7rem">
