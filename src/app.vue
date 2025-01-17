@@ -15,7 +15,10 @@
       </div>
 
       <div class="no-print text-center my-2 px-2 flex flex-wrap justify-between" style="font-size: 0.7rem">
-        <div>Created by teracy</div>
+        <div>
+          <span>Created by </span>
+          <el-link type="primary"><a href="https://room.teracy.link" target="_blank">teracy</a></el-link>
+        </div>
         <el-link type="primary" size="small" href="https://x.com/teracy164" target="_blank"> 問い合わせはX（旧Twitter）まで </el-link>
       </div>
     </main>
