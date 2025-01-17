@@ -19,7 +19,7 @@
       <div class="text-center">
         <div class="flex flex-col items-start" style="width: 600px; max-width: 90vw">
           <h1>【イベントカレンダー】</h1>
-          <CalendarSchedule class="w-full" :options="options" />
+          <CalendarSchedule class="w-full" :options="options" style="height: calc(100vh - 80px)" />
         </div>
       </div>
     </div>
