@@ -19,7 +19,7 @@
       <div class="text-center">
         <div class="flex flex-col items-start" style="width: 600px; max-width: 90vw">
           <h1>【イベントカレンダー】</h1>
-          <CalendarSchedule class="w-full" :options="{ events }" />
+          <CalendarSchedule class="w-full" :options="options" />
         </div>
       </div>
     </div>
@@ -28,15 +28,27 @@
 <script lang="ts" setup>
 import { ZZZ_EVENTS } from '~/shared/data/schedule';
 
-// FullCalendarのイベント型に変換
-// 参考：https://fullcalendar.io/docs/event-object
-const events = ZZZ_EVENTS.map((event) => ({
-  title: event.name,
-  start: new Date(event.from),
-  end: new Date(event.to),
-  allDay: true,
-  backgroundColor: event.bgColor || undefined,
-}));
+const options = {
+  // FullCalendarのイベント型に変換
+  // 参考：https://fullcalendar.io/docs/event-object
+  events: ZZZ_EVENTS.map((event) => ({
+    title: event.name,
+    start: new Date(event.from),
+    end: new Date(event.to),
+    allDay: true,
+    backgroundColor: event.bgColor || undefined,
+  })),
+  // 2か月ぶんを表示
+  initialView: 'twoMonthView',
+  views: {
+    twoMonthView: {
+      type: 'dayGridMonth',
+      duration: { months: 2 },
+      // < >で月を切り替える場合は1か月ずつずらす
+      dateIncrement: { months: 1 },
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .card {

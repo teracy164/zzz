@@ -1,5 +1,5 @@
 <template>
-  <FullCalendar :options="calendarOptions" />
+  <FullCalendar class="schedule-calendar" :options="calendarOptions" />
 </template>
 <script lang="ts" setup>
 import FullCalendar from '@fullcalendar/vue3';
@@ -15,3 +15,10 @@ const calendarOptions = {
   ...options,
 };
 </script>
+<style lang="scss">
+.schedule-calendar {
+  .fc-day-today {
+    background-color: rgb(82, 82, 39) !important;
+  }
+}
+</style>
