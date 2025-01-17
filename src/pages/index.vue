@@ -54,6 +54,7 @@ const options = {
 .card {
   margin: 1em;
   width: 30em;
+  max-width: 95vw;
   height: 10em;
 }
 .card:hover {
