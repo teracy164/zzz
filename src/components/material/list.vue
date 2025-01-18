@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 style="margin-top: 2em">必要素材リスト</h1>
+    <h1 style="margin-top: 2em">
+      <label class="bg-red-400 px-2">必要素材リスト</label>
+    </h1>
 
     <MaterialListCharacter />
 

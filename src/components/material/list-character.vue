@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2>&lt;キャラ&gt;</h2>
+    <h2>
+      <label class="bg-red-300 px-2">キャラ</label>
+    </h2>
     <div class="material-list">
       <div>
         <h3 class="font-bold">突破素材</h3>

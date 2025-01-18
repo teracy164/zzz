@@ -1,6 +1,8 @@
 <template>
   <div class="calculator" :key="updKey">
-    <h1 class="legend">育成計算機</h1>
+    <h1 class="legend">
+      <label class="bg-red-400 px-2">育成計算機</label>
+    </h1>
     <div class="conditions">
       <div class="flex flex-col mb-2">
         <label>
@@ -139,7 +141,9 @@
       </div>
     </div>
     <div class="require-materials">
-      <h2 class="text-xl font-bold">必要素材</h2>
+      <h2 class="text-xl font-bold">
+        <label class="bg-red-300 px-2">必要素材</label>
+      </h2>
       <div class="flex flex-wrap">
         <div class="mr-5">
           <p class="flex items-center">

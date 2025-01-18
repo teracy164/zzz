@@ -13,7 +13,9 @@
         </el-link>
       </div>
 
-      <h1 class="mt-10">ZZZ Score Calculatorとは</h1>
+      <h1 class="mt-10">
+        <label class="bg-red-400 px-2">ZZZ Score Calculatorとは</label>
+      </h1>
       <p>
         ワンクリックでお手軽にリッチなビルドカードが作れるChrome拡張です！！
         <br />
@@ -25,7 +27,9 @@
         <img src="/images/build/build-card.png" style="width: 500px; max-width: 95vw; object-fit: contain" />
       </div>
 
-      <h2 class="mt-10"># 使い方</h2>
+      <h2 class="mt-10">
+        <label class="bg-red-300 px-2">使い方</label>
+      </h2>
       <p>HoYoLab内にある「戦績ツール」を開きます</p>
       <div class="flex justify-center items-start">
         <img src="/images/build/hoyolab-menu.jpg" style="height: 300px; object-fit: contain" />

@@ -1,6 +1,8 @@
 <template>
   <Card>
-    <h1>ニュース一覧</h1>
+    <h1>
+      <label class="bg-red-400">ニュース一覧</label>
+    </h1>
     <template v-for="item in NEWS">
       <NewsItem :item="item" class="mb-2" />
     </template>

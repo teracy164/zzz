@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2>&lt;音動機&gt;</h2>
+    <h2>
+      <label class="bg-red-300 px-2">音動機</label>
+    </h2>
     <div class="flex items-center">
       <div v-for="rank in ['S', 'A', 'B']" class="mr-2">
         <input
