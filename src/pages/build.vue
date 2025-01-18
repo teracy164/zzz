@@ -24,7 +24,7 @@
         算出されたスコアをSS～Cで評価するため、ひと目で強いかどうかを判断することができます。
       </p>
       <div class="flex justify-center items-start">
-        <img src="/images/build/build-card.png" style="width: 500px; max-width: 95vw; object-fit: contain" />
+        <img src="/images/build/build-card.png" style="width: 500px; max-width: 85vw; object-fit: contain" />
       </div>
 
       <h2 class="mt-10">
