@@ -4,16 +4,16 @@
 
     <div class="flex justify-center">
       <div class="m-2">
-        <!-- ふるいち -->
-        <a href="https://px.a8.net/svt/ejp?a8mat=44WUR2+2GPLWY+5G0Y+5Z6WX" rel="nofollow">
+        <!-- amiami -->
+        <a href="https://px.a8.net/svt/ejp?a8mat=44WWAW+2QTZ76+NA2+66H9D" rel="nofollow">
           <img
             border="0"
             width="300"
             height="250"
             alt=""
-            src="https://www28.a8.net/svt/bgt?aid=250116014149&wid=001&eno=01&mid=s00000025405001004000&mc=1"
+            src="https://www20.a8.net/svt/bgt?aid=250118024166&wid=001&eno=01&mid=s00000003017001038000&mc=1"
         /></a>
-        <img border="0" width="1" height="1" src="https://www16.a8.net/0.gif?a8mat=44WUR2+2GPLWY+5G0Y+5Z6WX" alt="" />
+        <img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=44WWAW+2QTZ76+NA2+66H9D" alt="" />
       </div>
       <div class="m-2">
         <!-- GAMERS -->

@@ -9,10 +9,10 @@
       <div class="flex grow">
         <AdsVerticalRandom class="mr-2" />
 
-        <div class="flex flex-col md:flex-row grow">
-          <NuxtPage class="grow order-2 md:order-1" />
-          <div class="flex justify-center order-1 md:order-2">
-            <Card class="ml-0 md:ml-2 mb-2" style="width: 100%; max-width: 95vw">
+        <div class="flex flex-col lg:flex-row grow">
+          <NuxtPage class="grow order-2 lg:order-1" />
+          <div class="flex justify-center order-1 lg:order-2">
+            <Card class="ml-0 lg:ml-2 mb-2" style="width: 100%; max-width: 95vw">
               <h3>
                 <label class="bg-red-400 px-2">最近のニュース</label>
               </h3>

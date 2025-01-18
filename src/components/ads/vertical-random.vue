@@ -1,7 +1,7 @@
 <template>
   <!-- 画面の横に常駐させるタイプの広告 -->
   <!-- 画面幅がたりないのでモバイルでは非表示 -->
-  <div class="vertical-ad hidden md:flex justify-center items-center">
+  <div class="vertical-ad hidden lg:flex justify-center items-center">
     <div class="wrapper" v-html="ADS_A8_NET_VERTICAL[type]"></div>
   </div>
 </template>
