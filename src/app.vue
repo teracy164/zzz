@@ -9,7 +9,7 @@
       <div class="flex grow">
         <AdsVerticalRandom class="mr-2" />
 
-        <div class="flex flex-col lg:flex-row grow">
+        <div class="flex grow">
           <NuxtPage class="grow order-2 lg:order-1" />
           <div class="flex justify-center order-1 lg:order-2">
             <Card class="ml-0 lg:ml-2 mb-2 hidden lg:block w-[160px] max-w-[95vw]" style="padding: 0.5em">

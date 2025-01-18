@@ -28,7 +28,7 @@
           <h1>
             <label class="bg-red-400 px-2">イベントカレンダー</label>
           </h1>
-          <CalendarSchedule class="w-full" :options="options" style="height: calc(100vh - 80px)" />
+          <CalendarSchedule class="w-full" :options="options" style="height: 600px; overflow-y: auto" />
         </div>
       </div>
     </div>
