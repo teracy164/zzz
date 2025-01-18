@@ -2,13 +2,19 @@
   <div class="flex justify-center">
     <Card>
       <h1 class="bg-red-500 p-2">
-        <label>【グッズ情報】エレン・ジョー 月曜から金曜までVer. 1/8　フィギュア予約</label>
+        <label>【グッズ情報】エレン・ジョー 月曜から金曜まで【フィギュア】</label>
       </h1>
 
-      <div class="my-5">
-        Ver1.5で追加されるエレンの衣装「月曜から金曜まで」のフィギュアの予約が開始されました!
+      <div class="flex justify-end my-2">
+        <ShareBtnTwitter title="【グッズ情報】エレン・ジョー 月曜から金曜まで【フィギュア】" :page-url="getPageUrl()" />
+      </div>
+
+      <div class="mb-5">
+        エレンのフィギュアの予約が始まりました。
         <br />
-        発売日は2025年9月を予定しています
+        先日のVer1.5予告番組で紹介されたエレンの新衣装「月曜から金曜まで」バージョンとなります。
+        <br />
+        発売日は2025年9月の予定です。
 
         <div class="my-5 w-full flex flex-col justify-center items-center">
           <div style="width: 600px; max-width: 70vw">
@@ -25,7 +31,11 @@
         </div>
 
         <p class="my-5">
-          エレンらしいめんどくさそうな表情や、立派なサメのシッポが再現されて、1万円以下とは思えないクオリティとなっています。
+          サメのシリオンであるエレンの特徴であるシッポが見事に再現されています。
+          <br />
+          また、エネルギー消費の激しいエレンはいつも気だるげにしていますが、表情からもしっかりと伝わってきます。
+          <br />
+          1万円以下とは思えないクオリティとなっています。
         </p>
 
         <div class="my-2 flex justify-center">
@@ -174,6 +184,10 @@ useSeoMeta({
   description,
   ogDescription: description,
 });
+
+const getPageUrl = () => {
+  return location.href;
+};
 </script>
 <style lang="scss" scoped>
 table.item-info {
