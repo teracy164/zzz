@@ -8,17 +8,8 @@
       <div class="menu-item">
         <NuxtLink to="/materials">育成<span class="hidden md:inline">計算機</span></NuxtLink>
       </div>
-    </div>
-    <div style="text-align: right; font-size: 0.7em">
-      <span style="font-size: 0.8em"><span class="hidden md:inline">スコア計算用</span>Chrome拡張もあります</span>
-      <div>
-        <a
-          href="https://chromewebstore.google.com/detail/zzz-score-calculator/ibbbkbnhocldehlkbemmlgkmdlbckjmn?authuser=0&hl=ja"
-          target="_blank"
-          class="text-blue-500"
-        >
-          ZZZ Score Calculator
-        </a>
+      <div class="menu-item">
+        <NuxtLink to="/news">ニュース</NuxtLink>
       </div>
     </div>
   </div>

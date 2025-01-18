@@ -9,7 +9,15 @@
       <div class="flex grow">
         <AdsVerticalRandom class="mr-2" />
 
-        <NuxtPage class="grow" />
+        <div class="flex grow">
+          <NuxtPage class="grow" />
+          <Card class="hidden lg:block ml-2">
+            <h3>【最近のニュース】</h3>
+            <div style="width: 150px">
+              <NewsItem v-for="item in news" :item="item" class="mb-2" />
+            </div>
+          </Card>
+        </div>
 
         <AdsVerticalRandom class="ml-2" />
       </div>
@@ -25,6 +33,10 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { NEWS } from '~/shared/data/news';
+
+const news = NEWS.slice(0, 5);
+
 const description = [
   'ゼンレスゾーンゼロ用のツールです。',
   'ビルドカードの作成ができ、スコア計算にも対応しています。',
