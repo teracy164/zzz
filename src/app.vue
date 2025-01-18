@@ -12,11 +12,11 @@
         <div class="flex flex-col lg:flex-row grow">
           <NuxtPage class="grow order-2 lg:order-1" />
           <div class="flex justify-center order-1 lg:order-2">
-            <Card class="ml-0 lg:ml-2 mb-2" style="width: 100%; max-width: 95vw">
+            <Card class="ml-0 lg:ml-2 mb-2 hidden lg:block w-[160px] max-w-[95vw]" style="padding: 0.5em">
               <h3>
                 <label class="bg-red-400 px-2">最近のニュース</label>
               </h3>
-              <div style="width: 150px">
+              <div>
                 <NewsItem v-for="item in news" :item="item" class="mb-2" />
               </div>
             </Card>
