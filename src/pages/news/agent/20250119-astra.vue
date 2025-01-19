@@ -27,8 +27,8 @@
           <a href="https://px.a8.net/svt/ejp?a8mat=44WWAW+2QTZ76+NA2+5Z6WX" rel="nofollow">
             <img
               border="0"
-              width="125"
-              height="125"
+              width="100"
+              height="100"
               alt=""
               src="https://www21.a8.net/svt/bgt?aid=250118024166&wid=001&eno=01&mid=s00000003017001004000&mc=1"
           /></a>
@@ -38,8 +38,8 @@
           <a href="https://px.a8.net/svt/ejp?a8mat=44WWAY+DKSWFM+2ULW+6GZCH" rel="nofollow">
             <img
               border="0"
-              width="125"
-              height="125"
+              width="100"
+              height="100"
               alt=""
               src="https://www21.a8.net/svt/bgt?aid=250118026821&wid=001&eno=01&mid=s00000013298001087000&mc=1"
           /></a>
@@ -49,8 +49,8 @@
           <a href="https://px.a8.net/svt/ejp?a8mat=44WWAY+EPADKI+24JA+6FP1T" rel="nofollow">
             <img
               border="0"
-              width="125"
-              height="125"
+              width="100"
+              height="100"
               alt=""
               src="https://www21.a8.net/svt/bgt?aid=250118026889&wid=001&eno=01&mid=s00000009919001081000&mc=1"
           /></a>
@@ -161,5 +161,8 @@ table.item-info {
     min-width: 5em;
     text-align: left;
   }
+}
+img {
+  max-width: 80vw;
 }
 </style>
