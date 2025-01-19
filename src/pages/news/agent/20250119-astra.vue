@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <div class="flex justify-center">
+      <div class="flex justify-center ads">
         <div class="m-1">
           <a href="https://px.a8.net/svt/ejp?a8mat=44WWAW+2QTZ76+NA2+5Z6WX" rel="nofollow">
             <img
@@ -65,11 +65,11 @@
         <div class="pl-5">
           <p>必要な素材は「終幕のダンスシューズ」です</p>
           <div class="flex flex-col md:flex-row mb-2">
-            <div>
+            <div class="mb-2">
               <img
                 alt="終幕のダンスシューズ"
                 src="/images/materials/notorious-hunt/marionette.png"
-                style="max-width: 300px; max-height: 300px; object-fit: contain"
+                style="width: 300px; object-fit: contain"
                 class="mx-2"
               />
             </div>
@@ -104,11 +104,11 @@
         <div class="pl-5">
           <p>必要な素材は「高次元データ：閃く閃光」です</p>
           <div class="flex flex-col md:flex-row mb-2">
-            <div>
+            <div class="mb-2">
               <img
                 alt="高次元データ：閃く閃光"
                 src="/images/materials/expert-challenge/thracian.png"
-                style="max-width: 300px; max-height: 300px; object-fit: contain"
+                style="width: 300px; object-fit: contain"
               />
             </div>
 
@@ -164,5 +164,10 @@ table.item-info {
 }
 img {
   max-width: 80vw;
+}
+.ads {
+  img {
+    max-width: 25vw;
+  }
 }
 </style>
