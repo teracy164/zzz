@@ -1,9 +1,14 @@
 <template>
   <div class="flex justify-center">
     <Card>
-      <h1 class="bg-red-500 p-2">
-        <label>{{ news.title }}</label>
-      </h1>
+      <div class="relative">
+        <h1 class="bg-red-500 p-2">
+          <label>{{ news.title }}</label>
+        </h1>
+        <div class="absolute text-sm text-gray-500" style="bottom: 100%; right: 0; font-size: 0.7em; line-height: 1em">
+          {{ news.createdAt }}
+        </div>
+      </div>
 
       <div class="flex justify-end my-2">
         <ShareBtnTwitter :title="news.title" :page-url="getPageUrl()" />
