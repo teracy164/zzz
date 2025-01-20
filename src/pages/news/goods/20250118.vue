@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center">
-    <Card>
+    <Card class="grow" style="width: 100%; max-width: 800px">
       <h1 class="bg-red-500 p-2">
         <label>【グッズ情報】エレン・ジョー 月曜から金曜まで【フィギュア】</label>
       </h1>

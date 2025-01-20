@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center">
-    <Card>
+    <Card class="grow" style="width: 100%; max-width: 800px">
       <h1 class="bg-red-500 p-2">
         <label>【エージェント情報】アストラ育成素材判明！！　※非リーク</label>
       </h1>
