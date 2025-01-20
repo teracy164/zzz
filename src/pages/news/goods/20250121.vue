@@ -209,10 +209,7 @@
 import { NEWS } from '~/shared/data/news';
 const news = NEWS.find((item) => item.id === 'goods-20250121');
 
-const description = [
-  'ゼンレスゾーンゼロのエージェント「エレン・ジョー」のフィギュアの予約が開始されました',
-  'バージョン1.5で追加される新衣装「月曜から金曜まで」のフィギュアです',
-].join('\n');
+const description = ['ゼンレスゾーンゼロ主人公のアキラ・リンのねんどろいどが登場！！'].join('\n');
 useSeoMeta({
   title: news.title,
   ogTitle: news.title,
