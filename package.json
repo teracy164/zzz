@@ -19,7 +19,8 @@
     "@nuxtjs/sitemap": "^6.0.0-beta.1",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "nuxt": "^3.12.4",
-    "vue": "^3.4.37"
+    "vue": "^3.4.37",
+    "vue-tweet": "^2.3.1"
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.0.9",
