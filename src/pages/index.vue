@@ -28,7 +28,7 @@
           <h1>
             <label class="bg-red-400 px-2">イベントカレンダー</label>
           </h1>
-          <CalendarSchedule class="w-full" :options="options" style="height: 600px; overflow-y: auto" />
+          <CalendarSchedule class="w-full" :options="options" style="min-height: 600px; overflow-y: auto" />
         </div>
       </div>
     </div>
@@ -36,6 +36,12 @@
 </template>
 <script lang="ts" setup>
 import { ZZZ_EVENTS } from '~/shared/data/schedule';
+
+const bgColor = {
+  vup: '#ff9999',
+  gacha: '#66aaff',
+  event: '#66cc88',
+};
 
 const options = {
   // FullCalendarのイベント型に変換
@@ -45,7 +51,7 @@ const options = {
     start: new Date(event.from),
     end: new Date(event.to),
     allDay: true,
-    backgroundColor: event.bgColor || undefined,
+    backgroundColor: bgColor[event.type] || undefined,
   })),
   // 2か月ぶんを表示
   initialView: 'twoMonthView',
