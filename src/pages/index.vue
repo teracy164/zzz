@@ -46,13 +46,16 @@ const bgColor = {
 const options = {
   // FullCalendarのイベント型に変換
   // 参考：https://fullcalendar.io/docs/event-object
-  events: ZZZ_EVENTS.map((event) => ({
+  events: ZZZ_EVENTS.map((event, i) => ({
     title: event.name,
     start: new Date(event.from),
     end: new Date(event.to),
     allDay: true,
     backgroundColor: bgColor[event.type] || undefined,
+    order: i,
   })),
+  eventOrder: 'order',
+  eventOrderStrict: true,
   // 2か月ぶんを表示
   initialView: 'twoMonthView',
   views: {
