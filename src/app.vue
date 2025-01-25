@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-full">
     <Header style="height: 3em; min-height: 3em; max-height: 3em" class="no-print" />
-    <main class="grow overflow-auto flex flex-col px-3 md:px-0">
+    <main class="grow overflow-auto flex flex-col px-1 md:px-0">
       <div class="py-1">
         <AdsWide />
       </div>
