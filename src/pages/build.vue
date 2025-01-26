@@ -27,6 +27,8 @@
         <img src="/images/build/build-card.png" style="width: 500px; max-width: 85vw; object-fit: contain" />
       </div>
 
+      <AdsCarouselAmiami class="my-5" />
+
       <h2 class="mt-10">
         <label class="bg-red-300 px-2">使い方</label>
       </h2>

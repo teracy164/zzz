@@ -152,8 +152,16 @@
             {{ result.money.toLocaleString() }}
           </p>
         </div>
-        <div class="mr-5">ｴｷｽﾊﾟｰﾄ素材：{{ result.character.core.expert }}</div>
-        <div class="mr-5">週ボス素材：{{ result.character.core.boss }}</div>
+        <div class="mr-5">
+          <label class="bg-purple-500 px-1 rounded-sm">ｴｷｽﾊﾟｰﾄ素材</label>
+          <span class="mx-1">x</span>
+          <span>{{ result.character.core.expert }}</span>
+        </div>
+        <div class="mr-5">
+          <label class="bg-yellow-500 px-1 rounded-sm">週ボス素材</label>
+          <span class="mx-1">x</span>
+          <span>{{ result.character.core.boss }}</span>
+        </div>
         <div class="mr-5">ﾊﾑｽﾀｰｹｰｼﾞ：{{ result.character.skillEx }}</div>
       </div>
       <div style="display: flex; flex-wrap: wrap">

@@ -25,7 +25,24 @@ const autoplay = items.length > 3;
   }
 
   .el-carousel__mask {
-    display: none;
+    // display: none;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  .el-carousel__arrow {
+    // zoom: 150%;
+    border: 1px solid white;
+
+    &.el-carousel__arrow--left {
+      left: 1em !important;
+    }
+    &.el-carousel__arrow--right {
+      right: 1em !important;
+    }
+
+    &:hover {
+      background-color: #333;
+    }
   }
 
   .item {
