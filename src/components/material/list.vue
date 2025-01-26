@@ -14,8 +14,8 @@
 <script lang="ts" setup></script>
 <style lang="scss">
 .material-list {
-  font-size: 12px;
-  line-height: 1.2em;
+  // font-size: 12px;
+  // line-height: 1.2em;
   display: flex;
   flex-wrap: wrap;
   > div {

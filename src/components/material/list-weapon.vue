@@ -67,9 +67,25 @@
             <tr v-for="item in materials.exp">
               <td>{{ item.lv }}</td>
               <td>{{ item.require.toLocaleString() }}</td>
-              <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
+              <td>
+                <div class="flex items-center">
+                  <NuxtImg
+                    :src="`/images/materials/weapon/exp_${item.materials.rank}.png`"
+                    alt="経験値素材A"
+                    style="width: 2em; height: 2em"
+                  />
+                  <span class="mx-1">x</span>
+                  <span>{{ item.materials.num }}</span>
+                </div>
+              </td>
               <td>{{ item.sumExp.toLocaleString() }}</td>
-              <td>{{ item.sum.rank }} x {{ item.sum.num }}</td>
+              <td>
+                <div class="flex items-center">
+                  <NuxtImg :src="`/images/materials/weapon/exp_${item.sum.rank}.png`" alt="経験値素材A" style="width: 2em; height: 2em" />
+                  <span class="mx-1">x</span>
+                  <span>{{ item.sum.num }}</span>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

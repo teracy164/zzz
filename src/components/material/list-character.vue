@@ -54,9 +54,26 @@
             <tr v-for="item in materials.exp">
               <td>{{ item.lv }}</td>
               <td>{{ item.require.toLocaleString() }}</td>
-              <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
+              <td>
+                <div class="flex items-center">
+                  <NuxtImg
+                    :src="`/images/materials/agent/exp_${item.materials.rank}.png`"
+                    alt="経験値素材A"
+                    style="width: 2em; height: 2em"
+                  />
+                  <span class="mx-1">x</span>
+                  <span>{{ item.materials.num }}</span>
+                </div>
+              </td>
+
               <td>{{ item.sumExp.toLocaleString() }}</td>
-              <td>{{ item.sum.rank }} x {{ item.sum.num }}</td>
+              <td>
+                <div class="flex items-center">
+                  <NuxtImg :src="`/images/materials/agent/exp_${item.sum.rank}.png`" alt="経験値素材A" style="width: 2em; height: 2em" />
+                  <span class="mx-1">x</span>
+                  <span>{{ item.sum.num }}</span>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -122,14 +139,14 @@
                     <span class="mx-1">x</span>
                     {{ item.sum.money.toLocaleString() }}
                   </p>
-                  <p v-else-if="item.sum[key]">
-                    <labal
-                      style="width: 10em"
-                      class="rounded-sm px-1"
+                  <p v-else-if="item.sum[key]" class="flex items-center">
+                    <div
+                      style="width: 4em"
+                      class="rounded-sm px-1 text-center"
                       :class="{ 'bg-yellow-500': key === 'boss', 'bg-purple-500': key === 'expert' }"
                     >
                       {{ materialNameTable[key] }}
-                    </labal>
+                    </div>
                     <span class="mx-1">x</span>
                     <span>{{ item.sum[key] }}</span>
                   </p>
