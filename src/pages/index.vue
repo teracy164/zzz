@@ -23,6 +23,9 @@
           </div>
         </NuxtLink>
       </div>
+
+      <AdsCarouselAmiami />
+
       <div class="text-center">
         <div class="flex flex-col items-start" style="width: 600px; max-width: 90vw">
           <h1>
