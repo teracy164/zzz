@@ -44,6 +44,7 @@ const bgColor = {
   vup: '#ff9999',
   gacha: '#66aaff',
   event: '#66cc88',
+  present: '#bbbb33',
 };
 
 const options = {
