@@ -3,7 +3,11 @@
 </template>
 <script lang="ts" setup>
 const adAmiami = `
-<a href="https://px.a8.net/svt/ejp?a8mat=44WWAW+2QTZ76+NA2+66H9D" rel="nofollow"><img border="0" width="300" height="250" alt="" src="https://www20.a8.net/svt/bgt?aid=250118024166&amp;wid=001&amp;eno=01&amp;mid=s00000003017001038000&amp;mc=1"></a><img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=44WWAW+2QTZ76+NA2+66H9D" alt="">`;
+<a href="https://px.a8.net/svt/ejp?a8mat=44WWAW+2QTZ76+NA2+66H9D" rel="nofollow">
+  <img border="0" width="300" height="250" alt="" src="https://www20.a8.net/svt/bgt?aid=250118024166&amp;wid=001&amp;eno=01&amp;mid=s00000003017001038000&amp;mc=1">
+</a>
+<img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=44WWAW+2QTZ76+NA2+66H9D" alt="">
+ `;
 
 // エレンフィギュア
 const ad1 = `

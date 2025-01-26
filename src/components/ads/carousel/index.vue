@@ -1,7 +1,7 @@
 <template>
   <div class="ads-carousel amiami">
-    <el-carousel :autoplay="autoplay" :interval="4000" arrow="always" type="card" height="200px">
-      <el-carousel-item v-for="item in items" :key="item">
+    <el-carousel :autoplay="autoplay" :interval="4000" :cardScale="0.7" arrow="always" type="card" height="200px">
+      <el-carousel-item v-for="item in items" :key="item" class="w-[70vw] md:w-full">
         <div v-html="item" class="item"></div>
       </el-carousel-item>
     </el-carousel>
@@ -25,12 +25,10 @@ const autoplay = items.length > 3;
   }
 
   .el-carousel__mask {
-    // display: none;
     background-color: rgba(0, 0, 0, 0);
   }
 
   .el-carousel__arrow {
-    // zoom: 150%;
     border: 1px solid white;
 
     &.el-carousel__arrow--left {
@@ -45,16 +43,23 @@ const autoplay = items.length > 3;
     }
   }
 
+  .el-carousel__item {
+    display: flex;
+    justify-content: center;
+  }
+
   .item {
     display: flex;
     justify-content: center;
-    // width: 200px;
-    height: 200px;
 
-    img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
+    a {
+      display: flex;
+      align-items: center;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
     }
   }
 }
