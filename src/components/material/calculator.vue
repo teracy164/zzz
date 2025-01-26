@@ -145,24 +145,32 @@
         <label class="bg-red-300 px-2">必要素材</label>
       </h2>
       <div class="flex flex-wrap">
-        <div class="mr-5">
+        <div class="mr-5 flex items-center">
           <p class="flex items-center">
-            <NuxtImg src="/images/denny.webp" alt="ディニー" style="width: 1em; height: 1em" />
+            <NuxtImg src="/images/denny.webp" alt="ディニー" style="width: 2em; height: 2em" />
             <span class="mx-1">x</span>
-            {{ result.money.toLocaleString() }}
+            <span>{{ result.money.toLocaleString() }}</span>
           </p>
         </div>
-        <div class="mr-5">
-          <label class="bg-purple-500 px-1 rounded-sm">ｴｷｽﾊﾟｰﾄ素材</label>
+        <div class="mr-5 flex items-center">
+          <div>
+            <label class="bg-purple-500 px-1 rounded-sm">ｴｷｽﾊﾟｰﾄ素材</label>
+          </div>
           <span class="mx-1">x</span>
           <span>{{ result.character.core.expert }}</span>
         </div>
-        <div class="mr-5">
-          <label class="bg-yellow-500 px-1 rounded-sm">週ボス素材</label>
+        <div class="mr-5 flex items-center">
+          <div>
+            <label class="bg-yellow-500 px-1 rounded-sm">週ボス素材</label>
+          </div>
           <span class="mx-1">x</span>
           <span>{{ result.character.core.boss }}</span>
         </div>
-        <div class="mr-5">ﾊﾑｽﾀｰｹｰｼﾞ：{{ result.character.skillEx }}</div>
+        <div class="mr-5 flex items-center">
+          <NuxtImg src="/images/materials/hamster-cage-pass.png" alt="ﾊﾑｽﾀｰｹｰｼﾞ" style="width: 2em; height: 2em" />
+          <span class="mx-1">x</span>
+          <span>{{ result.character.skillEx }}</span>
+        </div>
       </div>
       <div style="display: flex; flex-wrap: wrap">
         <table class="border">

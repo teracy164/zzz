@@ -22,7 +22,7 @@
               <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
               <td class="sum">
                 <p class="flex items-center">
-                  <NuxtImg src="/images/denny.webp" alt="ディニー" style="width: 1em; height: 1em" />
+                  <NuxtImg src="/images/denny.webp" alt="ディニー" style="width: 1.5em; height: 1.5em" />
                   <span class="mx-1">x</span>
                   {{ item.sum.money.toLocaleString() }}
                 </p>
@@ -79,14 +79,19 @@
               <td>{{ item.materials.rank }} x {{ item.materials.num }}</td>
               <td class="sum">
                 <p class="flex items-center">
-                  <NuxtImg src="/images/denny.webp" alt="ディニー" style="width: 1em; height: 1em" />
+                  <NuxtImg src="/images/denny.webp" alt="ディニー" style="width: 1.5em; height: 1.5em" />
                   <span class="mx-1">x</span>
                   {{ item.sum.money.toLocaleString() }}
                 </p>
                 <template v-for="key in Object.keys(item.sum)">
                   <span class="material" v-if="key !== 'money' && item.sum[key]">{{ key }} x {{ item.sum[key] }}</span>
                 </template>
-                <p v-if="item.ex">ﾊﾑｽﾀｰｹｰｼﾞ x {{ item.ex }}</p>
+                <div v-if="item.ex" class="flex items-center">
+                  <NuxtImg src="/images/materials/hamster-cage-pass.png" alt="ﾊﾑｽﾀｰｹｰｼﾞ" style="width: 2em; height: 2em" />
+                  <span>ﾊﾑｽﾀｰｹｰｼﾞ</span>
+                  <span>x</span>
+                  <span>{{ item.ex }}</span>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -117,7 +122,17 @@
                     <span class="mx-1">x</span>
                     {{ item.sum.money.toLocaleString() }}
                   </p>
-                  <p v-else-if="item.sum[key]">{{ materialNameTable[key] }} x {{ item.sum[key] }}</p>
+                  <p v-else-if="item.sum[key]">
+                    <labal
+                      style="width: 10em"
+                      class="rounded-sm px-1"
+                      :class="{ 'bg-yellow-500': key === 'boss', 'bg-purple-500': key === 'expert' }"
+                    >
+                      {{ materialNameTable[key] }}
+                    </labal>
+                    <span class="mx-1">x</span>
+                    <span>{{ item.sum[key] }}</span>
+                  </p>
                 </template>
               </td>
             </tr>
