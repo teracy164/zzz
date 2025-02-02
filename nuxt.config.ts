@@ -15,16 +15,21 @@ export default defineNuxtConfig({
       },
     },
   },
+  router: {},
+  routeRules: {
+    // @ts-ignore
+    // '/**': { middleware: ['trailingSlash'] },
+  },
   site: {
-    url: 'https://zzz.teracy.link',
+    url: 'https://zzz.teracy.link/',
     name: 'ZZZ Tools',
-    // trailingSlash: true,
+    trailingSlash: true,
   },
   experimental: {
     defaults: {
-      // nuxtLink: {
-      //   trailingSlash: 'append',
-      // },
+      nuxtLink: {
+        trailingSlash: 'append',
+      },
     },
   },
 });

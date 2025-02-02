@@ -26,7 +26,7 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': contentType });
       res.end(fileData);
     } else {
-      const indexFile = path.join(basePath, '/index.html');
+      const indexFile = path.join(basePath, '/404.html');
       // ファイルが存在しない場合、index.html を返す
       const indexData = await fs.readFile(indexFile, 'utf8');
       res.writeHead(200, { 'Content-Type': 'text/html' });
