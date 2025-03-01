@@ -7,10 +7,10 @@
   </a>
 </template>
 <script lang="ts" setup>
-const { title, pageUrl } = defineProps<{ title: string; pageUrl: string }>();
+const { title, pageUrl, hashTags } = defineProps<{ title: string; pageUrl: string; hashTags?: string[] }>();
 
-const hashTag = ['ゼンレスゾーンゼロ', 'ゼンゼロ'].map((tag) => `%23${tag}`).join(' ');
-const message = encodeURI(`${title}\n${pageUrl}\n`) + hashTag;
+const hashTag = hashTags?.map((tag) => `%23${tag}`).join(' ') || '';
+const message = encodeURI(`${title}\n\n${pageUrl}` + (hashTag ? '\n\n' : '')) + hashTag;
 </script>
 <style lang="scss" scoped>
 button {

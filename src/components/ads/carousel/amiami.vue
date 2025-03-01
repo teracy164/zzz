@@ -9,6 +9,13 @@ const adAmiami = `
 <img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=44WWAW+2QTZ76+NA2+66H9D" alt="">
  `;
 
+// かりんフィギュア
+const adFigureCorin = `
+<a href="https://px.a8.net/svt/ejp?a8mat=44WWAW+2QTZ76+NA2+BWGDT&a8ejpredirect=https%3A%2F%2Fwww.amiami.jp%2Ftop%2Fdetail%2Fdetail%3Fgcode%3DFIGURE-183217%26a8%3DJgHMsgTYwGp2_fpLukS8lKotNZesmYHBUYpEyHPBzFnStNPGyGvESNnLu8zNodHJzguKwNvDMmQrxs00000003017001%26_gl%3D1%252ay2mna5%252a_ga%252aMTMwNDM0MDIyNy4xNzMwMzc4MDQx%252a_ga_DNC11S3TQ3%252aMTc0MDgwMTMzMi4xMDAuMS4xNzQwODAxMzM4LjAuMC4w" rel="nofollow">
+<img border="0" alt="" src="https://img.amiami.jp/images/product/main/251/FIGURE-183217.jpg"></a>
+<img border="0" width="1" height="1" src="https://www17.a8.net/0.gif?a8mat=44WWAW+2QTZ76+NA2+BWGDT" alt="">
+`;
+
 // エレンフィギュア
 const ad1 = `
 <a data-v-eefee94e="" href="https://px.a8.net/svt/ejp?a8mat=44WWAW+2QTZ76+NA2+BWGDT&amp;a8ejpredirect=https%3A%2F%2Fwww.amiami.jp%2Ftop%2Fdetail%2Fdetail%3Fgcode%3DFIGURE-181127%26a8%3Dh3s4_3t.TAFUt-mqtoNvU-qV2A5_R.s97.1aMUq.JaFmlANz2zsONRFOHvJAOCshJ3YWTAwi4RLQxs00000003017001%26_gl%3D1%252aaw8atc%252a_ga%252aMTMwNDM0MDIyNy4xNzMwMzc4MDQx%252a_ga_DNC11S3TQ3%252aMTczNzc4ODM3Ny4zNS4xLjE3Mzc3ODg0MjUuMC4wLjA." rel="nofollow"><img data-v-eefee94e="" border="0" alt="" src="https://img.amiami.jp/images/product/main/251/FIGURE-181127.jpg"></a><img data-v-eefee94e="" border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=44WWAW+2QTZ76+NA2+BWGDT" alt="">
@@ -27,5 +34,5 @@ const ad4 = `
 <img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=44WWAW+2QTZ76+NA2+BWGDT" alt="">
 `;
 
-const items = [adAmiami, ad1, ad2, ad3, ad4];
+const items = [adAmiami, adFigureCorin, ad1, ad2, ad3, ad4];
 </script>

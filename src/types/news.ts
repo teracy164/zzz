@@ -3,5 +3,6 @@ export interface NewsItem {
   createdAt: string;
   title: string;
   description?: string;
-  link;
+  link: string;
+  hashTags?: string[];
 }
