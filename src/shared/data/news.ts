@@ -3,6 +3,14 @@ import type { NewsItem } from '~/types/news';
 /** ニュースアイテム（追加するときはcreatedAt降順となるように追加する） */
 export const NEWS: NewsItem[] = [
   {
+    id: 'agent-20250125',
+    createdAt: '2025/01/25',
+    title: '【エージェント情報】0号・アンビーの育成素材判明！！',
+    description: 'HoYoLABの育成ガイドにてアンビーの素材が公開されています',
+    link: '/news/agent/20250307-anby',
+    hashTags: ['ゼンレスゾーンゼロ', 'ゼンゼロ', 'zzzero'],
+  },
+  {
     id: 'goods-20250301',
     createdAt: '2025/03/01',
     title: '【グッズ情報】カリンの1/7フィギュア予約開始！【2026年01月発売予定】',
