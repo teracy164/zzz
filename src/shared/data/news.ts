@@ -3,6 +3,14 @@ import type { NewsItem } from '~/types/news';
 /** ニュースアイテム（追加するときはcreatedAt降順となるように追加する） */
 export const NEWS: NewsItem[] = [
   {
+    id: 'agent-20250412',
+    createdAt: '2025/04/12',
+    title: '【エージェント情報】ビビアンの育成素材判明！！',
+    description: 'HoYoLABの育成ガイドにてビビアンの素材が公開されています',
+    link: '/news/agent/20250412-vivian',
+    hashTags: ['ゼンレスゾーンゼロ', 'ゼンゼロ', 'zzzero'],
+  },
+  {
     id: 'agent-20250125',
     createdAt: '2025/01/25',
     title: '【エージェント情報】0号・アンビーの育成素材判明！！',
