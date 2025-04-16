@@ -34,5 +34,27 @@ const ad4 = `
 <img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=44WWAW+2QTZ76+NA2+BWGDT" alt="">
 `;
 
-const items = [adAmiami, adFigureCorin, ad1, ad2, ad3, ad4];
+// リンフィギュア（2025/10発売予定）
+const adRin = `
+  <a
+    href="https://px.a8.net/svt/ejp?a8mat=44WWAW+2QTZ76+NA2+BWGDT&a8ejpredirect=https%3A%2F%2Fwww.amiami.jp%2Ftop%2Fdetail%2Fdetail%3Fscode%3DFIGURE-185085%26rank%3D"
+    rel="nofollow"
+  >
+    <img border="0" alt="" src="https://img.amiami.jp/images/product/main/252/FIGURE-185085.jpg"
+  /></a>
+  <img border="0" width="1" height="1" src="https://www14.a8.net/0.gif?a8mat=44WWAW+2QTZ76+NA2+BWGDT" alt="" />
+`;
+
+// アキラフィギュア（2025/10発売予定）
+const adAkira = `
+  <a
+    href="https://px.a8.net/svt/ejp?a8mat=44WWAW+2QTZ76+NA2+BWGDT&a8ejpredirect=https%3A%2F%2Fwww.amiami.jp%2Ftop%2Fdetail%2Fdetail%3Fgcode%3DFIGURE-185086"
+    rel="nofollow"
+  >
+    <img border="0" alt="" src="https://img.amiami.jp/images/product/main/252/FIGURE-185086.jpg"
+  /></a>
+  <img border="0" width="1" height="1" src="https://www15.a8.net/0.gif?a8mat=44WWAW+2QTZ76+NA2+BWGDT" alt="" />
+`;
+
+const items = [adAmiami, adRin, adAkira, adFigureCorin, ad1, ad2, ad3, ad4];
 </script>

@@ -3,6 +3,14 @@ import type { NewsItem } from '~/types/news';
 /** ニュースアイテム（追加するときはcreatedAt降順となるように追加する） */
 export const NEWS: NewsItem[] = [
   {
+    id: 'goods-20250416',
+    createdAt: '2025/04/16',
+    title: '【グッズ情報】アキラとリンのフィギュアが登場！予約受付中！！【2025年10月発売予定】',
+    description: 'ゼンレスゾーンゼロの主人公アキラとリンのフィギュアの予約があみあみにて開始されました。',
+    link: '/news/goods/20250416',
+    hashTags: ['ゼンレスゾーンゼロ', 'ゼンゼロ', 'zzzero'],
+  },
+  {
     id: 'agent-20250412',
     createdAt: '2025/04/12',
     title: '【エージェント情報】ビビアンの育成素材判明！！',
