@@ -3,6 +3,14 @@ import type { NewsItem } from '~/types/news';
 /** ニュースアイテム（追加するときはcreatedAt降順となるように追加する） */
 export const NEWS: NewsItem[] = [
   {
+    id: 'agent-20250423',
+    createdAt: '2025/04/23',
+    title: '【エージェント情報】ヒューゴの育成素材判明！！',
+    description: 'ゲーム内お試しにてヒューゴの素材が確認できます',
+    link: '/news/agent/20250423-hugo',
+    hashTags: ['ゼンレスゾーンゼロ', 'ゼンゼロ', 'zzzero'],
+  },
+  {
     id: 'goods-20250416',
     createdAt: '2025/04/16',
     title: '【グッズ情報】アキラとリンのフィギュアが登場！予約受付中！！【2025年10月発売予定】',
