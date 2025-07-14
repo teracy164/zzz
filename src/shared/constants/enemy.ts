@@ -1,0 +1,33 @@
+export enum ENEMY_TYPE {
+  /** 雑魚的 */
+  NORMAL = 1,
+  /** エキスパート挑戦 */
+  EXPERT_CHALLENGE,
+  /** 要警戒 */
+  NOTORIOUS_HUNT,
+}
+
+/** エキスパート挑戦 */
+export enum EXPERT_CHALLENGE_ENEMIES {
+  DULLAHAN = 1,
+  ARMORED_HATI,
+  HANS,
+  DOPPELGANER_JANE,
+  TYPHON_SLUGGER,
+  WANTED_ENFORCER,
+  RAMPANT_BRUTE,
+  THRACIAN,
+}
+
+/** 要警戒 */
+export enum NOTORIOUS_HUNT_ENEMIES {
+  DEAD_END_BUTCHER = 1,
+  UNKNOWN_CORRUPTION_COMPLEX,
+  MARIONETTE,
+  POMPEY,
+  BRINGER,
+}
+
+export const ENEMY_INFO = {
+  [ENEMY_TYPE.EXPERT_CHALLENGE]: {},
+};
